@@ -1,0 +1,47 @@
+﻿<Window x:Class="MainProgram.CustomControls.MessageBoxCustom"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MainProgram.CustomControls"
+        mc:Ignorable="d"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        Height="200" Width="330" 
+        MaxHeight="200" MaxWidth="330"
+        MinHeight="200" MinWidth="330"
+        WindowStyle="None" 
+        WindowStartupLocation="CenterScreen">
+    <Grid HorizontalAlignment="Right" Width="330">
+        <materialDesign:ColorZone Height="200"
+            Background="{DynamicResource PrimaryHueLightBrush}">
+            <StackPanel>
+                <materialDesign:ColorZone Background="{DynamicResource PrimaryHueMidBrush}">
+                    <Button Height="25" Width="30" HorizontalAlignment="Right" HorizontalContentAlignment="Stretch"
+                            Click="ButtonCancel_Click"
+                            Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                            Foreground="PaleVioletRed">
+                        <Button.Content>
+                            <materialDesign:PackIcon Margin="-9" Kind="Close" Foreground="Black"/>
+                        </Button.Content>
+                    </Button>
+                </materialDesign:ColorZone>
+                <DockPanel LastChildFill="True" Margin="45 25 45 25">
+                    <TextBlock TextWrapping="Wrap" x:Name="txbtitle" FontSize="15" DockPanel.Dock="Top" Margin="0 30 0 0" Width="auto" VerticalAlignment="Center" materialDesign:HintAssist.IsFloating="True">
+                    </TextBlock>
+                    <DockPanel DockPanel.Dock="Bottom" Margin="0 20 0 0">
+                        <Button Width="90" VerticalAlignment="Bottom" HorizontalAlignment="Left" Click="ButtonOK_Click" >OK</Button>
+                        <Button Width="90" VerticalAlignment="Bottom" HorizontalAlignment="Right" Click="ButtonCancel_Click">CANCEL</Button>
+                    </DockPanel>
+                </DockPanel>
+            </StackPanel>
+        </materialDesign:ColorZone>
+    </Grid>
+</Window>

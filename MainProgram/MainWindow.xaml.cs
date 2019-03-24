@@ -24,5 +24,49 @@ namespace MainProgram
         {
             InitializeComponent();
         }
+
+        private void Close_Application(object sender, MouseButtonEventArgs e)
+        {
+            this.Close();
+        }
+        private void ButtonOpenMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Visible;
+            ButtonOpenMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void ButtonCloseMenu_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonCloseMenu.Visibility = Visibility.Collapsed;
+            ButtonOpenMenu.Visibility = Visibility.Visible;
+        }
+
+        private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GridMain.Children.Clear();
+            switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
+            {
+                case "PageSystem":
+                    FramePage.Source = new Uri("Pages/SystemPage.xaml", UriKind.Relative);
+                    break;
+                case "PageCreate":
+                    FramePage.Source = new Uri("Pages/NewPassbookPage.xaml", UriKind.Relative);
+                    break;
+                case "PageManage":
+                    FramePage.Source = new Uri("Pages/ManagePassbookPage.xaml", UriKind.Relative);
+                    break;
+                case "PageSearch":
+                    FramePage.Source = new Uri("Pages/SearchPage.xaml", UriKind.Relative);
+                    break;
+                case "PageReport":
+                    FramePage.Source = new Uri("Pages/ReportPage.xaml", UriKind.Relative);
+                    break;
+                case "PageHelp":
+                    FramePage.Source = new Uri("Pages/HelpPage.xaml", UriKind.Relative);
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 }

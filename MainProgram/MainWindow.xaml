@@ -4,9 +4,135 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MainProgram"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:Pages="clr-namespace:MainProgram.Pages"
         
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Customcontrols="clr-namespace:MainProgram.CustomControls"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource PrimaryHueLightBrush}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        mc:Ignorable="d"
+        Width="900" Height="690" MinWidth="400"
+        WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Storyboard x:Key="OpenMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="70"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="CloseMenu">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="70"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Window.Resources>
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonOpenMenu">
+            <BeginStoryboard Storyboard="{StaticResource OpenMenu}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="ButtonCloseMenu">
+            <BeginStoryboard Storyboard="{StaticResource CloseMenu}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid Background="#FFDEDEDE">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid x:Name="GridMain" Grid.Column="1" Grid.Row="1">
+            <Frame x:Name="FramePage"/>
+        </Grid>
+        <Grid Grid.Row="0" Grid.Column="1" Height="60" VerticalAlignment="Top" Background="#FF5C99D6">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>
+            </Grid.Effect>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" StaysOpen="False" Margin="10">
+                    <StackPanel Width="150">
+                        <Button Content="Thiết Lập"/>
+                        <Button Content="Tài Khoản"/>
+                        <Separator/>
+                        <Button Content="Đăng Xuất"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </StackPanel>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">QUẢN LÝ SỔ TIẾT KIỆM</TextBlock>
+        </Grid>
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#FF31577E">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"/>
+            </Grid.Effect>
+            <StackPanel>
+                <StackPanel Height="150" Background="LightBlue" RenderTransformOrigin="0.5,0.5">
+                    <StackPanel.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </StackPanel.RenderTransform>
+                    <Button x:Name="ButtonOpenMenu" Height="55" Width="60" Margin="5 5 5 5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E" Click="ButtonOpenMenu_Click">
+                        <materialDesign:PackIcon Kind="Menu" Width="25" Height="25"/>
+                    </Button>
+                    <Button x:Name="ButtonCloseMenu" Visibility="Collapsed" Height="55" Width="60" Margin="0 5 5 5" HorizontalAlignment="Right" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF31577E" Click="ButtonCloseMenu_Click">
+                        <materialDesign:PackIcon Kind="ArrowLeft" Width="25" Height="25"/>
+                    </Button>
+
+                    <Grid Height="90" Margin="0 -4 0 0" Background="#FF31577E">
+                        <Image Margin="10" Source="pack://siteoforigin:,,,/Resources/bank.png"/>
+                    </Grid>
+                </StackPanel>
+                <ListView x:Name="ListViewMenu" Foreground="#FF5C99D6" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListViewMenu_SelectionChanged">
+                    <ListViewItem x:Name="PageSystem" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ViewDashboard" Height="25" Width="25" Margin="10"/>
+                            <TextBlock Text="Hệ thống" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem x:Name="PageCreate" Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Notebook" Height="25" Width="25" Margin="10"/>
+                            <TextBlock Text="Tạo sổ tiết kiệm" VerticalAlignment="Center" Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="PageManage">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="CashUsd" Height="25" Width="25" Margin="10"/>
+                            <TextBlock Text="Quản lý sổ" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="PageSearch">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Magnify" Height="25" Width="25" Margin="10"/>
+                            <TextBlock Text="Tra cứu" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="PageReport">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ClipboardTextOutline" Height="25" Width="25" Margin="10"/>
+                            <TextBlock Text="Báo cáo/Thống kê" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="PageHelp">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Height="25" Width="25" Margin="10"/>
+                            <TextBlock Text="Trợ giúp" VerticalAlignment="Center"  Margin="20 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>

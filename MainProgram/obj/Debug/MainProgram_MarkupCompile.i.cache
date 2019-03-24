@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\dev\code\c#\CNPM\QuanLySoTietKiem\MainProgram\obj\Debug\
+D:\dev\PassbookManagement\MainProgram\obj\Debug\
 MainProgram
 none
 false
 DEBUG;TRACE
-D:\dev\code\c#\CNPM\QuanLySoTietKiem\MainProgram\App.xaml
-11151548125
+D:\dev\PassbookManagement\MainProgram\App.xaml
+81893229580
 
-9456729717
-131569487696
-MainWindow.xaml;
+18-1526546335
+18-1542053061
+CustomControls\MessageBoxCustom.xaml;MainWindow.xaml;Pages\HelpPage.xaml;Pages\ManagePassbookPage.xaml;Pages\NewPassbookPage.xaml;Pages\ReportPage.xaml;Pages\SearchPage.xaml;Pages\SystemPage.xaml;
 
-False
+True
 
