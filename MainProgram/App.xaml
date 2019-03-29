@@ -54,7 +54,8 @@
                 <Setter Property="ItemContainerStyle">
                     <Setter.Value>
                         <Style TargetType="dragablz:DragablzItem" BasedOn="{StaticResource MaterialDesignDragableTabItemStyle}">
-                            <Setter Property="Width" Value="400" />
+                            <Setter Property="Width" Value="auto" />
+                            <Setter Property="Height" Value="auto" />
                         </Style>
                     </Setter.Value>
                 </Setter>

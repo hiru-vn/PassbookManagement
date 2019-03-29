@@ -91,11 +91,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\ManagePassbookPage.xaml">
+    <Page Include="Pages\ManagePassbookSubPages\CreatePassbookPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Pages\NewPassbookPage.xaml">
+    <Page Include="Pages\ManagePassbookSubPages\SendMoneyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManagePassbookSubPages\WithdrawMoneyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManageTransactionSubPages\ManageTransactionRecordsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManageTransactionSubPages\TransactionTypePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReportSubPages\ChartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReportSubPages\DailyReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ReportSubPages\MonthlyReportPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SearchSubPages\CustomerViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\SearchSubPages\PassbookViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManageTransactionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManagePassbookPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -107,20 +147,55 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\SearchSubPages\TransactionHistoryViewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\SystemPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\HelpPage.xaml.cs">
       <DependentUpon>HelpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ManagePassbookSubPages\CreatePassbookPage.xaml.cs">
+      <DependentUpon>CreatePassbookPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManagePassbookSubPages\SendMoneyPage.xaml.cs">
+      <DependentUpon>SendMoneyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManagePassbookSubPages\WithdrawMoneyPage.xaml.cs">
+      <DependentUpon>WithdrawMoneyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManageTransactionSubPages\ManageTransactionRecordsPage.xaml.cs">
+      <DependentUpon>ManageTransactionRecordsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManageTransactionSubPages\TransactionTypePage.xaml.cs">
+      <DependentUpon>TransactionTypePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReportSubPages\ChartPage.xaml.cs">
+      <DependentUpon>ChartPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReportSubPages\DailyReportPage.xaml.cs">
+      <DependentUpon>DailyReportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ReportSubPages\MonthlyReportPage.xaml.cs">
+      <DependentUpon>MonthlyReportPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SearchSubPages\CustomerViewPage.xaml.cs">
+      <DependentUpon>CustomerViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\SearchSubPages\PassbookViewPage.xaml.cs">
+      <DependentUpon>PassbookViewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManageTransactionPage.xaml.cs">
+      <DependentUpon>ManageTransactionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ManagePassbookPage.xaml.cs">
       <DependentUpon>ManagePassbookPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\NewPassbookPage.xaml.cs">
-      <DependentUpon>NewPassbookPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ReportPage.xaml.cs">
       <DependentUpon>ReportPage.xaml</DependentUpon>
@@ -128,8 +203,12 @@
     <Compile Include="Pages\SearchPage.xaml.cs">
       <DependentUpon>SearchPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\SearchSubPages\TransactionHistoryViewPage.xaml.cs">
+      <DependentUpon>TransactionHistoryViewPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\SystemPage.xaml.cs">
       <DependentUpon>SystemPage.xaml</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -162,5 +241,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\background.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

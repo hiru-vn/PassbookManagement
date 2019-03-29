@@ -13,12 +13,14 @@
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
         TextOptions.TextRenderingMode="Auto"        
-        Background="{DynamicResource PrimaryHueLightBrush}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         
         mc:Ignorable="d"
-        Width="900" Height="690" MinWidth="400"
+        Width="900" Height="700" MinWidth="400"
         WindowStartupLocation="CenterScreen">
+    <Window.Background>
+        <SolidColorBrush Color="White"  Opacity="0.1"></SolidColorBrush>
+    </Window.Background>
     <Window.Resources>
         <Storyboard x:Key="OpenMenu">
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu">
@@ -51,7 +53,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid x:Name="GridMain" Grid.Column="1" Grid.Row="1">
-            <Frame x:Name="FramePage"/>
+            <Frame NavigationUIVisibility="Hidden" x:Name="FramePage" Source="/MainProgram;component/Pages/SystemPage.xaml"/>
         </Grid>
         <Grid Grid.Row="0" Grid.Column="1" Height="60" VerticalAlignment="Top" Background="#FF5C99D6">
             <Grid.Effect>
@@ -69,7 +71,10 @@
             </StackPanel>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">QUẢN LÝ SỔ TIẾT KIỆM</TextBlock>
         </Grid>
-        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Background="#FF31577E">
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" x:Name="GridMenu" Width="70" HorizontalAlignment="Left">
+            <Grid.Background>
+                <SolidColorBrush Opacity="1" Color="#FF31577E"/>
+            </Grid.Background>
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="2" ShadowDepth="1" Color="#FFAEAEAE"/>
             </Grid.Effect>
@@ -97,20 +102,20 @@
                 <ListView x:Name="ListViewMenu" Foreground="#FF5C99D6" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListViewMenu_SelectionChanged">
                     <ListViewItem x:Name="PageSystem" Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ViewDashboard" Height="25" Width="25" Margin="10"/>
+                            <materialDesign:PackIcon Kind="Bank" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Hệ thống" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="PageCreate" Height="60">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="Notebook" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Tạo sổ tiết kiệm" VerticalAlignment="Center" Margin="20 10"/>
+                            <TextBlock Text="Quản lý sổ" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60" x:Name="PageManage">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="CashUsd" Height="25" Width="25" Margin="10"/>
-                            <TextBlock Text="Quản lý sổ" VerticalAlignment="Center"  Margin="20 10"/>
+                            <TextBlock Text="Quản lý giao dịch" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60" x:Name="PageSearch">

@@ -4,11 +4,53 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MainProgram.Pages"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:Customcontrols="clr-namespace:MainProgram.CustomControls"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource PrimaryHueLightBrush}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+      
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ReportPage">
-
     <Grid>
-        
+        <dragablz:TabablzControl BorderBrush="LightBlue">
+            <dragablz:TabablzControl.InterTabController>
+                <dragablz:InterTabController/>
+            </dragablz:TabablzControl.InterTabController>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="CalendarDay" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                        <TextBlock FontSize="10" Margin="0 5 0 0">Doanh số hoạt động ngày</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame Source="ReportSubPages/DailyReportPage.xaml"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="OpenInBrowser" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                        <TextBlock FontSize="10" Margin="0 5 0 0">Báo cáo mở/đóng sổ tháng</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame Source="ReportSubPages/MonthlyReportPage.xaml"/>
+            </TabItem>
+            <TabItem>
+                <TabItem.Header>
+                    <StackPanel>
+                        <materialDesign:PackIcon Kind="ChartBar" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                        <TextBlock FontSize="10" Margin="0 5 0 0">Biểu đồ</TextBlock>
+                    </StackPanel>
+                </TabItem.Header>
+                <Frame Source="ReportSubPages/ChartPage.xaml"/>
+            </TabItem>
+        </dragablz:TabablzControl>
     </Grid>
 </Page>

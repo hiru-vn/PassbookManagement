@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace MainProgram.Pages
+namespace MainProgram.Pages.ManagePassbookSubPages
 {
     /// <summary>
-    /// Interaction logic for NewPassbookPage.xaml
+    /// Interaction logic for SendMoneyPage.xaml
     /// </summary>
-    public partial class NewPassbookPage : Page
+    public partial class SendMoneyPage : Page
     {
-        public NewPassbookPage()
+        public SendMoneyPage()
         {
             InitializeComponent();
         }

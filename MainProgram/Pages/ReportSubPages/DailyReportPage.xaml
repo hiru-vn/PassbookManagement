@@ -1,0 +1,141 @@
+﻿<Page x:Class="MainProgram.Pages.ReportSubPages.DailyReportPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MainProgram.Pages.ReportSubPages"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Converter="clr-namespace:MainProgram.Converter"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource PrimaryHueLightBrush}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="DailyReportPage">
+    <Page.Resources>
+        <Converter:MathConverter x:Key="MathConverter"></Converter:MathConverter>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="60"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Background" Value="#FF5C99D6"></Setter>
+            <Setter Property="BorderBrush" Value="#FF5C99D6"></Setter>
+            <Setter Property="Foreground" Value="#FF31577E"></Setter>
+        </Style>
+        <Style TargetType="Calendar">
+            <Setter Property="Background" Value="LightBlue"></Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Margin="30" x:Name="Grid_Main">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.72*"></ColumnDefinition>
+            <ColumnDefinition Width="0.28*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Margin="20 10 20 10">
+            <materialDesign:ColorZone Background="LightBlue" MinHeight = "{Binding Path=ActualHeight, ElementName=Grid_Main, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-190 }">
+                <StackPanel Margin="10 10 10 30">
+                    <TextBlock Foreground="#FF31577E"
+                       FontWeight="Bold"
+                       HorizontalAlignment="Center" 
+                       Margin="10" FontSize="20">
+                    Báo cáo doanh số hoạt động
+                    </TextBlock>
+                    <TextBlock
+                        Foreground="#FF31577E"
+                        FontWeight="SemiBold"
+                        HorizontalAlignment="Center">Ngày 1/1/2001</TextBlock>
+                    <ListView
+            HorizontalAlignment="Left"
+            ScrollViewer.CanContentScroll="True"
+            AllowDrop="True" BorderThickness="0"
+            >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListViewItem}">
+                                <Setter Property="Background" Value="Aquamarine" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn
+                        Header="STT"
+                        Width="auto"
+                        ScrollViewer.CanContentScroll="True"
+                        >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Number}"
+                                 TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                        Header="Loại tiết kiệm"
+                        Width="auto"
+                        ScrollViewer.CanContentScroll="True"
+                        >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Id}"
+                                 TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn    
+                        Header="Tổng thu" 
+                        Width="auto"
+                        >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"
+                                 TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                     Header="Tổng chi" 
+                     Width="auto"
+                     >
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding CustomerIDCard}"
+                                 TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn
+                     Header="Chênh lệch" Width="auto">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Address}"
+                                 TextWrapping="Wrap"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </materialDesign:ColorZone>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="10 10 20 10">
+            <Viewbox>
+                <Calendar></Calendar>
+            </Viewbox>
+            <Button     HorizontalAlignment="Center" 
+                        Margin="0 15 0 0" 
+                        Width="100" Height="35" 
+                        FontWeight="DemiBold" 
+                        FontSize="15">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Printer"></materialDesign:PackIcon>
+                    <TextBlock Margin="5 0 0 0">In Phiếu</TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+    </Grid>
+</Page>

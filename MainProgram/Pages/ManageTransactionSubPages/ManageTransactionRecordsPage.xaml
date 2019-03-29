@@ -1,0 +1,174 @@
+﻿<Page x:Class="MainProgram.Pages.ManageTransactionSubPages.ManageTransactionRecordsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MainProgram.Pages.ManageTransactionSubPages"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Converter="clr-namespace:MainProgram.Converter"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource PrimaryHueLightBrush}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ManageTransactionRecordsPage">
+    <Page.Resources>
+        <Converter:MathConverter x:Key="MathConverter"></Converter:MathConverter>
+        <Style TargetType="Button">
+            <Setter Property="Width" Value="60"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+            <Setter Property="Background" Value="#FF5C99D6"></Setter>
+            <Setter Property="BorderBrush" Value="#FF5C99D6"></Setter>
+            <Setter Property="Foreground" Value="#FF31577E"></Setter>
+        </Style>
+    </Page.Resources>
+    <Grid  Margin="30">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <materialDesign:ColorZone Background="LightBlue">
+                <StackPanel Margin="30">
+                    <TextBlock Foreground="#FF31577E"
+                               FontWeight="Light"
+                               TextDecorations="Underline"
+                               >Thông tin khách hàng:</TextBlock>
+                    <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+                        <TextBox materialDesign:HintAssist.Hint="Mã khách hàng" 
+                             materialDesign:HintAssist.IsFloating="True" 
+                             materialDesign:HintAssist.FloatingScale="0.7" 
+                             Width="auto"></TextBox>
+                        <RadioButton VerticalAlignment="Center" 
+                                 Margin="15 5 10 0" 
+                                 BorderBrush="#FF5C99D6" 
+                                 Background="#FF5C99D6" 
+                                 IsChecked="True">
+                            Khách hàng mới</RadioButton>
+                        <RadioButton VerticalAlignment="Center" 
+                                 Margin="0 5 0 0" 
+                                 BorderBrush="#FF5C99D6" 
+                                 Background="#FF5C99D6">
+                            Khách hàng cũ</RadioButton>
+                    </StackPanel>
+                    <DockPanel Margin="0 10 0 0">
+                        <TextBox Margin="20 0 0 0" 
+                             DockPanel.Dock="Right" 
+                             materialDesign:HintAssist.Hint="Mã thẻ căn cước/CMND" 
+                             materialDesign:HintAssist.FloatingScale="0.7" 
+                             materialDesign:HintAssist.IsFloating="True"></TextBox>
+
+                        <TextBox DockPanel.Dock="Left"
+                             materialDesign:HintAssist.Hint="Tên khách hàng" 
+                             materialDesign:HintAssist.FloatingScale="0.7" 
+                             materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    </DockPanel>
+                    <DockPanel Margin="0 10 0 0">
+                        <TextBox HorizontalAlignment="Stretch"  
+                             materialDesign:HintAssist.IsFloating="True" 
+                             materialDesign:HintAssist.Hint="Địa chỉ" 
+                             MinWidth="300" 
+                             materialDesign:HintAssist.FloatingScale="0.7" 
+                             Width="auto"></TextBox>
+                    </DockPanel>
+                    <Separator Margin="20 20 20 0" BorderBrush="Gray" BorderThickness="10"></Separator>
+                    <TextBlock Foreground="#FF31577E"
+                               FontWeight="Light"
+                               TextDecorations="Underline"
+                               Margin="0 20 0 0"
+                               >Thông tin sổ tiết kiệm:</TextBlock>
+                    <DockPanel Margin="0 10 0 0">
+                        <TextBox DockPanel.Dock="Left"
+                             IsEnabled="False" 
+                             HorizontalAlignment="Left" 
+                             materialDesign:HintAssist.Hint="Mã sổ tiết kiệm" 
+                             materialDesign:HintAssist.FloatingScale="0.7" 
+                             materialDesign:HintAssist.IsFloating="True"></TextBox>
+                        <TextBlock VerticalAlignment="Center" 
+                               Margin="20 10 0 0" 
+                               DockPanel.Dock="Left">
+                        Loại tiết kiệm:</TextBlock>
+                        <ComboBox Margin="10 0 0 0" 
+                              VerticalAlignment="Bottom">
+                            <ComboBoxItem IsSelected="True">không kì hạn</ComboBoxItem>
+                        </ComboBox>
+                    </DockPanel>
+                    <DockPanel Margin="0 10 0 0">
+                        <DatePicker Margin="0 0 20 0" 
+                                DockPanel.Dock="Left" 
+                                materialDesign:HintAssist.Hint="Ngày mở sổ" 
+                                materialDesign:HintAssist.FloatingScale="0.7" 
+                                materialDesign:HintAssist.IsFloating="True" 
+                                Width="150">
+                        </DatePicker>
+                        <TextBox materialDesign:HintAssist.Hint="Số tiền gởi" 
+                             materialDesign:HintAssist.FloatingScale="0.7" 
+                             materialDesign:HintAssist.IsFloating="True">
+                        </TextBox>
+                    </DockPanel>
+                </StackPanel>
+            </materialDesign:ColorZone>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Margin="30 20 30 30" HorizontalAlignment="Left">
+            <StackPanel VerticalAlignment="Center" 
+                        HorizontalAlignment="Left" 
+                        Orientation="Horizontal">
+                <TextBlock VerticalAlignment="Bottom">Mã giao dịch:</TextBlock>
+                <Grid Margin="10 0 0 0" Background="LightBlue">
+                    <TextBox Margin="10 0 10 0"
+                    x:Name="Textbox_Search"
+                    Grid.Column="1"
+                    materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+                    BorderThickness="0"
+                    MinWidth="100"
+                    Width="{Binding Path=ActualWidth, ElementName= RadioButton_searchName, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*2+30 }"
+                    VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
+            <Grid VerticalAlignment="Center"
+                   Margin="0 20 0 0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Width="70">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="EyeOutline" Margin="0 -1 5 0"/>
+                        <TextBlock>Xem</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1" Width="70">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Magnify" Margin="0 -1 0 0"/>
+                        <TextBlock>Tra cứu</TextBlock>
+                    </StackPanel>    
+                </Button>
+            </Grid>
+            <Grid  Margin="0 10 0 0"
+                VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Width="70">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Pen" Margin="0 -1 5 0"/>
+                        <TextBlock>Sửa</TextBlock>
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1" Background="PaleVioletRed" Width="70">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Trashcan" Margin="0 -1 0 0"/>
+                        <TextBlock>Xóa</TextBlock>
+                    </StackPanel>
+                </Button>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>

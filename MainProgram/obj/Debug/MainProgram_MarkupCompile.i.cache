@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\dev\PassbookManagement\MainProgram\obj\Debug\
+D:\myprojects\PassbookManagement\MainProgram\obj\Debug\
 MainProgram
 none
 false
 DEBUG;TRACE
-D:\dev\PassbookManagement\MainProgram\App.xaml
-81893229580
+D:\myprojects\PassbookManagement\MainProgram\App.xaml
+19-420558627
 
-18-1526546335
-18-1542053061
-CustomControls\MessageBoxCustom.xaml;MainWindow.xaml;Pages\HelpPage.xaml;Pages\ManagePassbookPage.xaml;Pages\NewPassbookPage.xaml;Pages\ReportPage.xaml;Pages\SearchPage.xaml;Pages\SystemPage.xaml;
+29445675390
+18-388577203
+CustomControls\MessageBoxCustom.xaml;MainWindow.xaml;Pages\HelpPage.xaml;Pages\ManagePassbookSubPages\CreatePassbookPage.xaml;Pages\ManagePassbookSubPages\SendMoneyPage.xaml;Pages\ManagePassbookSubPages\WithdrawMoneyPage.xaml;Pages\ManageTransactionSubPages\ManageTransactionRecordsPage.xaml;Pages\ManageTransactionSubPages\TransactionTypePage.xaml;Pages\ReportSubPages\ChartPage.xaml;Pages\ReportSubPages\DailyReportPage.xaml;Pages\ReportSubPages\MonthlyReportPage.xaml;Pages\SearchSubPages\CustomerViewPage.xaml;Pages\SearchSubPages\PassbookViewPage.xaml;Pages\ManageTransactionPage.xaml;Pages\ManagePassbookPage.xaml;Pages\ReportPage.xaml;Pages\SearchPage.xaml;Pages\SearchSubPages\TransactionHistoryViewPage.xaml;Pages\SystemPage.xaml;
 
 True
 

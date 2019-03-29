@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainProgram.Pages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -43,17 +44,16 @@ namespace MainProgram
 
         private void ListViewMenu_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GridMain.Children.Clear();
             switch (((ListViewItem)((ListView)sender).SelectedItem).Name)
             {
                 case "PageSystem":
                     FramePage.Source = new Uri("Pages/SystemPage.xaml", UriKind.Relative);
-                    break;
+                    break; 
                 case "PageCreate":
-                    FramePage.Source = new Uri("Pages/NewPassbookPage.xaml", UriKind.Relative);
+                    FramePage.Source = new Uri("Pages/ManagePassbookPage.xaml", UriKind.Relative);
                     break;
                 case "PageManage":
-                    FramePage.Source = new Uri("Pages/ManagePassbookPage.xaml", UriKind.Relative);
+                    FramePage.Source = new Uri("Pages/ManageTransactionPage.xaml", UriKind.Relative);
                     break;
                 case "PageSearch":
                     FramePage.Source = new Uri("Pages/SearchPage.xaml", UriKind.Relative);

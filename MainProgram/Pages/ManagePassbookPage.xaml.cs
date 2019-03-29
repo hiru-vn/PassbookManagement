@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace MainProgram.Pages
 {
     /// <summary>
-    /// Interaction logic for ManagePassbookPage.xaml
+    /// Interaction logic for NewPassbookPage.xaml
     /// </summary>
     public partial class ManagePassbookPage : Page
     {

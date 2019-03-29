@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 D:\myprojects\PassbookManagement\MainProgram\App.xaml
-81893229580
+19-420558627
 
-14293944742
+25-2028800829
 18-388577203
-CustomControls\MessageBoxCustom.xaml;MainWindow.xaml;Pages\HelpPage.xaml;Pages\ManagePassbookPage.xaml;Pages\NewPassbookPage.xaml;Pages\ReportPage.xaml;Pages\SearchPage.xaml;Pages\SystemPage.xaml;
+CustomControls\MessageBoxCustom.xaml;MainWindow.xaml;Pages\HelpPage.xaml;Pages\ManagePassbookSubPages\CreatePassbookPage.xaml;Pages\ManagePassbookSubPages\SendMoneyPage.xaml;Pages\ManagePassbookSubPages\WithdrawMoneyPage.xaml;Pages\ManageTransactionSubPages\ManageTransactionRecordsPage.xaml;Pages\ManageTransactionSubPages\TransactionTypePage.xaml;Pages\ReportSubPages\ChartPage.xaml;Pages\ReportSubPages\DailyReportPage.xaml;Pages\ReportSubPages\MonthlyReportPage.xaml;Pages\SearchSubPages\CustomerViewPage.xaml;Pages\SearchSubPages\PassbookViewPage.xaml;Pages\ManageTransactionPage.xaml;Pages\ManagePassbookPage.xaml;Pages\ReportPage.xaml;Pages\SearchPage.xaml;Pages\SearchSubPages\TransactionHistoryViewPage.xaml;Pages\SystemPage.xaml;
 
 False
 
