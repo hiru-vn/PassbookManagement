@@ -37,84 +37,101 @@
                 Phiếu mở sổ tiết kiệm
             </TextBlock>
             <materialDesign:ColorZone Background="LightBlue">
-                <StackPanel Margin="30">
-                    <TextBlock Foreground="#FF31577E"
+                <Grid x:Name="Grid_BillInfo">
+                    <StackPanel Margin="30">
+                        <TextBlock Foreground="#FF31577E"
                                FontWeight="Light"
                                TextDecorations="Underline"
                                >Thông tin khách hàng:</TextBlock>
-                    <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
-                        <TextBox materialDesign:HintAssist.Hint="Mã khách hàng" 
+                        <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
+                            <TextBox x:Name="TextBox_CustomerID"
+                                 PreviewTextInput="Numberic_TextBox"
+                                 LostFocus="TextBox_CustomerID_LostFocus"
+                             materialDesign:HintAssist.Hint="Mã khách hàng" 
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              Width="auto"></TextBox>
-                        <RadioButton VerticalAlignment="Center" 
+                            <RadioButton VerticalAlignment="Center"
+                                     x:Name="RadioButton_NewCustomer"
                                  Margin="15 5 10 0" 
                                  BorderBrush="#FF5C99D6" 
                                  Background="#FF5C99D6" 
-                                 IsChecked="True">
-                            Khách hàng mới</RadioButton>
-                        <RadioButton VerticalAlignment="Center" 
+                                 IsChecked="True" 
+                                 Checked="RadioButton_Checked">
+                                Khách hàng mới</RadioButton>
+                            <RadioButton VerticalAlignment="Center"
+                                 x:Name="RadioButton_OldCustomer"
+                                 Checked="RadioButton_Checked"
                                  Margin="0 5 0 0" 
                                  BorderBrush="#FF5C99D6" 
                                  Background="#FF5C99D6">
-                            Khách hàng cũ</RadioButton>
-                    </StackPanel>
-                    <DockPanel Margin="0 10 0 0">
-                        <TextBox Margin="20 0 0 0" 
+                                Khách hàng cũ</RadioButton>
+                        </StackPanel>
+                        <TextBlock x:Name="TextBox_warning_1" Visibility="Collapsed" Margin="0 5 0 0" FontSize="11" HorizontalAlignment="Center" Foreground="PaleVioletRed">Mã khách hàng không đúng</TextBlock>
+                        <DockPanel Margin="0 10 0 0">
+                            <TextBox Margin="20 0 0 0" 
+                                 x:Name="TextBox_CardID"
                              DockPanel.Dock="Right" 
                              materialDesign:HintAssist.Hint="Mã thẻ căn cước/CMND" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True"></TextBox>
 
-                        <TextBox DockPanel.Dock="Left"
+                            <TextBox DockPanel.Dock="Left"
+                                 x:Name="TextBox_CustomerName"
                              materialDesign:HintAssist.Hint="Tên khách hàng" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True"></TextBox>
-                    </DockPanel>
-                    <DockPanel Margin="0 10 0 0">
-                        <TextBox HorizontalAlignment="Stretch"  
+                        </DockPanel>
+                        <DockPanel Margin="0 10 0 0">
+                            <TextBox HorizontalAlignment="Stretch"  
+                                 x:Name="TextBox_Address"
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.Hint="Địa chỉ" 
                              MinWidth="300" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              Width="auto"></TextBox>
-                    </DockPanel>
-                    <Separator Margin="20 20 20 0" BorderBrush="Gray" BorderThickness="10"></Separator>
-                    <TextBlock Foreground="#FF31577E"
+                        </DockPanel>
+                        <Separator Margin="20 20 20 0" BorderBrush="Gray" BorderThickness="10"></Separator>
+                        <TextBlock Foreground="#FF31577E"
                                FontWeight="Light"
                                TextDecorations="Underline"
                                Margin="0 20 0 0"
                                >Thông tin sổ tiết kiệm:</TextBlock>
-                    <DockPanel Margin="0 10 0 0">
-                        <TextBox DockPanel.Dock="Left"
+                        <DockPanel Margin="0 10 0 0">
+                            <TextBox DockPanel.Dock="Left"
+                                 x:Name="TextBox_PassbookID"
                              IsEnabled="False" 
                              HorizontalAlignment="Left" 
                              materialDesign:HintAssist.Hint="Mã sổ tiết kiệm" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True"></TextBox>
-                        <TextBlock VerticalAlignment="Center" 
+                            <TextBlock VerticalAlignment="Center" 
                                Margin="20 10 0 0" 
                                DockPanel.Dock="Left">
                         Loại tiết kiệm:</TextBlock>
-                        <ComboBox Margin="10 0 0 0" 
+                            <ComboBox Margin="10 0 0 0" 
+                                  x:Name="Combobox_TypePassbook"
                               VerticalAlignment="Bottom">
-                            <ComboBoxItem IsSelected="True">không kì hạn</ComboBoxItem>
-                        </ComboBox>
-                    </DockPanel>
-                    <DockPanel Margin="0 10 0 0">
-                        <DatePicker Margin="0 0 20 0" 
+                                <ComboBoxItem IsSelected="True">không kì hạn</ComboBoxItem>
+                            </ComboBox>
+                        </DockPanel>
+                        <DockPanel Margin="0 10 0 0">
+                            <DatePicker Margin="0 0 20 0" 
+                                    x:Name="DatePicker_DateOpen"
                                 DockPanel.Dock="Left" 
                                 materialDesign:HintAssist.Hint="Ngày mở sổ" 
                                 materialDesign:HintAssist.FloatingScale="0.7" 
                                 materialDesign:HintAssist.IsFloating="True" 
                                 Width="150">
-                        </DatePicker>
-                        <TextBox materialDesign:HintAssist.Hint="Số tiền gởi" 
+                            </DatePicker>
+                            <TextBox materialDesign:HintAssist.Hint="Số tiền gởi" 
+                                 PreviewTextInput="Numberic_TextBox"
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True">
-                        </TextBox>
-                    </DockPanel>
-                </StackPanel>
+                            </TextBox>
+                        </DockPanel>
+                    </StackPanel>
+                </Grid>
             </materialDesign:ColorZone>
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -122,11 +139,12 @@
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <Button Grid.Column="0" 
+                        
                         HorizontalAlignment="Center" 
                         Margin="0 15 0 0" Width="100" 
                         Height="35" 
                         FontWeight="DemiBold" 
-                        FontSize="15">
+                        FontSize="15" Click="Button_OpenPassbook">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="LockOpenOutline"></materialDesign:PackIcon>
                         <TextBlock Margin="5 0 0 0">Mở sổ</TextBlock>
@@ -139,7 +157,7 @@
                         FontWeight="DemiBold" 
                         FontSize="15"
                         BorderBrush="PaleVioletRed"
-                        Background="PaleVioletRed">
+                        Background="PaleVioletRed" Click="Button_Print_Clicked">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Printer"></materialDesign:PackIcon>
                         <TextBlock Margin="5 0 0 0">In Phiếu</TextBlock>

@@ -45,17 +45,6 @@
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              Width="auto"></TextBox>
-                        <RadioButton VerticalAlignment="Center" 
-                                 Margin="15 5 10 0" 
-                                 BorderBrush="#FF5C99D6" 
-                                 Background="#FF5C99D6" 
-                                 IsChecked="True">
-                            Khách hàng mới</RadioButton>
-                        <RadioButton VerticalAlignment="Center" 
-                                 Margin="0 5 0 0" 
-                                 BorderBrush="#FF5C99D6" 
-                                 Background="#FF5C99D6">
-                            Khách hàng cũ</RadioButton>
                     </StackPanel>
                     <DockPanel Margin="0 10 0 0">
                         <TextBox Margin="20 0 0 0" 
@@ -143,7 +132,7 @@
                         <TextBlock>Xem</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="1" Width="70">
+                <Button Grid.Column="1" Width="70" Click="Search_Transaction">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Magnify" Margin="0 -1 0 0"/>
                         <TextBlock>Tra cứu</TextBlock>
@@ -156,13 +145,13 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Width="70">
+                <Button Grid.Column="0" Width="70" Click="Update_Transaction">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Pen" Margin="0 -1 5 0"/>
                         <TextBlock>Sửa</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="1" Background="PaleVioletRed" Width="70">
+                <Button Grid.Column="1" Background="PaleVioletRed" Width="70" Click="Delete_Transaction">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Trashcan" Margin="0 -1 0 0"/>
                         <TextBlock>Xóa</TextBlock>

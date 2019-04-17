@@ -103,3 +103,11 @@ D:\myprojects\PassbookManagement\MainProgram\obj\Debug\Pages\ManageTransactionSu
 D:\myprojects\PassbookManagement\MainProgram\obj\Debug\Pages\ManageTransactionSubPages\TransactionTypePage.g.cs
 D:\myprojects\PassbookManagement\MainProgram\obj\Debug\Pages\ManageTransactionSubPages\ManageTransactionRecordsPage.baml
 D:\myprojects\PassbookManagement\MainProgram\obj\Debug\Pages\ManageTransactionSubPages\TransactionTypePage.baml
+D:\myprojects\PassbookManagement\MainProgram\obj\Debug\CustomControls\SettingWindow.g.cs
+D:\myprojects\PassbookManagement\MainProgram\obj\Debug\CustomControls\SettingWindow.baml
+D:\myprojects\PassbookManagement\MainProgram\bin\Debug\DAO.dll
+D:\myprojects\PassbookManagement\MainProgram\bin\Debug\DTO.dll
+D:\myprojects\PassbookManagement\MainProgram\bin\Debug\DAO.pdb
+D:\myprojects\PassbookManagement\MainProgram\bin\Debug\DAO.dll.config
+D:\myprojects\PassbookManagement\MainProgram\bin\Debug\DTO.pdb
+D:\myprojects\PassbookManagement\MainProgram\bin\Debug\DTO.dll.config

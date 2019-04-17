@@ -21,7 +21,7 @@
       Title="SearchPage">
 
     <Grid>
-        <dragablz:TabablzControl BorderBrush="LightBlue">
+        <dragablz:TabablzControl BorderBrush="LightBlue" x:Name="TabControl">
             <dragablz:TabablzControl.InterTabController>
                 <dragablz:InterTabController/>
             </dragablz:TabablzControl.InterTabController>

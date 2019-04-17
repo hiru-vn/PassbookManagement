@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DAO
 {
-    class DataProvider
+    public class DataProvider
     {
         private static DataProvider instance; //singleton
 

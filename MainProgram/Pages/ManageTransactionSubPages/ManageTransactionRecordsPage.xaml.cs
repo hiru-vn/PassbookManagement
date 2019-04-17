@@ -24,5 +24,28 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         {
             InitializeComponent();
         }
+
+        private void Delete_Transaction(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("bạn muốn xóa giao dịch này?","",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            {
+                //xoa giao dich
+                //cap nhat giao dich
+            }
+        }
+
+        private void Update_Transaction(object sender, RoutedEventArgs e)
+        {
+            //cap nhat giao dich
+        }
+
+        private void Search_Transaction(object sender, RoutedEventArgs e)
+        {
+            Frame frame = Application.Current.MainWindow.FindName("FramePage") as Frame;
+            frame.Source = new System.Uri("Pages/SearchPage.xaml", UriKind.Relative);
+            frame.Content = new SearchPage();
+            SearchPage page = frame.Content as SearchPage;
+            page.TabControl.SelectedIndex = 2;
+        }
     }
 }
