@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DAO;
+using DTO;
+using MainProgram.CustomControls;
 
 namespace MainProgram.Pages.ManageTransactionSubPages
 {
@@ -20,23 +23,54 @@ namespace MainProgram.Pages.ManageTransactionSubPages
     /// </summary>
     public partial class ManageTransactionRecordsPage : Page
     {
+        bool IsWithdrawBill = false;
         public ManageTransactionRecordsPage()
         {
             InitializeComponent();
         }
-
+        void ClearPage()
+        {
+            foreach(TextBlock control in this.PanelForm.Children)
+            {
+                control.Text = "";
+            }
+        }
         private void Delete_Transaction(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("bạn muốn xóa giao dịch này?","",MessageBoxButton.OKCancel) == MessageBoxResult.OK)
+            if (MessageBoxCustom.setContent("bạn muốn xóa giao dịch này?").ShowDialog() == true)
             {
-                //xoa giao dich
+
                 //cap nhat giao dich
+                ClearPage();
             }
         }
 
         private void Update_Transaction(object sender, RoutedEventArgs e)
         {
             //cap nhat giao dich
+            if (!string.IsNullOrEmpty(TextBox_SavingBookID.Text.Trim())) {
+                string idBill = TextBox_SavingBookID.Text.Trim();
+
+                if (CollectBillDAO.Instance.CheckIfExistBillID(idBill) == true)
+                {
+
+                }
+                else if (WithdrawBillDAO.Instance.CheckIfExistBillID(idBill) == true)
+                {
+
+                }
+            }
+            //cap nhat khach hang
+            if (!string.IsNullOrEmpty(this.TextBox_CustomerID.Text.Trim()))
+            {
+                Customer cus = new Customer();
+                cus.Id = int.Parse(this.TextBox_CustomerID.Text);
+                cus.Name = this.TextBox_CustomerName.Text.Trim();
+                cus.Cmnd = this.TextBox_CustomerIDcard.Text.Trim();
+                cus.Cus_address = this.TextBox_CustomerAddress.Text.Trim();
+                CustomerDAO.Instance.UpdateCustomer(cus);
+            }
+
         }
 
         private void Search_Transaction(object sender, RoutedEventArgs e)
@@ -46,6 +80,38 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             frame.Content = new SearchPage();
             SearchPage page = frame.Content as SearchPage;
             page.TabControl.SelectedIndex = 2;
+        }
+
+        private void View_Transaction(object sender, RoutedEventArgs e)
+        {
+            string idBill = this.Textbox_Search.Text;
+            if (CollectBillDAO.Instance.CheckIfExistBillID(idBill) == true)
+            {
+                IsWithdrawBill = false;
+                CollectBill bill = CollectBillDAO.Instance.GetBill(idBill);
+                //SavingAccount acc = SavingAccountDAO.Instance.GetAccount(id);
+                //Customer customerInfo = CustomerDAO.Instance.GetCustomer(id);
+                //update form
+
+            }
+            else if (WithdrawBillDAO.Instance.CheckIfExistBillID(idBill) == true)
+            {
+                IsWithdrawBill = true;
+                WithdrawBill bill = WithdrawBillDAO.Instance.GetBill(idBill);
+                //SavingAccount acc = SavingAccountDAO.Instance.GetAccount(id);
+                //Customer customerInfo = CustomerDAO.Instance.GetCustomer(id);
+                //update form
+            }
+            else
+            {
+                MessageBoxCustom.setContent("Không tìm thấy mã giao dịch này.").ShowDialog();
+            }
+        }
+        private void Money_TextBox(object sender, TextCompositionEventArgs e)
+        {
+            foreach (char ch in e.Text)
+                if (!Char.IsDigit(ch) || ch == ',')
+                    e.Handled = true;
         }
     }
 }

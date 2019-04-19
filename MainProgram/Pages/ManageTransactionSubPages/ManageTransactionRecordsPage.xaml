@@ -35,31 +35,35 @@
         </Grid.ColumnDefinitions>
         <StackPanel>
             <materialDesign:ColorZone Background="LightBlue">
-                <StackPanel Margin="30">
+                <StackPanel Margin="30" x:Name="PanelForm">
                     <TextBlock Foreground="#FF31577E"
                                FontWeight="Light"
                                TextDecorations="Underline"
                                >Thông tin khách hàng:</TextBlock>
                     <StackPanel Margin="0 10 0 0" Orientation="Horizontal">
-                        <TextBox materialDesign:HintAssist.Hint="Mã khách hàng" 
+                        <TextBox materialDesign:HintAssist.Hint="Mã khách hàng"
+                                 x:Name="TextBox_CustomerID"
+                                 IsReadOnly="True"
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              Width="auto"></TextBox>
                     </StackPanel>
                     <DockPanel Margin="0 10 0 0">
                         <TextBox Margin="20 0 0 0" 
-                             DockPanel.Dock="Right" 
+                             DockPanel.Dock="Right"
+                                 x:Name="TextBox_CustomerIDcard"
                              materialDesign:HintAssist.Hint="Mã thẻ căn cước/CMND" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True"></TextBox>
 
-                        <TextBox DockPanel.Dock="Left"
+                        <TextBox DockPanel.Dock="Left" x:Name="TextBox_CustomerName"
                              materialDesign:HintAssist.Hint="Tên khách hàng" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True"></TextBox>
                     </DockPanel>
                     <DockPanel Margin="0 10 0 0">
-                        <TextBox HorizontalAlignment="Stretch"  
+                        <TextBox HorizontalAlignment="Stretch" 
+                                 x:Name="TextBox_CustomerAddress"
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.Hint="Địa chỉ" 
                              MinWidth="300" 
@@ -74,7 +78,8 @@
                                >Thông tin sổ tiết kiệm:</TextBlock>
                     <DockPanel Margin="0 10 0 0">
                         <TextBox DockPanel.Dock="Left"
-                             IsEnabled="False" 
+                                 x:Name="TextBox_SavingBookID"
+                             IsReadOnly="True"
                              HorizontalAlignment="Left" 
                              materialDesign:HintAssist.Hint="Mã sổ tiết kiệm" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
@@ -90,13 +95,16 @@
                     </DockPanel>
                     <DockPanel Margin="0 10 0 0">
                         <DatePicker Margin="0 0 20 0" 
-                                DockPanel.Dock="Left" 
+                                DockPanel.Dock="Left"
+                                    x:Name="Calender"
                                 materialDesign:HintAssist.Hint="Ngày mở sổ" 
                                 materialDesign:HintAssist.FloatingScale="0.7" 
                                 materialDesign:HintAssist.IsFloating="True" 
                                 Width="150">
                         </DatePicker>
-                        <TextBox materialDesign:HintAssist.Hint="Số tiền gởi" 
+                        <TextBox materialDesign:HintAssist.Hint="Số tiền gởi/rút"
+                                 x:Name="TextBox_Money"
+                                 PreviewTextInput="Money_TextBox"
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True">
                         </TextBox>
@@ -126,7 +134,7 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <Button Grid.Column="0" Width="70">
+                <Button Grid.Column="0" Width="70" Click="View_Transaction">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="EyeOutline" Margin="0 -1 5 0"/>
                         <TextBlock>Xem</TextBlock>

@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace DAO
 {
@@ -20,6 +22,13 @@ namespace DAO
         {
             int value=0;
             return value;
+        }
+        public SavingAccount GetAccount(int ID)
+        {
+            string query = string.Format("select * from dbo.savingaccount where id = {0}", ID);
+            DataRow row = DataProvider.Instance.ExcuteQuery(query).Rows[0];
+            SavingAccount acc = new SavingAccount(row);
+            return acc;
         }
     }
 }

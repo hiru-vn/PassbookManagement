@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace DAO
 {
@@ -16,5 +18,18 @@ namespace DAO
             private set { instance = value; }
         }
         private CollectBillDAO() { }
+        public bool CheckIfExistBillID(string idBill)
+        {
+            bool check = false;
+            //code
+            return check;
+        }
+        public CollectBill GetBill(string id)
+        {
+            string query = string.Format("select * from dbo.collectbill where id = '{0}'", id);
+            DataRow row = DataProvider.Instance.ExcuteQuery(query).Rows[0];
+            CollectBill bill = new CollectBill(row);
+            return bill;
+        }
     }
 }

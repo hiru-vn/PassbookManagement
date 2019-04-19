@@ -16,5 +16,5 @@ D:\myprojects\PassbookManagement\MainProgram\App.xaml
 20-2101178119
 CustomControls\MessageBoxCustom.xaml;CustomControls\SettingWindow.xaml;MainWindow.xaml;Pages\HelpPage.xaml;Pages\ManagePassbookSubPages\CreatePassbookPage.xaml;Pages\ManagePassbookSubPages\SendMoneyPage.xaml;Pages\ManagePassbookSubPages\WithdrawMoneyPage.xaml;Pages\ManageTransactionSubPages\ManageTransactionRecordsPage.xaml;Pages\ManageTransactionSubPages\TransactionTypePage.xaml;Pages\ReportSubPages\ChartPage.xaml;Pages\ReportSubPages\DailyReportPage.xaml;Pages\ReportSubPages\MonthlyReportPage.xaml;Pages\SearchSubPages\CustomerViewPage.xaml;Pages\SearchSubPages\PassbookViewPage.xaml;Pages\ManageTransactionPage.xaml;Pages\ManagePassbookPage.xaml;Pages\ReportPage.xaml;Pages\SearchPage.xaml;Pages\SearchSubPages\TransactionHistoryViewPage.xaml;Pages\SystemPage.xaml;
 
-True
+False
 

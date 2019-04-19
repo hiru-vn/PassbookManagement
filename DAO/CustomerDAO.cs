@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace DAO
 {
@@ -48,6 +50,17 @@ namespace DAO
             bool check = false;
             //code
             return check;
+        }
+        public Customer GetCustomer(int IDcustomer)
+        {
+            string query = string.Format("select * from dbo.customer where id = {0}", IDcustomer);
+            DataRow row = DataProvider.Instance.ExcuteQuery(query).Rows[0];
+            Customer cus = new Customer(row);
+            return cus;
+        }
+        public void UpdateCustomer(Customer cus)
+        {
+            //code
         }
     }
 }
