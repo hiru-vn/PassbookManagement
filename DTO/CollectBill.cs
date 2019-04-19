@@ -8,5 +8,6 @@ namespace DTO
 {
     public class CollectBill
     {
+
     }
 }

@@ -20,7 +20,7 @@ namespace DAO
         public int GetCurrentMaxCustomerID()
         {
             int value = 0;
-            //code
+            value = (int)DataProvider.Instance.ExcuteScarar("select MAX(ID) from dbo.CUSTOMER");
             return value;
         }
         public bool CheckExistID(int ID)
@@ -28,17 +28,17 @@ namespace DAO
             //code
             return true;
         }
-        public string GetCustomerName(int ID)
+        public string GetCustomerName(int IDCustomer)
         {
             //code
             return "";
         }
-        public string GetCustomerCardNumber(int ID)
+        public string GetCustomerCardNumber(int IDCustomer)
         {
             //code
             return "";
         }
-        public string GetCustomerAddress(int ID)
+        public string GetCustomerAddress(int IDCustomer)
         {
             //code
             return "";

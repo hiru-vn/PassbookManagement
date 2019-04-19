@@ -16,9 +16,10 @@ namespace DAO
             private set { instance = value; }
         }
         private TypeAccountDAO() { }
-        public List<string> GetListType()
+        public List<string> GetListTypeName()
         {
             List<string> list = new List<string>();
+            //code
             return list;
         }
     }

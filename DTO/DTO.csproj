@@ -45,5 +45,8 @@
     <Compile Include="TypeAccount.cs" />
     <Compile Include="WithdrawBill.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Data" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
