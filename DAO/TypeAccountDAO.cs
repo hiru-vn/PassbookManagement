@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DTO;
+using System.Data;
 
 namespace DAO
 {
@@ -20,6 +21,12 @@ namespace DAO
         public List<string> GetListTypeName()
         {
             List<string> list = new List<string>();
+            //code
+            return list;
+        }
+        public List<TypeAccount> GetListType()
+        {
+            List<TypeAccount> list = new List<TypeAccount>();
             //code
             return list;
         }

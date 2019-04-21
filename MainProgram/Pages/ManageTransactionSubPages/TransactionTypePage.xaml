@@ -54,6 +54,7 @@
                             <materialDesign:ColorZone Background="LightBlue"
                                         Margin="0 0 0 0">
                                 <ListView ScrollViewer.CanContentScroll="True"
+                                          x:Name="ListView_TransactionType"
                                         Background="LightBlue"
                                         MinWidth="220">
                                     <ListViewItem>
@@ -80,6 +81,7 @@
                                         Orientation="Horizontal">
                                     <Button
                                             ToolTip="Thêm"
+                                            Click="Add_Type_Mode"
                                             Command="{Binding AddCommand}">
                                         <Path
                                                 Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z"
@@ -90,6 +92,7 @@
                                     </Button>
                                     <Button
                                             ToolTip="xóa"
+                                        Click="Delete_type"
                                             Command="{Binding RemoveSelectedItemCommand}">
                                         <Path
                                                 Data="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z"
@@ -118,7 +121,7 @@
                                     Background="#FF5C99D6"
                                     Padding="16">
                             <DockPanel>
-                                <TextBlock FontSize="14" FontWeight="SemiBold">Thông tin</TextBlock>
+                                <TextBlock FontSize="14" FontWeight="SemiBold" x:Name="Texblock_title">Thông tin</TextBlock>
                             </DockPanel>
                         </materialDesign:ColorZone>
                         <StackPanel Background="LightBlue" 
