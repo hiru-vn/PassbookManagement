@@ -24,9 +24,9 @@ namespace DAO
             //code
             return list;
         }
-        public List<TypeAccount> GetListType()
+        public List<Typepassbook> GetListType()
         {
-            List<TypeAccount> list = new List<TypeAccount>();
+            List<Typepassbook> list = new List<Typepassbook>();
             //code
             return list;
         }

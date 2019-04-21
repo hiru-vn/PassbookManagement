@@ -23,11 +23,11 @@ namespace DAO
             int value=0;
             return value;
         }
-        public SavingAccount GetAccount(int ID)
+        public Passbook GetAccount(int ID)
         {
             string query = string.Format("select * from dbo.savingaccount where id = {0}", ID);
             DataRow row = DataProvider.Instance.ExcuteQuery(query).Rows[0];
-            SavingAccount acc = new SavingAccount(row);
+            Passbook acc = new Passbook(row);
             return acc;
         }
     }

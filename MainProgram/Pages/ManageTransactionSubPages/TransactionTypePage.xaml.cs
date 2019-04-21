@@ -31,9 +31,9 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         void showTreeItem()
         {
             this.ListView_TransactionType.Items.Clear();
-            List<TypeAccount> list = new List<TypeAccount>();
+            List<Typepassbook> list = new List<Typepassbook>();
             list = TypeAccountDAO.Instance.GetListType();
-            foreach (TypeAccount acc in list)
+            foreach (Typepassbook acc in list)
             {
                 StackPanel stackPanel = new StackPanel();
                 stackPanel.Orientation = Orientation.Horizontal;

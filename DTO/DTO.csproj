@@ -41,8 +41,9 @@
   <ItemGroup>
     <Compile Include="CollectBill.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="SavingAccount.cs" />
-    <Compile Include="TypeAccount.cs" />
+    <Compile Include="Parameter.cs" />
+    <Compile Include="Passbook.cs" />
+    <Compile Include="Typepassbook.cs" />
     <Compile Include="WithdrawBill.cs" />
   </ItemGroup>
   <ItemGroup>
