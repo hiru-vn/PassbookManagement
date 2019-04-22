@@ -33,7 +33,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         void Default()
         {
             this.TextBox_PassbookID.Text = (SavingAccountDAO.Instance.GetMaxID() + 1).ToString();
-            this.Combobox_TypePassbook.ItemsSource = TypeAccountDAO.Instance.GetListTypeName();
+            this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListTypeName();
             this.DatePicker_DateOpen.SelectedDate = DateTime.Now;
         }
         // new customer/ old customer change => change form format

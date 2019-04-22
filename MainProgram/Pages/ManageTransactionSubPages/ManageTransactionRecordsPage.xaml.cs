@@ -65,7 +65,7 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             {
                 Customer cus = new Customer();
                 cus.Id = int.Parse(this.TextBox_CustomerID.Text);
-                cus.Name = this.TextBox_CustomerName.Text.Trim();
+                cus.Cus_name = this.TextBox_CustomerName.Text.Trim();
                 cus.Cmnd = this.TextBox_CustomerIDcard.Text.Trim();
                 cus.Cus_address = this.TextBox_CustomerAddress.Text.Trim();
                 CustomerDAO.Instance.UpdateCustomer(cus);

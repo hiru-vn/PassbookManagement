@@ -31,9 +31,9 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         void showTreeItem()
         {
             this.ListView_TransactionType.Items.Clear();
-            List<Typepassbook> list = new List<Typepassbook>();
-            list = TypeAccountDAO.Instance.GetListType();
-            foreach (Typepassbook acc in list)
+            List<TypePassbook> list = new List<TypePassbook>();
+            list = TypePassbookDAO.Instance.GetListType();
+            foreach (TypePassbook type in list)
             {
                 StackPanel stackPanel = new StackPanel();
                 stackPanel.Orientation = Orientation.Horizontal;
@@ -41,29 +41,49 @@ namespace MainProgram.Pages.ManageTransactionSubPages
                 icon.Kind = PackIconKind.Notebook;
                 icon.Margin = new Thickness(-5, 0, 5, 0);
                 TextBlock textBlock = new TextBlock();
-                //textBlock.Text = acc;
+                textBlock.Text = type.Typename;
                 stackPanel.Children.Add(icon);
                 stackPanel.Children.Add(textBlock);
                 TreeViewItem item = new TreeViewItem();
                 item.Header = stackPanel;
-                item.Tag = acc;
+                item.Tag = type;
 
-                //this.Account_treeview.Items.Add(item);
+                this.ListView_TransactionType.Items.Add(item);
             }
+        }
+        void Look_Type_Mode()
+        {
+            this.Texblock_title.Text = "Thêm mới loại tiết kiệm";
 
-            //this.AccountFrame.Content = new AccountPage1();
         }
 
         private void Add_Type_Mode(object sender, RoutedEventArgs e)
         {
-
+            this.Texblock_title.Text = "Thêm mới loại tiết kiệm";
         }
 
         private void Delete_type(object sender, RoutedEventArgs e)
         {
             if (MessageBoxCustom.setContent("Bạn thực sự muốn xóa loại tiết kiệm này?").ShowDialog() == true)
             {
-                if (SavingAccountDAO.Instance.CheckIfExist)
+                if (this.ListView_TransactionType.Items.Count > 0)
+                {
+                    TypePassbook typepassbook =(TypePassbook) (this.ListView_TransactionType.SelectedItem as TreeViewItem).Tag;
+                    if (!TypePassbookDAO.Instance.CheckIfExistActivePassbookInType(typepassbook.Id))
+                    {
+                        TypePassbookDAO.Instance.DeleteType(typepassbook.Id);
+                        showTreeItem();
+                    }
+                }
+            }
+        }
+
+        private void Listview_SelectionChange(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.ListView_TransactionType.Items.Count > 0)
+            {
+                TypePassbook typepassbook = (TypePassbook)(this.ListView_TransactionType.SelectedItem as TreeViewItem).Tag;
+                
             }
         }
     }

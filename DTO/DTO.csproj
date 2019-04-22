@@ -43,7 +43,7 @@
     <Compile Include="Customer.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Passbook.cs" />
-    <Compile Include="Typepassbook.cs" />
+    <Compile Include="TypePassbook.cs" />
     <Compile Include="WithdrawBill.cs" />
   </ItemGroup>
   <ItemGroup>

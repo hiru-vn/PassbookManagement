@@ -56,7 +56,7 @@
                                 <ListView ScrollViewer.CanContentScroll="True"
                                           x:Name="ListView_TransactionType"
                                         Background="LightBlue"
-                                        MinWidth="220">
+                                        MinWidth="220" SelectionChanged="Listview_SelectionChange">
                                     <ListViewItem>
                                         <TextBlock>Không kì hạn</TextBlock>
                                     </ListViewItem>
