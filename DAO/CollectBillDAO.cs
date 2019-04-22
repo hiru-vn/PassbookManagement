@@ -21,7 +21,9 @@ namespace DAO
         public bool CheckIfExistBillID(string idBill)
         {
             bool check = false;
-            //code
+            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.collectbill where id=" + idBill);
+            if (result != 0)
+                check = true;
             return check;
         }
         public CollectBill GetBill(string id)

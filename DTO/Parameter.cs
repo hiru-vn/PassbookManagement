@@ -8,17 +8,18 @@ namespace DTO
 {
     class Parameter
     {
-        int _atleast_collectmoney;
-        int _atleast_passbookbalance;
-        public Parameter() { }
-        public Parameter(DataRow row)
+        int min_passbookbalance;
+        int min_collectmoney;
+        public int Min_passbookbalance { get => min_passbookbalance; set => min_passbookbalance = value; }
+        public int Min_collectmoney { get => min_collectmoney; set => min_collectmoney = value; }
+        Parameter() { }
+        Parameter(DataRow row)
         {
-            this.Atleast_collectmoney = int.Parse(row["atleast_collectmoney"].ToString());
-            this.Atleast_passbookbalance = int.Parse(row["atleast_passbookmoaney"].ToString());
-
+            this.Min_collectmoney = int.Parse(row["min_collectmoney"].ToString());
+            this.Min_passbookbalance = int.Parse(row["min_passbookbalance"].ToString());
+                    
         }
 
-        public int Atleast_collectmoney { get => _atleast_collectmoney; set => _atleast_collectmoney = value; }
-        public int Atleast_passbookbalance { get => _atleast_passbookbalance; set => _atleast_passbookbalance = value; }
+        
     }
 }

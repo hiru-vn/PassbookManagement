@@ -27,28 +27,47 @@ namespace DAO
         }
         public bool CheckExistID(int ID)
         {
-            //code
+            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.customer where id=" + ID);
+            if (result == 0)
+                return false;
             return true;
         }
         public string GetCustomerName(int IDCustomer)
         {
-            //code
-            return "";
+  
+            string query = "select * from dbo.customer where id='" + IDCustomer + "'";
+            DataTable data = DataProvider.Instance.ExcuteQuery(query);
+            if (data.Rows.Count > 0)
+            {
+                Customer cus = new Customer(data.Rows[0]);
+                return cus.Cus_name;
+            }
+            return "Khong co ID khach hang";
         }
         public string GetCustomerCardNumber(int IDCustomer)
         {
-            //code
-            return "";
+            DataRow row = DataProvider.Instance.ExcuteQuery("select cmnd from dbo.customer where id=" + IDCustomer).Rows[0];
+            Customer result = new Customer(row);
+            return result.Cmnd;
         }
         public string GetCustomerAddress(int IDCustomer)
         {
-            //code
-            return "";
+            string query = "select * from dbo.customer where id=" + IDCustomer;
+            DataTable data = DataProvider.Instance.ExcuteQuery(query);
+            if (data.Rows.Count > 0)
+            {
+                Customer cus = new Customer(data.Rows[0]);
+                return cus.Cus_address;
+            }
+            return "Khong co ID khach hang";
         }
-        public bool CheckCustomerHasAccountType(int customerID, string AccountType)
+        public bool CheckCustomerHasAccountType(int customerID , string TypePassbook)
         {
             bool check = false;
-            //code
+            string query = "select count(*) from passbook,typepassbook where passbook.passbook_customer=" + customerID + "and passbook.passbook_type=typepassbook.id and typename=" + TypePassbook;
+            int result = (int)DataProvider.Instance.ExcuteScarar(query);
+            if (result != 0)
+                check = true;
             return check;
         }
         public Customer GetCustomer(int IDcustomer)

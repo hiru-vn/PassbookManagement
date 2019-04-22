@@ -19,10 +19,13 @@ namespace DAO
         }
         private WithdrawBillDAO() { }
         public bool CheckIfExistBillID(string idBill)
-        {
+        { 
             bool check = false;
-            //code
+            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.withdrawbill where id=" + idBill);
+            if (result != 0)
+                check = true;
             return check;
+
         }
         public WithdrawBill GetBill(string id)
         {

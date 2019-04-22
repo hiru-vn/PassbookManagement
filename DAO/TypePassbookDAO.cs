@@ -21,20 +21,34 @@ namespace DAO
         public List<string> GetListTypeName()
         {
             List<string> list = new List<string>();
-            //code
+            string query = "select * from dbo.typepassbook";
+            DataTable data = DataProvider.Instance.ExcuteQuery(query);
+            foreach(DataRow item in data.Rows)
+            {
+                TypePassbook type = new TypePassbook(item);
+                list.Add(type.Typename);
+            }
             return list;
         }
         public List<TypePassbook> GetListType()
         {
             List<TypePassbook> list = new List<TypePassbook>();
-            //code
+            string query = "select * from dbo.typepassbook";
+            DataTable data = DataProvider.Instance.ExcuteQuery(query);
+            foreach (DataRow item in data.Rows)
+            {
+                TypePassbook type = new TypePassbook(item);
+                list.Add(type);
+            }
             return list;
         }
         public bool CheckIfExistActivePassbookInType(int idType)
         {
             //kiem tra xem trong bang tai khoan co cai nao co Type = idType ma van con tien trong tai khoan hay khong?
             bool value = false;
-            //code
+            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.passbook where passbook_type=" + idType + "and passbook_balance >0");
+            if (result != 0)
+                value = true;
             return value;
         }
         public void DeleteType(int idType)
