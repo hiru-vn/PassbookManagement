@@ -67,7 +67,7 @@
                 BorderThickness="0"
                 MinWidth="200"
                 Width="{Binding Path=ActualWidth, ElementName= RadioButton_searchName, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*2+30 }"
-                VerticalAlignment="Center" KeyDown="TextBox_Search_KeyDown" KeyUp="TextBox_Search_KeyUp" />
+                VerticalAlignment="Center" KeyDown="TextBox_Search_KeyDown" KeyUp="TextBox_Search_KeyUp" TextChanged="Textbox_Search_TextChanged" />
                 <Button x:Name="Button_ClearText" Visibility="Hidden"
                     Style="{DynamicResource MaterialDesignToolButton}"
                     Grid.Column="2" Click="Button_ClearText_Click">
@@ -78,8 +78,8 @@
                 </Button>
             </Grid>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <RadioButton VerticalAlignment="Center" x:Name="RadioButton_searchID" Margin="10 0 10 0" Background="#FF5C99D6" BorderBrush="#FF5C99D6">Tìm theo số CMND</RadioButton>
-                <RadioButton VerticalAlignment="Center" x:Name="RadioButton_searchName" Margin="0 0 10 0" Background="#FF5C99D6" BorderBrush="#FF5C99D6">Tìm theo tên khách hàng</RadioButton>
+                <RadioButton VerticalAlignment="Center" x:Name="RadioButton_searchID" Margin="10 0 10 0" Background="#FF5C99D6" BorderBrush="#FF5C99D6" Checked="Search_By_CMND">Tìm theo số CMND</RadioButton>
+                <RadioButton VerticalAlignment="Center" x:Name="RadioButton_searchName" Margin="0 0 10 0" Background="#FF5C99D6" BorderBrush="#FF5C99D6" Checked="Search_By_Name">Tìm theo tên khách hàng</RadioButton>
                 <Button VerticalAlignment="Center" Width="60" Height="30">
                     <TextBlock>Xem</TextBlock>
                 </Button>
@@ -92,7 +92,7 @@
         </Grid>
         <Grid Grid.Row="1" Margin="20 0 20 0">
             <materialDesign:ColorZone Background="LightBlue">
-                <ListView
+                <ListView x:Name="ListView"
             HorizontalAlignment="Left"
             ScrollViewer.CanContentScroll="True"
             AllowDrop="True" BorderThickness="0"
@@ -103,7 +103,7 @@
                         </Style>
                     </ListView.ItemContainerStyle>
                     <ListView.View>
-                        <GridView>
+                        <GridView x:Name="GridView">
                             <GridViewColumn
                         Header="STT"
                         Width="auto"

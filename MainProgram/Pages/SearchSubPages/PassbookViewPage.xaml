@@ -61,6 +61,7 @@
                 <TextBox
                     x:Name="Textbox_Search"
                 Grid.Column="1"
+                    TextChanged="Textbox_Search_TextChanged"
                 Margin="8 0 0 0"
                 materialDesign:HintAssist.Hint="Nhập mã sổ"
                 materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
@@ -78,8 +79,8 @@
                 </Button>
             </Grid>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <RadioButton Background="#FF5C99D6" BorderBrush="#FF5C99D6" VerticalAlignment="Center" x:Name="RadioButton_searchID" Margin="10 0 10 0">Tìm theo mã sổ tiết kiệm</RadioButton>
-                <RadioButton Background="#FF5C99D6" BorderBrush="#FF5C99D6" VerticalAlignment="Center" x:Name="RadioButton_searchName" Margin="0 0 10 0">Tìm theo tên khách hàng</RadioButton>
+                <RadioButton Background="#FF5C99D6" BorderBrush="#FF5C99D6" VerticalAlignment="Center" x:Name="RadioButton_searchID" Margin="10 0 10 0" Checked="Search_By_PassbookID">Tìm theo mã sổ tiết kiệm</RadioButton>
+                <RadioButton Background="#FF5C99D6" BorderBrush="#FF5C99D6" VerticalAlignment="Center" x:Name="RadioButton_searchName" Margin="0 0 10 0" Checked="Search_By_Name">Tìm theo tên khách hàng</RadioButton>
                 <Button VerticalAlignment="Center" Width="60" Height="30">
                     <TextBlock>Xem</TextBlock>
                 </Button>
@@ -93,6 +94,7 @@
         <Grid Grid.Row="1" Margin="20 0 20 0">
             <materialDesign:ColorZone Background="LightBlue">
                 <ListView
+                    x:Name="ListView"
             HorizontalAlignment="Left"
             ScrollViewer.CanContentScroll="True"
             AllowDrop="True" BorderThickness="0"

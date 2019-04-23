@@ -32,7 +32,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
 
         void Default()
         {
-            this.TextBox_PassbookID.Text = (SavingAccountDAO.Instance.GetMaxID() + 1).ToString();
+            this.TextBox_PassbookID.Text = (PassbookDAO.Instance.GetMaxID() + 1).ToString();
             this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListTypeName();
             this.DatePicker_DateOpen.SelectedDate = DateTime.Now;
         }

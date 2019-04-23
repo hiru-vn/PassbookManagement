@@ -81,5 +81,18 @@ namespace DAO
         {
             //code
         }
+        public DataTable GetCusInfoByName(string CusName)
+        {
+            //tìm kiếm gần đúng %CusName%
+            //trả về thông bảng gồm nhiều hàng có các cột được đặt tên STT, CusID, CusName, CusCMND, CusAddress, FinalTransactionDay. (FinalTransactionDay là ngày thực hiện giao dịch cuối cùng của khách hàng)
+            return null;
+        }
+        public DataTable GetCusInfoByCardID(string CusCardID)
+        {
+            //tìm kiếm chính xác %cardid%
+            //trả về thông bảng gồm nhiều hàng có các cột được đặt tên STT, CusID, CusName, CusCMND, CusAddress, FinalTransactionDay. (FinalTransactionDay là ngày thực hiện giao dịch cuối cùng của khách hàng)
+            return null;
+        }
+
     }
 }

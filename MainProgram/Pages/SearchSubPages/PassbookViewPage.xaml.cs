@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DAO;
 
 namespace MainProgram.Pages.SearchSubPages
 {
@@ -20,6 +22,7 @@ namespace MainProgram.Pages.SearchSubPages
     /// </summary>
     public partial class PassbookViewPage : Page
     {
+        bool isSearchByName = false;
         public PassbookViewPage()
         {
             InitializeComponent();
@@ -53,6 +56,34 @@ namespace MainProgram.Pages.SearchSubPages
         {
             this.Textbox_Search.Clear();
             (sender as Button).Visibility = Visibility.Hidden;
+        }
+        private void Search_By_PassbookID(object sender, RoutedEventArgs e)
+        {
+            HintAssist.SetHint(this.Textbox_Search, "Nhập mã sổ");
+            isSearchByName = false;
+        }
+
+        private void Search_By_Name(object sender, RoutedEventArgs e)
+        {
+            HintAssist.SetHint(this.Textbox_Search, "Nhập tên khách hàng");
+            isSearchByName = true;
+        }
+        private void Textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (isSearchByName)
+                this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByCusName(this.Textbox_Search.Text.Trim()).DefaultView;
+            else
+            {
+                try
+                {
+                    int id = int.Parse(this.Textbox_Search.Text.Trim());
+                    this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByPassID(id).DefaultView;
+                }
+                catch
+                {
+                    this.ListView.Items.Clear();
+                }
+            }
         }
     }
 }

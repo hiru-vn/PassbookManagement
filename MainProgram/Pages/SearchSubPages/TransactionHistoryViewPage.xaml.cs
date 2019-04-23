@@ -53,5 +53,22 @@ namespace MainProgram.Pages.SearchSubPages
             this.Textbox_Search.Clear();
             (sender as Button).Visibility = Visibility.Hidden;
         }
+        private void Textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //if (isSearchByName)
+            //    this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByCusName(this.Textbox_Search.Text.Trim()).DefaultView;
+            //else
+            //{
+            //    try
+            //    {
+            //        int id = int.Parse(this.Textbox_Search.Text.Trim());
+            //        this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByPassID(id).DefaultView;
+            //    }
+            //    catch
+            //    {
+            //        this.ListView.Items.Clear();
+            //    }
+            //}
+        }
     }
 }

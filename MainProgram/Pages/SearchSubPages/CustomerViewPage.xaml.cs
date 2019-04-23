@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DAO;
+
 
 namespace MainProgram.Pages.SearchSubPages
 {
@@ -20,9 +23,11 @@ namespace MainProgram.Pages.SearchSubPages
     /// </summary>
     public partial class CustomerViewPage : Page
     {
+        bool isSearchByName = false;
         public CustomerViewPage()
         {
             InitializeComponent();
+            
         }
         private void TextBox_Search_KeyUp(object sender, KeyEventArgs e)
         {
@@ -52,6 +57,24 @@ namespace MainProgram.Pages.SearchSubPages
         {
             this.Textbox_Search.Clear();
             (sender as Button).Visibility = Visibility.Hidden;
+        }
+        private void Search_By_CMND(object sender, RoutedEventArgs e)
+        {
+            HintAssist.SetHint(this.Textbox_Search, "Nhập số CMND");
+            isSearchByName = false;
+        }
+        private void Search_By_Name(object sender, RoutedEventArgs e)
+        { 
+            HintAssist.SetHint(this.Textbox_Search, "Nhập tên khách hàng");
+            isSearchByName = true;
+        }
+
+        private void Textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (isSearchByName)
+                this.ListView.ItemsSource = CustomerDAO.Instance.GetCusInfoByName(this.Textbox_Search.Text.Trim()).DefaultView;
+            else
+                this.ListView.ItemsSource = CustomerDAO.Instance.GetCusInfoByCardID(this.Textbox_Search.Text.Trim()).DefaultView;
         }
     }
 }

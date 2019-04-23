@@ -58,7 +58,7 @@
     <Compile Include="CustomerDAO.cs" />
     <Compile Include="DataProvider.cs" />
     <Compile Include="ParamaterDAO.cs" />
-    <Compile Include="SavingAccountDAO.cs" />
+    <Compile Include="PassbookDAO.cs" />
     <Compile Include="TypePassbookDAO.cs" />
     <Compile Include="WithdrawBillDAO.cs" />
   </ItemGroup>
