@@ -57,7 +57,6 @@
     <Compile Include="CollectBillDAO.cs" />
     <Compile Include="CustomerDAO.cs" />
     <Compile Include="DataProvider.cs" />
-    <Compile Include="ParamaterDAO.cs" />
     <Compile Include="PassbookDAO.cs" />
     <Compile Include="ReportDAO.cs" />
     <Compile Include="TypePassbookDAO.cs" />
