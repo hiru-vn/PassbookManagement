@@ -111,7 +111,7 @@
                         >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Number}"
+                                        <TextBlock Text="{Binding STT}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -123,7 +123,7 @@
                         >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Id}"
+                                        <TextBlock Text="{Binding CusID}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -134,7 +134,7 @@
                         >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"
+                                        <TextBlock Text="{Binding CusName}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -145,7 +145,7 @@
                      >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding CustomerIDCard}"
+                                        <TextBlock Text="{Binding CusCMND}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -154,7 +154,7 @@
                      Header="Địa chỉ" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Address}"
+                                        <TextBlock Text="{Binding CusAddress}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -163,8 +163,8 @@
                     Header="Ngày giao dịch cuối" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Money}"
-                                 TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding FinalTransactionDay, StringFormat=dd/MM/yyyy}"
+                                        TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

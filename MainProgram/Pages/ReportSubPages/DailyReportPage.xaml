@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:MainProgram.Pages.ReportSubPages"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
       
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Converter="clr-namespace:MainProgram.Converter"
@@ -45,11 +46,15 @@
                        Margin="10" FontSize="20">
                     Báo cáo doanh số hoạt động
                     </TextBlock>
-                    <TextBlock
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock
                         Foreground="#FF31577E"
-                        FontWeight="SemiBold"
-                        HorizontalAlignment="Center">Ngày 1/1/2001</TextBlock>
-                    <ListView
+                        FontWeight="SemiBold" Text="Ngày "></TextBlock>
+                        <TextBlock Foreground="#FF31577E"
+                        FontWeight="SemiBold" 
+                        Text="{Binding ElementName=Calendar,Path=SelectedDate,StringFormat=dd/MM/yyyy}"></TextBlock>
+                    </StackPanel>
+                    <ListView x:Name="ListView"
             HorizontalAlignment="Left"
             ScrollViewer.CanContentScroll="True"
             AllowDrop="True" BorderThickness="0"
@@ -68,7 +73,7 @@
                         >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Number}"
+                                            <TextBlock Text="{Binding STT}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -80,7 +85,7 @@
                         >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Id}"
+                                            <TextBlock Text="{Binding TypePassbook}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -91,7 +96,7 @@
                         >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}"
+                                            <TextBlock Text="{Binding MoneyIncome}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -102,7 +107,7 @@
                      >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding CustomerIDCard}"
+                                            <TextBlock Text="{Binding MoneyOutcome}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -111,7 +116,7 @@
                      Header="Chênh lệch" Width="auto">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Address}"
+                                            <TextBlock Text="{Binding Difference}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -124,7 +129,8 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="10 10 20 10">
             <Viewbox>
-                <Calendar></Calendar>
+                <Calendar x:Name="Calendar" SelectedDate="{x:Static sys:DateTime.Today}"
+                    SelectedDatesChanged="GetReport"></Calendar>
             </Viewbox>
             <Button     HorizontalAlignment="Center" 
                         Margin="0 15 0 0" 

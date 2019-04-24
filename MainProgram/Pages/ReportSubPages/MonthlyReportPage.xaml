@@ -45,15 +45,28 @@
                        Margin="10" FontSize="20">
                     Báo cáo mở/đóng sổ tháng
                     </TextBlock>
-                    <TextBlock
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock
                         Foreground="#FF31577E"
-                        FontWeight="SemiBold"
-                        HorizontalAlignment="Center">Tháng 1/2001</TextBlock>
-                    <TextBlock
+                        FontWeight="SemiBold" Text="Tháng "></TextBlock>
+                        <TextBlock
                         Foreground="#FF31577E"
-                        FontWeight="SemiBold"
-                        HorizontalAlignment="Center">Loại tiết kiệm: Không kì hạn</TextBlock>
-                    <ListView
+                        FontWeight="SemiBold" Text="{Binding Path=Text, ElementName=Combobox_Month, Mode=OneWay}"></TextBlock>
+                        <TextBlock
+                        Foreground="#FF31577E"
+                        FontWeight="SemiBold" Text="/"></TextBlock>
+                        <TextBlock
+                        Foreground="#FF31577E"
+                        FontWeight="SemiBold" Text="{Binding Path=Text, ElementName=Combobox_year, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock
+                        Foreground="#FF31577E"
+                        FontWeight="SemiBold" Text="Loại tiết kiệm: "></TextBlock>
+                        <TextBlock Foreground="#FF31577E"
+                        FontWeight="SemiBold" Text="{Binding Path =Text, ElementName=Combobox_type, Mode=OneWay}"></TextBlock>
+                    </StackPanel>
+                    <ListView x:Name="ListView"
             HorizontalAlignment="Left"
             ScrollViewer.CanContentScroll="True"
             AllowDrop="True" BorderThickness="0"
@@ -128,10 +141,11 @@
         </StackPanel>
         <StackPanel Grid.Column="1" Margin="10 10 20 10">
             <ComboBox materialDesign:HintAssist.IsFloating="True" 
+                      x:Name="Combobox_type"
                       Margin="20 10 20 0"
                           materialDesign:HintAssist.FloatingScale="0.8"
                           materialDesign:HintAssist.Hint="Loại tiết kiệm">
-                
+
             </ComboBox>
             <Grid Margin="0 10 0 0">
                 <Grid.ColumnDefinitions>
@@ -139,25 +153,17 @@
                     <ColumnDefinition Width="0.5*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <ComboBox materialDesign:HintAssist.IsFloating="True" 
+                          x:Name="Combobox_Month"
                       Margin="20 0 5 0" MaxDropDownHeight="100"
                           HorizontalContentAlignment="Center"
                           HorizontalAlignment="Stretch"
                           materialDesign:HintAssist.FloatingScale="0.8"
                           materialDesign:HintAssist.Hint="Tháng">
-                    <ComboBoxItem>1</ComboBoxItem>
-                    <ComboBoxItem>2</ComboBoxItem>
-                    <ComboBoxItem>3</ComboBoxItem>
-                    <ComboBoxItem>4</ComboBoxItem>
-                    <ComboBoxItem>5</ComboBoxItem>
-                    <ComboBoxItem>6</ComboBoxItem>
-                    <ComboBoxItem>7</ComboBoxItem>
-                    <ComboBoxItem>8</ComboBoxItem>
-                    <ComboBoxItem>9</ComboBoxItem>
-                    <ComboBoxItem>10</ComboBoxItem>
-                    <ComboBoxItem>11</ComboBoxItem>
-                    <ComboBoxItem>12</ComboBoxItem>
+                    
                 </ComboBox>
-                <ComboBox Grid.Column="1" materialDesign:HintAssist.IsFloating="True" 
+                <ComboBox x:Name="Combobox_year"
+                    Grid.Column="1" materialDesign:HintAssist.IsFloating="True" 
+                          MaxDropDownHeight="100"
                       Margin="5 0 20 0"
                           HorizontalContentAlignment="Center"
                           HorizontalAlignment="Stretch"

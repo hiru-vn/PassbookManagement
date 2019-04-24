@@ -108,7 +108,7 @@
                         >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Number}"
+                                        <TextBlock Text="{Binding STT}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -120,7 +120,7 @@
                         >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Id}"
+                                        <TextBlock Text="{Binding IDPassbook}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -131,7 +131,7 @@
                      >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Name}"
+                                        <TextBlock Text="{Binding CustomerName}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -140,7 +140,7 @@
                      Header="Loại tiết kiệm" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Type}"
+                                        <TextBlock Text="{Binding PassbookType}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -149,7 +149,7 @@
                     Header="Số dư" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Money}"
+                                        <TextBlock Text="{Binding Balance}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -158,7 +158,7 @@
                     Header="Ngày mở sổ" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Money}"
+                                        <TextBlock Text="{Binding DateOpenPassbook}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -167,7 +167,7 @@
                     Header="Ngày kỳ hạn" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Money}"
+                                        <TextBlock Text="{Binding WithDrawDate}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>

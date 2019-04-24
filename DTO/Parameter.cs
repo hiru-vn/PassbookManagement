@@ -17,7 +17,7 @@ namespace DTO
         {
             this.Min_collectmoney = int.Parse(row["min_collectmoney"].ToString());
             this.Min_passbookbalance = int.Parse(row["min_passbookbalance"].ToString());
-                    
+                   
         }
 
         

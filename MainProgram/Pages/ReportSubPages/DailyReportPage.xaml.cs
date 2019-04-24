@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using DAO;
 
 namespace MainProgram.Pages.ReportSubPages
 {
@@ -23,6 +24,13 @@ namespace MainProgram.Pages.ReportSubPages
         public DailyReportPage()
         {
             InitializeComponent();
+        }
+
+        private void GetReport(object sender, SelectionChangedEventArgs e)
+        {
+            Calendar calendar = sender as Calendar;
+            DateTime date = calendar.SelectedDate??DateTime.MinValue;
+            this.ListView.ItemsSource = ReportDAO.Instance.GetDailyReport(date).DefaultView;
         }
     }
 }
