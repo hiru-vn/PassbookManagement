@@ -46,7 +46,7 @@ namespace DAO
         {
             //kiem tra xem trong bang tai khoan co cai nao co Type = idType ma van con tien trong tai khoan hay khong?
             bool value = false;
-            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.passb+ook where passbook_type=" + idType + "and passbook_balance >0");
+            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.passb+ook where passbook_type= " + idType + " and passbook_balance >0");
             if (result != 0)
                 value = true;
             return value;

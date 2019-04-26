@@ -59,6 +59,7 @@
     <Compile Include="DataProvider.cs" />
     <Compile Include="PassbookDAO.cs" />
     <Compile Include="ReportDAO.cs" />
+    <Compile Include="TransactionDAO.cs" />
     <Compile Include="TypePassbookDAO.cs" />
     <Compile Include="WithdrawBillDAO.cs" />
   </ItemGroup>

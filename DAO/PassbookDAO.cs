@@ -43,5 +43,21 @@ namespace DAO
             //trả về bảng gồm 1 hàng STT, IDPassbook, CustomerName, PassbookType, Balance, DateOpenPassbook, WithDrawDate (WithDrawDate là ngày mở + thời hạn rút, nếu không có thời hạn thì ghi là --)
             return null;
         }
+        public long GetBalanceMoneyByCollectBillID(string BillID)
+        {
+            return 0;
+        }
+        public string GetPassbookTypeNameByCollectBillID(string BillID)
+        {
+            return "";
+        }
+        public long GetBalanceMoneyByWithdrawBillID(string BillID)
+        {
+            return 0;
+        }
+        public string GetPassbookTypeNameByWithdrawBillID(string BillID)
+        {
+            return "";
+        }
     }
 }

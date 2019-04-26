@@ -42,7 +42,7 @@ namespace DAO
                 Customer cus = new Customer(data.Rows[0]);
                 return cus.Cus_name;
             }
-            return "Khong co ID khach hang";
+            return "";
         }
         public string GetCustomerCardNumber(int IDCustomer)
         {
@@ -93,6 +93,13 @@ namespace DAO
             //trả về thông bảng gồm nhiều hàng có các cột được đặt tên STT, CusID, CusName, CusCMND, CusAddress, FinalTransactionDay. (FinalTransactionDay là ngày thực hiện giao dịch cuối cùng của khách hàng)
             return null;
         }
-
+        public string GetCustomerNameByCollectBillID(string collectBillID)
+        {
+            return "";
+        }
+        public string GetCustomerNameByWithdrawBillID(string WithdrawID)
+        {
+            return "";
+        }
     }
 }

@@ -34,5 +34,19 @@ namespace DAO
             WithdrawBill bill = new WithdrawBill(row);
             return bill;
         }
+        public List<WithdrawBill> GetListBill(string cusname, DateTime? date)
+        {
+            if (date == null)
+            {
+                //get list by cusname
+                //truy van gan dung voi %cusname%
+            }
+            else
+            {
+                //get list by cus name and transaction date
+                //truy van gan dung voi %cusname%
+            }
+            return null;
+        }
     }
 }

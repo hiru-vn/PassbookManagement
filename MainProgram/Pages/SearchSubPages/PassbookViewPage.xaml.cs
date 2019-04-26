@@ -70,6 +70,11 @@ namespace MainProgram.Pages.SearchSubPages
         }
         private void Textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
         {
+            
+        }
+
+        private void Button_LoadList_Click(object sender, RoutedEventArgs e)
+        {
             if (isSearchByName)
                 this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByCusName(this.Textbox_Search.Text.Trim()).DefaultView;
             else
