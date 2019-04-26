@@ -80,17 +80,17 @@
                 </Grid>
             </StackPanel>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
-                <DatePicker BorderBrush="#FF31577E"
+                <DatePicker x:Name="DatePicker"
+                            BorderBrush="#FF31577E"
                             Margin="15 -10 20 0"
                             Foreground="#FF31577E"
                             Width="auto"
-                            x:Name="DatePicker_Search"
                             materialDesign:HintAssist.Hint="Ngày giao dịch" 
                             materialDesign:HintAssist.IsFloating="True" 
                             materialDesign:HintAssist.FloatingScale="0.6" 
                             HorizontalAlignment="Center" 
                             VerticalAlignment="Center"></DatePicker>
-                <Button VerticalAlignment="Center" Width="60" Height="30">
+                <Button VerticalAlignment="Center" Width="60" Height="30" Click="Button_LoadList_Click">
                     <TextBlock>Xem</TextBlock>
                 </Button>
             </StackPanel>
@@ -102,7 +102,7 @@
         </Grid>
         <Grid Grid.Row="1" Margin="20 0 20 0">
             <materialDesign:ColorZone Background="LightBlue">
-                <ListView
+                <ListView x:Name="ListView"
             HorizontalAlignment="Left"
             ScrollViewer.CanContentScroll="True"
             AllowDrop="True" BorderThickness="0"

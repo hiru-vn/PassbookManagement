@@ -20,11 +20,11 @@ namespace DAO
         private WithdrawBillDAO() { }
         public bool CheckIfExistBillID(string idBill)
         { 
-            bool check = false;
+      
             int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.withdrawbill where id=" + idBill);
             if (result != 0)
-                check = true;
-            return check;
+                return true;
+            return false;
 
         }
         public WithdrawBill GetBill(string id)
@@ -33,6 +33,20 @@ namespace DAO
             DataRow row = DataProvider.Instance.ExcuteQuery(query).Rows[0];
             WithdrawBill bill = new WithdrawBill(row);
             return bill;
+        }
+        public List<WithdrawBill> GetListBill(string cusname, DateTime? date)
+        {
+            if (date == null)
+            {
+                //get list by cusname
+                //truy van gan dung voi %cusname%
+            }
+            else
+            {
+                //get list by cus name and transaction date
+                //truy van gan dung voi %cusname%
+            }
+            return null;
         }
     }
 }

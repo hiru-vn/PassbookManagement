@@ -17,7 +17,8 @@ id int identity(1,1) primary key,
 passbook_balance money not null,
 passbook_type int not null,
 passbook_customer int not null,
-opendate datetime default getdate()
+opendate datetime default getdate(),
+withdrawday datetime default getdate(),
 )
 
 create table typepassbook
@@ -42,7 +43,7 @@ create table withdrawbill
 (
 id nvarchar(20) primary key,
 withdraw_passbook int not null,
-wihtdrawmoney money not null	,
+withdrawmoney money not null	,
 withdrawdate datetime default getdate()
 )
 alter table passbook add constraint fk_customer_id foreign key(passbook_customer) references customer(id)
@@ -121,29 +122,55 @@ update withdrawbill set id=@id where @iID=withdrawbill.id
 end
 go
 create trigger insert_typename on typepassbook
-for insert
+for insert,update
 as
 begin
 declare @term int
 declare @id int
 select @id=id from inserted
 select @term= term from inserted
-if(@term > 0)
+declare @name nvarchar(200)
+set @name='Kì hạn'+cast(@term as nvarchar(196))+'tháng'
+if(exists(select typename from typepassbook where @name=typename))
 begin
-update typepassbook set typename='Kì hạn'+cast(@term as nvarchar(196))+'tháng' where typepassbook.id=@id;
+print'Trung ten loai tiet kiem'
+rollback tran
 end
-end
-go
-create trigger insert_kind on typepassbook
-for insert
-as
-begin
-declare @term int
-declare @id int
-select @id=id from inserted
-select @term= term from inserted
 if(@term > 0)
 begin
 update typepassbook set kind ='Có kì hạn' where typepassbook.id=@id;
+update typepassbook set typename=@name where typepassbook.id=@id;
 end
 end
+
+go
+create trigger insert_withdrawday on passbook
+for insert
+as
+begin
+declare @withdrawterm int
+select @withdrawterm=withdrawterm from typepassbook, inserted where(select passbook_type from inserted)=typepassbook.id
+update passbook set withdrawday=dateadd(day,@withdrawterm,opendate) where id=(select id from inserted)
+end
+go
+create function find_date
+( @id int)
+returns datetime
+as
+ begin
+ declare @ngay datetime
+select @ngay=(select top(1) ngay  from 
+(select withdraw_passbook as di, withdrawdate as ngay from withdrawbill where withdraw_passbook in(select passbook.id from passbook, customer where passbook.passbook_customer= customer.id and customer.id=@id)
+union
+select collect_passbook, collectdate  from collectbill where collect_passbook in(select passbook.id from passbook, customer where passbook.passbook_customer= customer.id and customer.id =@id)
+union
+select id,opendate from passbook where id in(select passbook.id from passbook, customer where passbook.passbook_customer= customer.id and customer.id=@id)) as d, customer, passbook
+where di=passbook.id and passbook_customer=customer.id 
+order by ngay desc)
+return @ngay
+end
+go
+
+
+
+

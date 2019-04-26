@@ -42,7 +42,7 @@ namespace DAO
                 Customer cus = new Customer(data.Rows[0]);
                 return cus.Cus_name;
             }
-            return "Khong co ID khach hang";
+            return "";
         }
         public string GetCustomerCardNumber(int IDCustomer)
         {
@@ -64,7 +64,7 @@ namespace DAO
         public bool CheckCustomerHasAccountType(int customerID , string TypePassbook)
         {
             bool check = false;
-            string query = "select count(*) from passbook,typepassbook where passbook.passbook_customer=" + customerID + "and passbook.passbook_type=typepassbook.id and typename=" + TypePassbook;
+            string query = "select count(*) from dbo.passbook, dbo.typepassbook where passbook.passbook_customer=" + customerID + "and passbook.passbook_type=typepassbook.id and typename=" + TypePassbook;
             int result = (int)DataProvider.Instance.ExcuteScarar(query);
             if (result != 0)
                 check = true;
@@ -85,14 +85,25 @@ namespace DAO
         {
             //tìm kiếm gần đúng %CusName%
             //trả về thông bảng gồm nhiều hàng có các cột được đặt tên STT, CusID, CusName, CusCMND, CusAddress, FinalTransactionDay. (FinalTransactionDay là ngày thực hiện giao dịch cuối cùng của khách hàng)
-            return null;
+            string query = "select row_number()over(order by id) ,id ,cus_name ,cmnd ,cus_address ,dbo.find_date(id) from dbo.customer where cus_name like'%" + CusName + "%'";
+            DataTable data = DataProvider.Instance.ExcuteQuery(query);
+            return data;
         }
         public DataTable GetCusInfoByCardID(string CusCardID)
         {
             //tìm kiếm chính xác %cardid%
             //trả về thông bảng gồm nhiều hàng có các cột được đặt tên STT, CusID, CusName, CusCMND, CusAddress, FinalTransactionDay. (FinalTransactionDay là ngày thực hiện giao dịch cuối cùng của khách hàng)
-            return null;
+            string query = "select row_number()over(order by id), id ,cus_name ,cmnd ,cus_address ,dbo.find_date(id) from dbo.customer where cmnd like'%" + CusCardID + "%'";
+            DataTable data = DataProvider.Instance.ExcuteQuery(query);
+            return data;
         }
-
+        public string GetCustomerNameByCollectBillID(string collectBillID)
+        {
+            return "";
+        }
+        public string GetCustomerNameByWithdrawBillID(string WithdrawID)
+        {
+            return "";
+        }
     }
 }

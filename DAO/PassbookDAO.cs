@@ -33,15 +33,50 @@ namespace DAO
         public DataTable GetPassInfoByCusName(string CusName)
         {
             //tìm kiếm gần đúng %CusName%
-            //trả về bảng gồm các hàng STT, IDPassbook, CustomerName, PassbookType, Balance, DateOpenPassbook, WithDrawDate (WithDrawDate là ngày mở + thời hạn rút, nếu không có thời hạn thì ghi là --)
-            // https://stackoverflow.com/questions/19268811/set-default-value-in-query-when-value-is-null
-            return null;
+            //trả về bảng gồm các hàng STT, IDPassbook, CustomerName, PassbookType, Balance, DateOpenPassbook, WithDrawDate (WithDrawDate là ngày mở + thời hạn rút, nếu không có thời hạn trả về null)
+            string query = "select ROW_NUMBER() over(order by passbook.id), passbook.id,cus_name,typename,passbook_balance,opendate,withdrawday from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and cus_name like '%" + CusName + "%'";
+            DataTable data = DataProvider.Instance.ExcuteQuery(query);
+            return data;    
         }
         public DataTable GetPassInfoByPassID(int PassbookID)
         {
             //tìm kiếm chính xác ID
             //trả về bảng gồm 1 hàng STT, IDPassbook, CustomerName, PassbookType, Balance, DateOpenPassbook, WithDrawDate (WithDrawDate là ngày mở + thời hạn rút, nếu không có thời hạn thì ghi là --)
-            return null;
+            string query = "select ROW_NUMBER() over(order by passbook.id), passbook.id,cus_name,typename,passbook_balance,opendate,withdrawday from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and passbook.id like '%" + PassbookID + "%'";
+            DataTable data = DataProvider.Instance.ExcuteQuery(query);
+            return data;
+        }
+        public long GetBalanceMoneyByCollectBillID(string BillID)
+        {
+            return 0;
+        }
+        public string GetPassbookTypeNameByCollectBillID(string BillID)
+        {
+            return "";
+        }
+        public long GetBalanceMoneyByWithdrawBillID(string BillID)
+        {
+            return 0;
+        }
+        public string GetPassbookTypeNameByWithdrawBillID(string BillID)
+        {
+            return "";
+        }
+        public long GetBalanceMoneyByCollectBillID(string BillID)
+        {
+            return 0;
+        }
+        public string GetPassbookTypeNameByCollectBillID(string BillID)
+        {
+            return "";
+        }
+        public long GetBalanceMoneyByWithdrawBillID(string BillID)
+        {
+            return 0;
+        }
+        public string GetPassbookTypeNameByWithdrawBillID(string BillID)
+        {
+            return "";
         }
     }
 }

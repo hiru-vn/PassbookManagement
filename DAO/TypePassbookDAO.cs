@@ -45,15 +45,15 @@ namespace DAO
         public bool CheckIfExistActivePassbookInType(int idType)
         {
             //kiem tra xem trong bang tai khoan co cai nao co Type = idType ma van con tien trong tai khoan hay khong?
-            bool value = false;
-            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.passb+ook where passbook_type=" + idType + "and passbook_balance >0");
+            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.passbook where passbook_type=" + idType + " and passbook_balance >0");
             if (result != 0)
-                value = true;
-            return value;
+                return true;
+            return false;
         }
         public void DeleteType(int idType)
         {
             //co the phai xoa account thuoc type truoc, sau do moi xoa type, dung trigger     
+          
         }
     }
 }

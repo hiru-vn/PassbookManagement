@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,20 +56,20 @@ namespace MainProgram.Pages.SearchSubPages
         }
         private void Textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //if (isSearchByName)
-            //    this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByCusName(this.Textbox_Search.Text.Trim()).DefaultView;
-            //else
-            //{
-            //    try
-            //    {
-            //        int id = int.Parse(this.Textbox_Search.Text.Trim());
-            //        this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByPassID(id).DefaultView;
-            //    }
-            //    catch
-            //    {
-            //        this.ListView.Items.Clear();
-            //    }
-            //}
+
+        }
+
+        private void Button_LoadList_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string cus_name = this.Textbox_Search.Text.Trim();
+                this.ListView.ItemsSource = TransactionDAO.Instance.GetListTransaction(cus_name, this.DatePicker.SelectedDate);
+            }
+            catch
+            {
+                this.ListView.Items.Clear();
+            }
         }
     }
 }
