@@ -105,5 +105,13 @@ namespace DAO
         {
             return "";
         }
+        public string GetCustomerNameByCollectBillID(string collectBillID)
+        {
+            return "";
+        }
+        public string GetCustomerNameByWithdrawBillID(string WithdrawID)
+        {
+            return "";
+        }
     }
 }
