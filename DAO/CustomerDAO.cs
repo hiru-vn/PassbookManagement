@@ -85,7 +85,7 @@ namespace DAO
         {
             //tìm kiếm gần đúng %CusName%
             //trả về thông bảng gồm nhiều hàng có các cột được đặt tên STT, CusID, CusName, CusCMND, CusAddress, FinalTransactionDay. (FinalTransactionDay là ngày thực hiện giao dịch cuối cùng của khách hàng)
-            string query = "select row_number()over(order by id) ,id ,cus_name ,cmnd ,cus_address ,dbo.find_date(id) from dbo.customer where cus_name like'%" + CusName + "%'";
+            string query = "select row_number()over(order by id) STT, id CusID, cus_name CusName, cmnd CusCMND, cus_address CusAddress, dbo.find_date(id) FinalTransactionDay from dbo.customer where cus_name like'%" + CusName + "%'";
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
             return data;
         }
@@ -93,25 +93,21 @@ namespace DAO
         {
             //tìm kiếm chính xác %cardid%
             //trả về thông bảng gồm nhiều hàng có các cột được đặt tên STT, CusID, CusName, CusCMND, CusAddress, FinalTransactionDay. (FinalTransactionDay là ngày thực hiện giao dịch cuối cùng của khách hàng)
-            string query = "select row_number()over(order by id), id ,cus_name ,cmnd ,cus_address ,dbo.find_date(id) from dbo.customer where cmnd like'%" + CusCardID + "%'";
+            string query = "select row_number()over(order by id) STT, id CusID, cus_name CusName, cmnd CusCMND, cus_address CusAddress, dbo.find_date(id) FinalTransactionDay from dbo.customer where cmnd like'%" + CusCardID + "%'";
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
             return data;
         }
         public string GetCustomerNameByCollectBillID(string collectBillID)
         {
-            return "";
+            string query = "select cus_name from dbo.customer,dbo.passbook, dbo.collectbill where collectbill.id='" + collectBillID + "' and customer.id=  passbook_customer and passbook.id= collect_passbook";
+            string result = (string)DataProvider.Instance.ExcuteScarar(query).ToString();
+            return result;
         }
         public string GetCustomerNameByWithdrawBillID(string WithdrawID)
         {
-            return "";
-        }
-        public string GetCustomerNameByCollectBillID(string collectBillID)
-        {
-            return "";
-        }
-        public string GetCustomerNameByWithdrawBillID(string WithdrawID)
-        {
-            return "";
+            string query = "select cus_name from dbo.customer,dbo.passbook, dbo.withdrawbill where withdrawbill.id='" + WithdrawID + "' and customer.id=  passbook_customer and passbook.id= withdraw_passbook";
+            string result = (string)DataProvider.Instance.ExcuteScarar(query).ToString();
+            return result;
         }
     }
 }

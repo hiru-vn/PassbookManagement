@@ -37,15 +37,33 @@ namespace DAO
         {
             if (date == null)
             {
-                //get list by cusname
                 //truy van gan dung voi %cusname%
+                List<CollectBill> list = new List<CollectBill>();
+                string query = "select * from dbo.collectbill where collect_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%')";
+                DataTable data = DataProvider.Instance.ExcuteQuery(query);
+                foreach (DataRow item in data.Rows)
+                {
+                    CollectBill result = new CollectBill(item);
+                    list.Add(result);
+                }
+                return list;
+                
             }
             else
             {
                 //get list by cus name and transaction date
                 //truy van gan dung voi %cusname%
+                List<CollectBill> list = new List<CollectBill>();
+                string query = "select * from dbo.collectbill where collect_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%') and day(collectdate)=day(" + date + ") and month(collectdate)=month(" + date + ") and year(collectdate)=year(" + date + ")";
+                DataTable data = DataProvider.Instance.ExcuteQuery(query);
+                foreach (DataRow item in data.Rows)
+                {
+                    CollectBill result = new CollectBill(item);
+                    list.Add(result);
+                }
+                return list;
+                
             }
-            return null;
-        }
+        }   
     }
 }

@@ -34,7 +34,7 @@ namespace DAO
         {
             //tìm kiếm gần đúng %CusName%
             //trả về bảng gồm các hàng STT, IDPassbook, CustomerName, PassbookType, Balance, DateOpenPassbook, WithDrawDate (WithDrawDate là ngày mở + thời hạn rút, nếu không có thời hạn trả về null)
-            string query = "select ROW_NUMBER() over(order by passbook.id), passbook.id,cus_name,typename,passbook_balance,opendate,withdrawday from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and cus_name like '%" + CusName + "%'";
+            string query = "select ROW_NUMBER() over(order by passbook.id) STT, passbook.id IDPassbook, cus_name CustomerName, typename PassbookType, passbook_balance Balance, opendate DateOpenPassbook, withdrawday WithDrawDate from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and cus_name like '%" + CusName + "%'";
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
             return data;    
         }
@@ -42,57 +42,35 @@ namespace DAO
         {
             //tìm kiếm chính xác ID
             //trả về bảng gồm 1 hàng STT, IDPassbook, CustomerName, PassbookType, Balance, DateOpenPassbook, WithDrawDate (WithDrawDate là ngày mở + thời hạn rút, nếu không có thời hạn thì ghi là --)
-            string query = "select ROW_NUMBER() over(order by passbook.id), passbook.id,cus_name,typename,passbook_balance,opendate,withdrawday from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and passbook.id like '%" + PassbookID + "%'";
+            string query = "select ROW_NUMBER() over(order by passbook.id) STT, passbook.id IDPassbook, cus_name CustomerName, typename PassbookType, passbook_balance Balance, opendate DateOpenPassbook, withdrawday WithDrawDate from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and passbook.id like '%" + PassbookID + "%'";
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
             return data;
         }
         public long GetBalanceMoneyByCollectBillID(string BillID)
         {
-            return 0;
+            string query = "select passbook_balance from dbo.passbook, dbo.collectbill where collect_passbook =passbook.id and collectbill.id='" + BillID + "'";
+            long result = (long)DataProvider.Instance.ExcuteScarar(query);
+            return result;
         }
         public string GetPassbookTypeNameByCollectBillID(string BillID)
         {
-            return "";
+
+
+            string query = "select typename from dbo.typepassbook, dbo.passbook, dbo.collectbill where collect_passbook= passbook.id and passbook.passbook_type = typepassbook.id and collectbill.id='" + BillID + "'";
+            string  result =(string)DataProvider.Instance.ExcuteScarar(query).ToString();
+            return result;
         }
         public long GetBalanceMoneyByWithdrawBillID(string BillID)
         {
-            return 0;
+            string query = "select passbook_balance from dbo.passbook, dbo.withdrawbill where withdraw_passbook =passbook.id and withdrawbill.id='" + BillID + "'";
+            long result = (long)DataProvider.Instance.ExcuteScarar(query);
+            return result;
         }
         public string GetPassbookTypeNameByWithdrawBillID(string BillID)
         {
-            return "";
-        }
-        public long GetBalanceMoneyByCollectBillID(string BillID)
-        {
-            return 0;
-        }
-        public string GetPassbookTypeNameByCollectBillID(string BillID)
-        {
-            return "";
-        }
-        public long GetBalanceMoneyByWithdrawBillID(string BillID)
-        {
-            return 0;
-        }
-        public string GetPassbookTypeNameByWithdrawBillID(string BillID)
-        {
-            return "";
-        }
-        public long GetBalanceMoneyByCollectBillID(string BillID)
-        {
-            return 0;
-        }
-        public string GetPassbookTypeNameByCollectBillID(string BillID)
-        {
-            return "";
-        }
-        public long GetBalanceMoneyByWithdrawBillID(string BillID)
-        {
-            return 0;
-        }
-        public string GetPassbookTypeNameByWithdrawBillID(string BillID)
-        {
-            return "";
+            string query = "select typename from dbo.typepassbook, dbo.passbook, dbo.withdrawbill where withdraw_passbook= passbook.id and passbook.passbook_type = typepassbook.id and withdrawbill.id='" + BillID + "'";
+            string result = (string)DataProvider.Instance.ExcuteScarar(query).ToString();
+            return result;
         }
     }
 }

@@ -40,13 +40,30 @@ namespace DAO
             {
                 //get list by cusname
                 //truy van gan dung voi %cusname%
+                List<WithdrawBill> list = new List<WithdrawBill>();
+                string query = "select * from dbo.withdrawbill where withdraw_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%')";
+                DataTable data = DataProvider.Instance.ExcuteQuery(query);
+                foreach (DataRow item in data.Rows)
+                {
+                    WithdrawBill result = new WithdrawBill(item);
+                    list.Add(result);
+                }
+                return list;
             }
             else
             {
                 //get list by cus name and transaction date
                 //truy van gan dung voi %cusname%
+                List<WithdrawBill> list = new List<WithdrawBill>();
+                string query = "select * from dbo.withdrawbill where withdraw_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%') and day(withdrawdate)=day(" + date + ") and month(withdrawdate)=month(" + date + ") and year(withdrawdate)=year(" + date + ")";
+                DataTable data = DataProvider.Instance.ExcuteQuery(query);
+                foreach (DataRow item in data.Rows)
+                {
+                    WithdrawBill result = new WithdrawBill(item);
+                    list.Add(result);
+                }
+                return list;
             }
-            return null;
         }
     }
 }
