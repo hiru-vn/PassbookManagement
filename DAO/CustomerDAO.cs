@@ -22,7 +22,11 @@ namespace DAO
         public int GetCurrentMaxCustomerID()
         {
             int value = 0;
-            value = (int)DataProvider.Instance.ExcuteScarar("select MAX(ID) from dbo.CUSTOMER");
+            try
+            {
+                value = (int)DataProvider.Instance.ExcuteScarar("select MAX(ID) from dbo.CUSTOMER");
+            }
+            catch { }
             return value;
         }
         public bool CheckExistID(int ID)
@@ -108,6 +112,10 @@ namespace DAO
             string query = "select cus_name from dbo.customer,dbo.passbook, dbo.withdrawbill where withdrawbill.id='" + WithdrawID + "' and customer.id=  passbook_customer and passbook.id= withdraw_passbook";
             string result = (string)DataProvider.Instance.ExcuteScarar(query).ToString();
             return result;
+        }
+        public void InsertCustomer(Customer cus)
+        {
+            //cmnd,name,address
         }
     }
 }

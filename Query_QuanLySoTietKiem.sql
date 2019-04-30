@@ -1,4 +1,5 @@
 ﻿drop database savingpassbook
+go
 create database savingpassbook
 go
 use savingpassbook

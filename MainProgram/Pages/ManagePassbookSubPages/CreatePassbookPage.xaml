@@ -112,7 +112,6 @@
                             <ComboBox Margin="10 0 0 0" 
                                   x:Name="Combobox_TypePassbook"
                               VerticalAlignment="Bottom">
-                                <ComboBoxItem IsSelected="True">không kì hạn</ComboBoxItem>
                             </ComboBox>
                         </DockPanel>
                         <DockPanel Margin="0 10 0 0">
@@ -125,6 +124,7 @@
                                 Width="150">
                             </DatePicker>
                             <TextBox materialDesign:HintAssist.Hint="Số tiền gởi" 
+                                     x:Name="TextBox_Money"
                                  PreviewTextInput="Numberic_TextBox"
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True">

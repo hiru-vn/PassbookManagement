@@ -79,7 +79,7 @@
             </Grid>
             <StackPanel Grid.Row="1" Orientation="Horizontal">
                 <RadioButton VerticalAlignment="Center" x:Name="RadioButton_searchID" Margin="10 0 10 0" Background="#FF5C99D6" BorderBrush="#FF5C99D6" Checked="Search_By_CMND">Tìm theo số CMND</RadioButton>
-                <RadioButton VerticalAlignment="Center" x:Name="RadioButton_searchName" Margin="0 0 10 0" Background="#FF5C99D6" BorderBrush="#FF5C99D6" Checked="Search_By_Name">Tìm theo tên khách hàng</RadioButton>
+                <RadioButton IsChecked="True" VerticalAlignment="Center" x:Name="RadioButton_searchName" Margin="0 0 10 0" Background="#FF5C99D6" BorderBrush="#FF5C99D6" Checked="Search_By_Name">Tìm theo tên khách hàng</RadioButton>
                 <Button VerticalAlignment="Center" Width="60" Height="30" Click="Button_LoadList_Click">
                     <TextBlock>Xem</TextBlock>
                 </Button>

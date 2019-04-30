@@ -35,6 +35,8 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             this.TextBox_PassbookID.Text = (PassbookDAO.Instance.GetMaxID() + 1).ToString();
             this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListTypeName();
             this.DatePicker_DateOpen.SelectedDate = DateTime.Now;
+            this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListType();
+            this.Combobox_TypePassbook.SelectedValuePath = "Typename";
         }
         // new customer/ old customer change => change form format
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -95,15 +97,32 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         private void Button_OpenPassbook(object sender, RoutedEventArgs e)
         {
             int IDcustomer = int.Parse(this.TextBox_CustomerID.Text);
+            Customer customer = new Customer();
+            customer.Cus_name = TextBox_Address.Text.Trim();
+            customer.Cus_name = TextBox_CustomerName.Text.Trim();
+            customer.Cmnd = TextBox_CardID.Text.Trim();
             if (this.RadioButton_NewCustomer.IsChecked == true)
-            {
-                //CustomerDAO.Instance.InsertCustomer();
+            {               
+                if (string.IsNullOrEmpty(customer.Cus_name) || string.IsNullOrEmpty(customer.Cmnd))
+                {
+                    MessageBoxCustom.setContent("Chưa điền đầy đủ thông tin khách hàng");
+                    return;
+                }
+                CustomerDAO.Instance.InsertCustomer(customer);
             }
             string AccountType = this.Combobox_TypePassbook.SelectedValue.ToString();
             bool Check = CustomerDAO.Instance.CheckCustomerHasAccountType(IDcustomer, AccountType);
             if (Check)
             {
-                //SavingAccountDAO.Instance.InsertAccount();
+                int? idType = (this.Combobox_TypePassbook.SelectedItem as TypePassbook).Id;
+                if (idType != null)
+                {
+                    Passbook pass = new Passbook();
+                    pass.Opendate = this.DatePicker_DateOpen.SelectedDate ?? DateTime.Now;
+                    pass.Passbooktype = idType??-1;
+                    pass.Passbook_balance = long.Parse(this.TextBox_Money.Text);
+                    PassbookDAO.Instance.InsertPassbook(pass);
+                }
             }
             else
             {
