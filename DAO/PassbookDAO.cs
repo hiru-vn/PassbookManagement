@@ -76,5 +76,10 @@ namespace DAO
         {
             //opendate,type,balance,customer
         }
+        public void SendMoney(string PassbookID, string AccountType, int Smoney)
+        {
+            //check passbook ID with AccountType;
+            //Money += Money +Smoney;
+        }
     }
 }

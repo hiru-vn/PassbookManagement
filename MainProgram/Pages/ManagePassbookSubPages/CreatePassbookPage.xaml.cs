@@ -98,7 +98,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         {
             int IDcustomer = int.Parse(this.TextBox_CustomerID.Text);
             Customer customer = new Customer();
-            customer.Cus_name = TextBox_Address.Text.Trim();
+            customer.Cus_address = TextBox_Address.Text.Trim();
             customer.Cus_name = TextBox_CustomerName.Text.Trim();
             customer.Cmnd = TextBox_CardID.Text.Trim();
             if (this.RadioButton_NewCustomer.IsChecked == true)
