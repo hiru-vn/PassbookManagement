@@ -65,5 +65,10 @@ namespace DAO
                 return list;
             }
         }
+        public void WithdrawMoney(string PassbookID, string AccountType, int Wmoney)
+        {
+            //check passbook ID with AccountType;
+            //Money += Money -Wmoney;
+        }
     }
 }

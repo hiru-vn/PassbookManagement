@@ -72,5 +72,14 @@ namespace DAO
             string result = (string)DataProvider.Instance.ExcuteScarar(query).ToString();
             return result;
         }
+        public void InsertPassbook(Passbook passbook)
+        {
+            //opendate,type,balance,customer
+        }
+        public void SendMoney(string PassbookID, string AccountType, int Smoney)
+        {
+            //check passbook ID with AccountType;
+            //Money += Money +Smoney;
+        }
     }
 }

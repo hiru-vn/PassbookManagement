@@ -55,5 +55,9 @@ namespace DAO
             //co the phai xoa account thuoc type truoc, sau do moi xoa type, dung trigger     
           
         }
+        public void InsertType(TypePassbook type)
+        {
+            //Min_passbookblance,Interest_rate,Term,TextBox_MinCollectDay
+        }
     }
 }
