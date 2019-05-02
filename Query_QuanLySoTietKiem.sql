@@ -144,6 +144,13 @@ end
 end
 
 go
+create trigger check_collectbill on collectbill
+for insert
+as
+begin
+
+end
+go
 create trigger insert_withdrawday on passbook
 for insert
 as
@@ -170,7 +177,43 @@ order by ngay desc)
 return @ngay
 end
 go
-
-
-
-
+create proc usp_ReportTypePassbookDay
+@day int,
+@month int,
+@year int
+as
+begin
+select ROW_NUMBER() over(order by typename) STT , typename TypePassbook, collect MoneyIncome , withdraw MoneyOutcome, abs(collect - withdraw) Difference 
+from(select typepassbook.id as idc,
+case when collectmoney1 is null then 0 else collectmoney1 end as collect,
+case when withdrawmoney1 is null then 0 else withdrawmoney1 end as 'withdraw' 
+from (select id1, collectmoney1, withdrawmoney1 
+from (select typepassbook.id as 'id1', sum(collectmoney) 'collectmoney1'
+from dbo.collectbill, dbo.typepassbook, dbo.passbook
+where day(collectdate)=@day and month(collectdate)=@month and year(collectdate)=@year and passbook.id= collect_passbook and passbook_type = typepassbook.id group by typepassbook.id) 
+as a full join
+(select typepassbook.id 'id2', sum(withdrawmoney) 'withdrawmoney1' 
+from dbo.withdrawbill, dbo.typepassbook, dbo.passbook 
+where day(withdrawdate)=@day and month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id= withdraw_passbook and passbook_type = typepassbook.id group by typepassbook.id) as b on(id1= id2)) c full join dbo.typepassbook on (typepassbook.id= id1)) as d, dbo.typepassbook where idc=typepassbook.id
+end
+go
+create proc usp_ReportTypePassbookMonth
+@month int,
+@year int,
+@typeid int
+as
+begin
+select ROW_NUMBER() over(order by typename) STT , typename TypePassbook , collect MoneyIncome , withdraw MoneyOutcome, abs(collect-withdraw) Difference 
+from (select typepassbook.id as idc,
+case when collectmoney1 is null then 0 else collectmoney1 end as collect,
+case when withdrawmoney1 is null then 0 else withdrawmoney1 end as withdraw 
+from (select id1, collectmoney1, withdrawmoney1 from (select typepassbook.id as 'id1',sum(collectmoney) 'collectmoney1' 
+from dbo.collectbill, dbo.typepassbook, dbo.passbook 
+where month(collectdate)=@month and year(collectdate)=@year and passbook.id=collect_passbook and passbook_type=typepassbook.id group by typepassbook.id) 
+as a full join 
+(select typepassbook.id 'id2',sum(withdrawmoney) 'withdrawmoney1' 
+from dbo.withdrawbill, dbo.typepassbook, dbo.passbook 
+where month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id=withdraw_passbook and passbook_type=typepassbook.id group by typepassbook.id) as b on (id1=id2)) c full join dbo.typepassbook on (typepassbook.id=id1)) as d, dbo.typepassbook 
+where idc=typepassbook.id and typepassbook.id=@typeid
+end
+go
