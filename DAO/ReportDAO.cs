@@ -24,7 +24,7 @@ namespace DAO
             int day = date.Day;
             int month = date.Month;
             int year = date.Year;
-            string query = "exec usp_ReportTypePassbookDay " + day + ", " + month + ", " + year;
+            string query = "usp_ReportTypePassbookDay " + day + ", " + month + ", " + year;
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
             return data;
         }
@@ -32,7 +32,7 @@ namespace DAO
         {
             //trả về bảng gồm các cột được đặt tên: STT, TypePassbook, MoneyIncome, MoneyOutcome, Difference
             // ý nghĩa: stt, loại tiết kiệm, tiền nộp vô trong ngày, tiền rút ra trong ngày, chênh lệch lượng tiền tính bằng số dương của tháng {0} năm {1} và có typeid là {2}
-            string query = "exec usp_ReportTypePassbookMonth " + month + ", " + year + ", " + typeid;
+            string query = "usp_ReportTypePassbookMonth " + month + ", " + year + ", " + typeid;
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
             return data;
         }
