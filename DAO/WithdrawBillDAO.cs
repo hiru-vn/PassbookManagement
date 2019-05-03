@@ -55,7 +55,11 @@ namespace DAO
                 //get list by cus name and transaction date
                 //truy van gan dung voi %cusname%
                 List<WithdrawBill> list = new List<WithdrawBill>();
-                string query = "select * from dbo.withdrawbill where withdraw_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%') and day(withdrawdate)=day(" + date + ") and month(withdrawdate)=month(" + date + ") and year(withdrawdate)=year(" + date + ")";
+                DateTime date1 = (DateTime)date;
+                int day = date1.Day;
+                int month = date1.Month;
+                int year = date1.Year;
+                string query = "select * from dbo.withdrawbill where withdraw_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%') and day(withdrawdate)=" + day + " and month(withdrawdate)=" + month + " and year(withdrawdate)=" + year;
                 DataTable data = DataProvider.Instance.ExcuteQuery(query);
                 foreach (DataRow item in data.Rows)
                 {
