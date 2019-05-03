@@ -86,6 +86,6 @@ namespace DAO
             //opendate,type,balance,customer
 
         }
-        
+
     }
 }

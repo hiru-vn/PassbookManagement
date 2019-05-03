@@ -64,5 +64,9 @@ namespace DAO
 
             //Min_passbookblance,Interest_rate,Term,Min_collectmoney
         }
+        public void UpdateType(int idtype, long minmoney, int minday, float rate)
+        {
+            //code
+        }
     }
 }
