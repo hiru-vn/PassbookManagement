@@ -74,15 +74,32 @@ create trigger trg_ckeckcollectmoney on collectbill
 for insert
 as
 begin
-declare @money money 
+declare @money money
+declare @date datetime
+declare @id int
+declare @collectday datetime
+select @id=collect_passbook from inserted
+select @date=collectdate from inserted
+select @collectday=withdrawday from passbook where id=@id 
+if(day(@date)=day(@collectday) and month(@date)=month(@collectday) and year(@date)=year(@collectday))
+begin
 select @money=(select collectmoney from inserted)
 if(@money<(select min_collectmoney from typepassbook,inserted,passbook where inserted.collect_passbook=passbook.id and passbook.passbook_type=typepassbook.id))
 begin
 print'Số tiền gởi thêm không hợp lệ'
 rollback tran
 end
-else 
+else
+begin
 print'Tạo phiếu gởi thành công'
+update passbook set passbook_balance=passbook_balance+ (select collectmoney from inserted) where id=@id
+end
+end
+else
+begin 
+print 'Chưa đến ngày đáo hạn sổ tiết kiệm'
+rollback tran
+end
 end
  
 go
@@ -148,13 +165,6 @@ update typepassbook set withdrawterm=15 where typepassbook.id=@id
 end
 
 go
-create trigger check_collectbill on collectbill
-for insert
-as
-begin
-
-end
-go
 create trigger insert_withdrawday on passbook
 for insert
 as
@@ -162,6 +172,15 @@ begin
 declare @withdrawterm int
 select @withdrawterm=withdrawterm from typepassbook, inserted where(select passbook_type from inserted)=typepassbook.id
 update passbook set withdrawday=dateadd(day,@withdrawterm,opendate) where id=(select id from inserted)
+end
+go
+create trigger insert_withdrawbill on withdrawbill
+for insert
+as
+begin
+declare @id int
+select @id=withdraw_passbook from inserted
+update passbook set passbook_balance=passbook_balance-(select withdrawmoney from inserted) where id=@id
 end
 go
 create function find_date
@@ -281,3 +300,106 @@ values(@interset_rate,
 @min_collectmoney)
 end
 go
+create proc usp_Insertcollectbill
+@id int,
+@passbook int,
+@money money,
+@day datetime
+as
+begin
+insert dbo.collectbill(id,collect_passbook,collectmoney,collectdate)
+values(@id,
+@passbook,
+@money,
+@day)
+end
+
+go
+create proc usp_Insertwithdrawbill
+@id int,
+@passbook int,
+@money money,
+@day datetime
+as
+insert dbo.withdrawbill(id,withdraw_passbook,withdrawmoney,withdrawdate)
+values
+(@id,
+@passbook,
+@money,
+@day)
+go
+-- DU LIEU GIA
+--typepassbook
+exec usp_InsertTypePassbook 0.5,3,1000000,100000
+exec usp_InsertTypePassbook 0.55,6,1000000,100000
+exec usp_InsertTypePassbook 0.15,0,1000000,100000
+-- customer
+exec usp_InsertCustomer 8123,'Trần Hiệp Nguyên Huy','Đồng Tháp'
+exec usp_InsertCustomer 1234,'Nguyễn Văn A','Đồng Tháp'
+exec usp_InsertCustomer 1235,'Nguyễn Văn B','Hồ Chí Minh'
+exec usp_InsertCustomer 1236,'Nguyễn Văn C','Vĩnh Long'
+exec usp_InsertCustomer 1237,'Nguyễn Văn D','Tây Ninh'
+exec usp_InsertCustomer 1238,'Nguyễn Văn E','Trà Vinh'
+exec usp_InsertCustomer 1239,'Nguyễn Văn F','Đồng Tháp'
+exec usp_InsertCustomer 1213,'Nguyễn Văn G','Vĩnh Long'
+exec usp_InsertCustomer 1223,'Nguyễn Văn H','Vĩnh Long'
+exec usp_InsertCustomer 1233,'Nguyễn Văn I','Đồng Tháp'
+exec usp_InsertCustomer 1243,'Nguyễn Văn K','Trà Vinh'
+exec usp_InsertCustomer 1253,'Nguyễn Văn L','Hồ Chí Minh'
+exec usp_InsertCustomer 1263,'Trần Văn A','Trà Vinh'
+exec usp_InsertCustomer 1273,'Trần Văn B','Đồng Tháp'
+exec usp_InsertCustomer 1283,'Trần Văn C','Trà Vinh'
+exec usp_InsertCustomer 1293,'Trần Văn D','Hồ Chí Minh'
+exec usp_InsertCustomer 1123,'Trần Văn E','Trà Vinh'
+exec usp_InsertCustomer 4223,'Trần Văn F','Trà Vinh'
+exec usp_InsertCustomer 1323,'Trần Văn G','Hồ Chí Minh'
+exec usp_InsertCustomer 1423,'Trần Văn H','Hồ Chí Minh'
+select * from customer
+-- passbook
+exec usp_InsertPassbook 1,2000000,1,'20190215'
+exec usp_InsertPassbook 2,1000000,2,'20170601'
+exec usp_InsertPassbook 3,3000000,3,'20190722'
+exec usp_InsertPassbook 1,6000000,4,'20180813'
+exec usp_InsertPassbook 2,8000000,5,'20180912'
+exec usp_InsertPassbook 3,10000000,6,'201910405'
+exec usp_InsertPassbook 1,2000000,7,'20191104'
+exec usp_InsertPassbook 2,2000000,8,'20191228'
+exec usp_InsertPassbook 3,5000000,9,'20190120'
+exec usp_InsertPassbook 1,2000000,10,'20180228'
+exec usp_InsertPassbook 2,1000000,11,'20190330'
+exec usp_InsertPassbook 3,1000000,12,'20180430'
+exec usp_InsertPassbook 1,1000000,13,'20170531'
+exec usp_InsertPassbook 2,2000000,14,'20180616'
+exec usp_InsertPassbook 3,9000000,15,'20180717'
+exec usp_InsertPassbook 1,6000000,16,'20170818'
+exec usp_InsertPassbook 2,4000000,17,'20180922'
+exec usp_InsertPassbook 3,8000000,17,'20191023'
+exec usp_InsertPassbook 1,7000000,19,'20190521'
+exec usp_InsertPassbook 1,2000000,20,'20170426'
+exec usp_InsertPassbook 3,2000000,20,'20170426'
+
+--collectbill.
+exec usp_Insertcollectbill 1,1,200000,'20190516'
+exec usp_Insertcollectbill 2,2,500000,'20171128'
+exec usp_Insertcollectbill 3,3,200000,'20190806'
+exec usp_Insertcollectbill 4,4,800000,'20181111'
+exec usp_Insertcollectbill 5,5,200000,'20190311'
+exec usp_Insertcollectbill 6,6,200000,'20200202'
+exec usp_Insertcollectbill 7,7,10000000,'20200625'
+exec usp_Insertcollectbill 8,8,2000000,'20190204'
+exec usp_Insertcollectbill 9,9,400000,'20180529'
+exec usp_Insertcollectbill 10,10,300000,'20190926'
+select * from collectbill
+select* from passbook
+--withdrawbill
+exec usp_Insertwithdrawbill 1,11,200000,'20180515'
+exec usp_Insertwithdrawbill 2,12,1000000,'20170829'
+exec usp_Insertwithdrawbill 3,13,2000000,'20181213'
+exec usp_Insertwithdrawbill 4,14,800000,'20180801'
+exec usp_Insertwithdrawbill 5,15,6000000,'20171116'
+exec usp_Insertwithdrawbill 6,16,4000000,'20190321'
+exec usp_Insertwithdrawbill 7,17,7000000,'20191107'
+exec usp_Insertwithdrawbill 8,18,7000000,'20190819'
+exec usp_Insertwithdrawbill 9,19,2000000,'20170725'
+exec usp_Insertwithdrawbill 10,20,100000,'20170511'
+select * from passbook
