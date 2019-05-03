@@ -67,6 +67,7 @@ namespace DAO
         }
         public void WithdrawMoney(string PassbookID, string AccountType, int Wmoney)
         {
+            //convert to int
             //check passbook ID with AccountType;
             //Money += Money -Wmoney;
         }

@@ -78,6 +78,7 @@ namespace DAO
         }
         public void SendMoney(string PassbookID, string AccountType, int Smoney)
         {
+            //convert to int
             //check passbook ID with AccountType;
             //Money += Money +Smoney;
         }
