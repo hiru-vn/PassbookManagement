@@ -74,12 +74,18 @@ namespace DAO
         }
         public void InsertPassbook(Passbook passbook)
         {
+            int type = passbook.Passbooktype;
+            long balance = passbook.Passbook_balance;
+            int cusid = passbook.Passbook_customer;
+            DateTime? opendate = passbook.Opendate;
+            if (opendate != null)
+                DataProvider.Instance.ExcuteNonQuery("usp_InsertPassbook @type , @balance , @cusid , @day", new object[] { type, balance, cusid, opendate });
+            else
+                DataProvider.Instance.ExcuteNonQuery("usp_InsertPassbook1 @type , @balance , @cusid", new object[] { type, balance, cusid });
+            
             //opendate,type,balance,customer
+
         }
-        public void SendMoney(string PassbookID, string AccountType, int Smoney)
-        {
-            //check passbook ID with AccountType;
-            //Money += Money +Smoney;
-        }
+        
     }
 }

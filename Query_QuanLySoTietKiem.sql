@@ -122,7 +122,7 @@ end
 update withdrawbill set id=@id where @iID=withdrawbill.id
 end
 go
-create trigger insert_typename on typepassbook
+create trigger insert_typetype on typepassbook
 for insert,update
 as
 begin
@@ -141,7 +141,10 @@ if(@term > 0)
 begin
 update typepassbook set kind ='Có kì hạn' where typepassbook.id=@id;
 update typepassbook set typename=@name where typepassbook.id=@id;
+update typepassbook set withdrawterm=@term*30 where typepassbook.id=@id
 end
+else
+update typepassbook set withdrawterm=15 where typepassbook.id=@id
 end
 
 go
@@ -216,5 +219,65 @@ as a full join
 from dbo.withdrawbill, dbo.typepassbook, dbo.passbook 
 where month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id=withdraw_passbook and passbook_type=typepassbook.id group by typepassbook.id) as b on (id1=id2)) c full join dbo.typepassbook on (typepassbook.id=id1)) as d, dbo.typepassbook 
 where idc=typepassbook.id and typepassbook.id=@typeid
+end
+go
+create proc usp_InsertPassbook
+@type int,
+@balance money,
+@cusid int,
+@day datetime
+as
+begin
+insert dbo.passbook
+(passbook_type,passbook_balance,passbook_customer,opendate)
+values
+(@type,
+@balance,
+@cusid,
+@day)
+end
+go
+create proc usp_InsertPassbook1
+@type int,
+@balance money,
+@cusid int
+as
+begin
+insert dbo.passbook
+(passbook_type,passbook_balance,passbook_customer)
+values
+(@type,
+@balance,
+@cusid)
+end
+go
+create proc usp_InsertCustomer 
+@cmnd char(9),
+@name nvarchar(200),
+@address nvarchar(200)
+as
+begin
+insert dbo.customer(cmnd,cus_name,cus_address)
+values( @cmnd,
+@name,
+@address)
+end
+go
+create proc usp_InsertTypePassbook
+@interset_rate float,
+@term int,
+@min_balance money,
+@min_collectmoney money
+as
+begin
+insert dbo.typepassbook(
+interest_rate,
+term,
+min_passbookbalance,
+min_collectmoney)
+values(@interset_rate,
+@term,
+@min_balance,
+@min_collectmoney)
 end
 go

@@ -115,7 +115,12 @@ namespace DAO
         }
         public void InsertCustomer(Customer cus)
         {
+            string cmnd = cus.Cmnd;
+            string name = cus.Cus_name;
+            string address = cus.Cus_address;
+            DataProvider.Instance.ExcuteNonQuery("usp_InsertCustomer @cmnd , @name , @address", new object[] { cmnd, name, address });
             //cmnd,name,address
+
         }
     }
 }

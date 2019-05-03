@@ -19,8 +19,8 @@ namespace DAO
         }
         private WithdrawBillDAO() { }
         public bool CheckIfExistBillID(string idBill)
-        { 
-      
+        {
+
             int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.withdrawbill where id=" + idBill);
             if (result != 0)
                 return true;
@@ -69,10 +69,6 @@ namespace DAO
                 return list;
             }
         }
-        public void WithdrawMoney(string PassbookID, string AccountType, int Wmoney)
-        {
-            //check passbook ID with AccountType;
-            //Money += Money -Wmoney;
-        }
+
     }
 }

@@ -52,12 +52,17 @@ namespace DAO
         }
         public void DeleteType(int idType)
         {
-            //co the phai xoa account thuoc type truoc, sau do moi xoa type, dung trigger     
-          
+            //co the phai xoa account thuoc type truoc, sau do moi xoa type, dung trigger    
         }
         public void InsertType(TypePassbook type)
         {
-            //Min_passbookblance,Interest_rate,Term,TextBox_MinCollectDay
+            float Interset_rate = type.Interest_rate;
+            int term = type.Term;
+            long min_passbookblance = type.Min_passbookblance;
+            int min_collectmoney = type.Min_collectmoney;
+            DataProvider.Instance.ExcuteNonQuery("usp_InsertTypePassbook @interset_rate , @term , @min_balance , @min_collectmoney", new object[] { Interset_rate, term, min_passbookblance, min_collectmoney });
+
+            //Min_passbookblance,Interest_rate,Term,Min_collectmoney
         }
     }
 }
