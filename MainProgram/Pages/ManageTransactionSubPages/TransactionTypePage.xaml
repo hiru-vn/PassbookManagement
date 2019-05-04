@@ -144,14 +144,14 @@
                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                 <TextBlock Margin="0 0 10 4" 
                                            VerticalAlignment="Bottom">Số tiền gửi tối thiểu:</TextBlock>
-                                <TextBox x:Name="TextBox_MinMoney" IsReadOnly="True"
+                                <TextBox x:Name="TextBox_MinMoney"
                                     materialDesign:HintAssist.Hint="Nhập số tiền"
                                     ></TextBox>
                                 <TextBlock VerticalAlignment="Bottom" Margin="10 0 0 4">VNĐ</TextBlock>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                 <TextBlock VerticalAlignment="Bottom" Margin="0 0 10 4">Có thể rút sau tối thiểu:</TextBlock>
-                                <TextBox materialDesign:HintAssist.Hint="Nhập ngày" IsReadOnly="True"
+                                <TextBox materialDesign:HintAssist.Hint="Nhập ngày" 
                                          x:Name="TextBox_MinCollectDay"
                                     ></TextBox>
                                 <TextBlock VerticalAlignment="Bottom" Margin="10 0 0 4">Ngày</TextBlock>
@@ -159,7 +159,7 @@
                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                 <TextBlock Margin="0 0 10 4" 
                                            VerticalAlignment="Bottom">Mức lãi suất:</TextBlock>
-                                <TextBox x:Name="TextBox_InterestRate" IsReadOnly="True"
+                                <TextBox x:Name="TextBox_InterestRate" 
                                     materialDesign:HintAssist.Hint="Nhập lãi suất"
                                     ></TextBox>
                                 <TextBlock VerticalAlignment="Bottom" Margin="10 0 0 4">%/tháng</TextBlock>
