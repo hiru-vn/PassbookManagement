@@ -59,7 +59,7 @@ namespace DAO
             float Interset_rate = type.Interest_rate;
             int term = type.Term;
             long min_passbookblance = type.Min_passbookblance;
-            int min_collectmoney = type.Min_collectmoney;
+            long min_collectmoney = type.Min_collectmoney;
             DataProvider.Instance.ExcuteNonQuery("usp_InsertTypePassbook @interset_rate , @term , @min_balance , @min_collectmoney", new object[] { Interset_rate, term, min_passbookblance, min_collectmoney });
 
             //Min_passbookblance,Interest_rate,Term,Min_collectmoney
