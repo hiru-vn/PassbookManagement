@@ -1,4 +1,6 @@
-﻿drop database savingpassbook
+﻿use master
+go
+drop database savingpassbook
 go
 create database savingpassbook
 go
@@ -25,26 +27,26 @@ withdrawday datetime default getdate(),
 create table typepassbook
 (
 id int identity(1,1) primary key,
-typename nvarchar(200) default 'Không kì hạn',
+typename nvarchar(200) default N'Không kì hạn',
 interest_rate float not null,
 term int default 0,
-kind nvarchar(200) default 'Không kì hạn',
+kind nvarchar(200) default N'Không kì hạn',
 withdrawterm int default 0,
-min_collectmoney money default 0,
-min_passbookbalance money default 0
+min_collectmoney bigint default 0,
+min_passbookbalance bigint default 0
 )
 create table collectbill
 (
 id nvarchar(20) primary key,
 collect_passbook int not null,
-collectmoney  money not null,
+collectmoney bigint not null,
 collectdate datetime default getdate(),
 )
 create table withdrawbill
 (
 id nvarchar(20) primary key,
 withdraw_passbook int not null,
-withdrawmoney money not null	,
+withdrawmoney bigint not null	,
 withdrawdate datetime default getdate()
 )
 alter table passbook add constraint fk_customer_id foreign key(passbook_customer) references customer(id)
@@ -148,7 +150,7 @@ declare @id int
 select @id=id from inserted
 select @term= term from inserted
 declare @name nvarchar(200)
-set @name='Kì hạn'+cast(@term as nvarchar(196))+'tháng'
+set @name=N'Kì hạn '+cast(@term as nvarchar(196))+N' tháng'
 if(exists(select typename from typepassbook where @name=typename))
 begin
 print'Trung ten loai tiet kiem'
@@ -156,7 +158,7 @@ rollback tran
 end
 if(@term > 0)
 begin
-update typepassbook set kind ='Có kì hạn' where typepassbook.id=@id;
+update typepassbook set kind = N'Có kì hạn' where typepassbook.id=@id;
 update typepassbook set typename=@name where typepassbook.id=@id;
 update typepassbook set withdrawterm=@term*30 where typepassbook.id=@id
 end
@@ -333,27 +335,28 @@ go
 exec usp_InsertTypePassbook 0.5,3,1000000,100000
 exec usp_InsertTypePassbook 0.55,6,1000000,100000
 exec usp_InsertTypePassbook 0.15,0,1000000,100000
+select * from dbo.typepassbook
 -- customer
-exec usp_InsertCustomer 8123,'Trần Hiệp Nguyên Huy','Đồng Tháp'
-exec usp_InsertCustomer 1234,'Nguyễn Văn A','Đồng Tháp'
-exec usp_InsertCustomer 1235,'Nguyễn Văn B','Hồ Chí Minh'
-exec usp_InsertCustomer 1236,'Nguyễn Văn C','Vĩnh Long'
-exec usp_InsertCustomer 1237,'Nguyễn Văn D','Tây Ninh'
-exec usp_InsertCustomer 1238,'Nguyễn Văn E','Trà Vinh'
-exec usp_InsertCustomer 1239,'Nguyễn Văn F','Đồng Tháp'
-exec usp_InsertCustomer 1213,'Nguyễn Văn G','Vĩnh Long'
-exec usp_InsertCustomer 1223,'Nguyễn Văn H','Vĩnh Long'
-exec usp_InsertCustomer 1233,'Nguyễn Văn I','Đồng Tháp'
-exec usp_InsertCustomer 1243,'Nguyễn Văn K','Trà Vinh'
-exec usp_InsertCustomer 1253,'Nguyễn Văn L','Hồ Chí Minh'
-exec usp_InsertCustomer 1263,'Trần Văn A','Trà Vinh'
-exec usp_InsertCustomer 1273,'Trần Văn B','Đồng Tháp'
-exec usp_InsertCustomer 1283,'Trần Văn C','Trà Vinh'
-exec usp_InsertCustomer 1293,'Trần Văn D','Hồ Chí Minh'
-exec usp_InsertCustomer 1123,'Trần Văn E','Trà Vinh'
-exec usp_InsertCustomer 4223,'Trần Văn F','Trà Vinh'
-exec usp_InsertCustomer 1323,'Trần Văn G','Hồ Chí Minh'
-exec usp_InsertCustomer 1423,'Trần Văn H','Hồ Chí Minh'
+exec usp_InsertCustomer 8123,N'Trần Hiệp Nguyên Huy',N'Đồng Tháp'
+exec usp_InsertCustomer 1234,N'Nguyễn Văn A',N'Đồng Tháp'
+exec usp_InsertCustomer 1235,N'Nguyễn Văn B',N'Hồ Chí Minh'
+exec usp_InsertCustomer 1236,N'Nguyễn Văn C',N'Vĩnh Long'
+exec usp_InsertCustomer 1237,N'Nguyễn Văn D',N'Tây Ninh'
+exec usp_InsertCustomer 1238,N'Nguyễn Văn E',N'Trà Vinh'
+exec usp_InsertCustomer 1239,N'Nguyễn Văn F',N'Đồng Tháp'
+exec usp_InsertCustomer 1213,N'Nguyễn Văn G',N'Vĩnh Long'
+exec usp_InsertCustomer 1223,N'Nguyễn Văn H',N'Vĩnh Long'
+exec usp_InsertCustomer 1233,N'Nguyễn Văn I',N'Đồng Tháp'
+exec usp_InsertCustomer 1243,N'Nguyễn Văn K',N'Trà Vinh'
+exec usp_InsertCustomer 1253,N'Nguyễn Văn L',N'Hồ Chí Minh'
+exec usp_InsertCustomer 1263,N'Trần Văn A',N'Trà Vinh'
+exec usp_InsertCustomer 1273,N'Trần Văn B',N'Đồng Tháp'
+exec usp_InsertCustomer 1283,N'Trần Văn C',N'Trà Vinh'
+exec usp_InsertCustomer 1293,N'Trần Văn D',N'Hồ Chí Minh'
+exec usp_InsertCustomer 1123,N'Trần Văn E',N'Trà Vinh'
+exec usp_InsertCustomer 4223,N'Trần Văn F',N'Trà Vinh'
+exec usp_InsertCustomer 1323,N'Trần Văn G',N'Hồ Chí Minh'
+exec usp_InsertCustomer 1423,N'Trần Văn H',N'Hồ Chí Minh'
 select * from customer
 -- passbook
 exec usp_InsertPassbook 1,2000000,1,'20190215'
@@ -377,7 +380,7 @@ exec usp_InsertPassbook 3,8000000,17,'20191023'
 exec usp_InsertPassbook 1,7000000,19,'20190521'
 exec usp_InsertPassbook 1,2000000,20,'20170426'
 exec usp_InsertPassbook 3,2000000,20,'20170426'
-
+select * from dbo.passbook
 --collectbill.
 exec usp_Insertcollectbill 1,1,200000,'20190516'
 exec usp_Insertcollectbill 2,2,500000,'20171128'

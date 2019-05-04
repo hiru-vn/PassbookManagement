@@ -71,11 +71,6 @@
             ScrollViewer.CanContentScroll="True"
             AllowDrop="True" BorderThickness="0"
             >
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="Background" Value="Aquamarine" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn
@@ -143,6 +138,7 @@
             <ComboBox materialDesign:HintAssist.IsFloating="True" 
                       x:Name="Combobox_type"
                       Margin="20 10 20 0"
+                      SelectionChanged="GetReport"
                           materialDesign:HintAssist.FloatingScale="0.8"
                           materialDesign:HintAssist.Hint="Loại tiết kiệm">
 
@@ -157,6 +153,7 @@
                       Margin="20 0 5 0" MaxDropDownHeight="100"
                           HorizontalContentAlignment="Center"
                           HorizontalAlignment="Stretch"
+                          SelectionChanged="GetReport"
                           materialDesign:HintAssist.FloatingScale="0.8"
                           materialDesign:HintAssist.Hint="Tháng">
                     
@@ -165,6 +162,7 @@
                     Grid.Column="1" materialDesign:HintAssist.IsFloating="True" 
                           MaxDropDownHeight="100"
                       Margin="5 0 20 0"
+                          SelectionChanged="GetReport"
                           HorizontalContentAlignment="Center"
                           HorizontalAlignment="Stretch"
                           materialDesign:HintAssist.FloatingScale="0.8"

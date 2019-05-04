@@ -59,11 +59,6 @@
             ScrollViewer.CanContentScroll="True"
             AllowDrop="True" BorderThickness="0"
             >
-                        <ListView.ItemContainerStyle>
-                            <Style TargetType="{x:Type ListViewItem}">
-                                <Setter Property="Background" Value="Aquamarine" />
-                            </Style>
-                        </ListView.ItemContainerStyle>
                         <ListView.View>
                             <GridView>
                                 <GridViewColumn

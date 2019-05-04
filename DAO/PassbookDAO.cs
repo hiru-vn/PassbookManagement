@@ -86,6 +86,10 @@ namespace DAO
             //opendate,type,balance,customer
 
         }
+        public void SendMoney(string s, string ss, int sss)
+        {
+            //do not code in here
+        }
 
     }
 }
