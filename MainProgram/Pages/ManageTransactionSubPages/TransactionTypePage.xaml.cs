@@ -37,20 +37,24 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             foreach (TypePassbook type in list)
             {
                 StackPanel stackPanel = new StackPanel();
+                stackPanel.VerticalAlignment = VerticalAlignment.Stretch;
+                stackPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
                 stackPanel.Orientation = Orientation.Horizontal;
                 PackIcon icon = new PackIcon();
                 icon.Kind = PackIconKind.Notebook;
                 icon.Margin = new Thickness(-5, 0, 5, 0);
+                icon.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF31577E"));
                 TextBlock textBlock = new TextBlock();
                 textBlock.Text = type.Typename;
                 stackPanel.Children.Add(icon);
                 stackPanel.Children.Add(textBlock);
-                TreeViewItem item = new TreeViewItem();
-                item.Header = stackPanel;
+                ListViewItem item = new ListViewItem();
+                item.Content = stackPanel;
                 item.Tag = type;
 
                 this.ListView_TransactionType.Items.Add(item);
             }
+            Look_Type_Mode();
         }
         void Look_Type_Mode()
         {
@@ -62,10 +66,13 @@ namespace MainProgram.Pages.ManageTransactionSubPages
 
         private void Add_Type_Mode(object sender, RoutedEventArgs e)
         {
+            SetReadOnly(false);
             this.Texblock_title.Text = "Thêm mới loại tiết kiệm";
             this.Button_Add.Visibility = Visibility.Visible;
             this.Button_Fix.Visibility = Visibility.Collapsed;
             this.Button_Save.Visibility = Visibility.Collapsed;
+            this.RadioButton_Noterm.IsChecked = true;
+            this.RadioButton_Yesterm.IsChecked = true;
         }
 
         private void Delete_type(object sender, RoutedEventArgs e)
@@ -74,7 +81,7 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             {
                 if (this.ListView_TransactionType.Items.Count > 0)
                 {
-                    TypePassbook typepassbook =(TypePassbook) (this.ListView_TransactionType.SelectedItem as TreeViewItem).Tag;
+                    TypePassbook typepassbook =(TypePassbook) (this.ListView_TransactionType.SelectedItem as ListViewItem).Tag;
                     if (!TypePassbookDAO.Instance.CheckIfExistActivePassbookInType(typepassbook.Id))
                     {
                         TypePassbookDAO.Instance.DeleteType(typepassbook.Id);
@@ -88,11 +95,25 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         {
             if (this.ListView_TransactionType.Items.Count > 0)
             {
-                TypePassbook typepassbook = (TypePassbook)(this.ListView_TransactionType.SelectedItem as TreeViewItem).Tag;
+                TypePassbook typepassbook = (TypePassbook)(this.ListView_TransactionType.SelectedItem as ListViewItem).Tag;
                 this.TextBox_MinMoney.Text = typepassbook.Min_passbookblance.ToString();
                 this.TextBox_MinCollectDay.Text = typepassbook.Min_collectmoney.ToString();
                 this.TextBox_InterestRate.Text = (typepassbook.Interest_rate*100).ToString();
                 this.TextBox_Term.Text = typepassbook.Term.ToString();
+                this.Button_Add.Visibility = Visibility.Collapsed;
+                this.Button_Save.Visibility = Visibility.Collapsed;
+                this.Button_Fix.Visibility = Visibility.Visible;
+                if (typepassbook.Term > 0)
+                {
+                    this.RadioButton_Yesterm.IsChecked = true;
+                    this.Stackpanel_term.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    this.RadioButton_Noterm.IsChecked = true;
+                    this.Stackpanel_term.Visibility = Visibility.Collapsed;
+                }
+                this.Texblock_title.Text = "Thông tin";
             }
         }
 
@@ -109,7 +130,9 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             }
             type.Min_collectmoney = int.Parse(this.TextBox_MinCollectDay.Text);
             TypePassbookDAO.Instance.InsertType(type);
+            SetReadOnly(true);
             Look_Type_Mode();
+            showTreeItem();
         }
 
         private void Change_Term_Type(object sender, RoutedEventArgs e)
@@ -128,18 +151,14 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         {
             this.Button_Save.Visibility = Visibility.Visible;
             this.Button_Fix.Visibility = Visibility.Collapsed;
-            this.TextBox_MinMoney.IsReadOnly = false;
-            this.TextBox_MinCollectDay.IsReadOnly = false;
-            this.TextBox_InterestRate.IsReadOnly = false;
+            SetReadOnly(false);
         }
 
         private void Save_Type(object sender, RoutedEventArgs e)
         {
             this.Button_Save.Visibility = Visibility.Collapsed;
             this.Button_Fix.Visibility = Visibility.Visible;
-            this.TextBox_MinMoney.IsReadOnly = true;
-            this.TextBox_MinCollectDay.IsReadOnly = true;
-            this.TextBox_InterestRate.IsReadOnly = true;
+            SetReadOnly(true);
 
             TypePassbook type;
             try { type = (this.ListView_TransactionType.SelectedItem as TreeViewItem).Tag as TypePassbook; } catch { type = new TypePassbook(); }
@@ -149,6 +168,23 @@ namespace MainProgram.Pages.ManageTransactionSubPages
                 int minday = int.Parse(this.TextBox_MinCollectDay.Text);
                 float interestRate = float.Parse(this.TextBox_InterestRate.Text)/100;
                 TypePassbookDAO.Instance.UpdateType(type.Id, minmoney, minday, interestRate);
+            }
+        }
+        void SetReadOnly(bool flag)
+        {
+            if (flag)
+            {
+                this.TextBox_Term.IsReadOnly = true;
+                this.TextBox_MinMoney.IsReadOnly = true;
+                this.TextBox_MinCollectDay.IsReadOnly = true;
+                this.TextBox_InterestRate.IsReadOnly = true;
+            }
+            else
+            {
+                this.TextBox_Term.IsReadOnly = false;
+                this.TextBox_MinMoney.IsReadOnly = false;
+                this.TextBox_MinCollectDay.IsReadOnly = false;
+                this.TextBox_InterestRate.IsReadOnly = false;
             }
         }
     }

@@ -394,11 +394,12 @@ values
 @money,
 @day)
 go
+
 -- DU LIEU GIA
 --typepassbook
-exec usp_InsertTypePassbook 0.5,3,1000000,100000
-exec usp_InsertTypePassbook 0.55,6,1000000,100000
-exec usp_InsertTypePassbook 0.15,0,1000000,100000
+exec usp_InsertTypePassbook 0.005,3,1000000,100000
+exec usp_InsertTypePassbook 0.0055,6,1000000,100000
+exec usp_InsertTypePassbook 0.0015,0,1000000,100000
 select * from dbo.typepassbook
 -- customer
 exec usp_InsertCustomer 8123,N'Trần Hiệp Nguyên Huy',N'Đồng Tháp'
@@ -457,7 +458,6 @@ exec usp_Insertcollectbill 8,9,2000000,'20190204'
 exec usp_Insertcollectbill 9,10,400000,'20180529'
 exec usp_Insertcollectbill 10,11,300000,'20190926'
 select * from collectbill
-select* from passbook
 --withdrawbill
 exec usp_Insertwithdrawbill 1,12,200000,'20180515'
 exec usp_Insertwithdrawbill 2,13,1000000,'20170829'
@@ -471,7 +471,4 @@ exec usp_Insertwithdrawbill 9,20,2000000,'20170725'
 select * from passbook
 select * from withdrawbill
 go
-
-
-
 
