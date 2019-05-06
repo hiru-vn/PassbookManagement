@@ -52,7 +52,8 @@ namespace DAO
         }
         public void DeleteType(int idType)
         {
-            //co the phai xoa account thuoc type truoc, sau do moi xoa type, dung trigger    
+            //co the phai xoa account thuoc type truoc, sau do moi xoa type, dung trigger 
+            DataProvider.Instance.ExcuteNonQuery("usp_DeleteTypePassbook @id", new object[] { idType} );
         }
         public void InsertType(TypePassbook type)
         {

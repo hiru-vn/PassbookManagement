@@ -56,7 +56,6 @@ alter table collectbill add constraint fk_passbook_id_1 foreign key (collect_pas
 alter table withdrawbill add constraint fk_passbook_id_2 foreign key (withdraw_passbook) references passbook(id)
 alter table passbook add constraint ckeck_status check (status in(0,1))
 go
-
 create trigger TG_Checkpassbookbalanace on passbook
 for insert
 as
@@ -160,7 +159,7 @@ select @count=(select count(*) from typepassbook where typename=@name)
 if(@count>0)
 begin
 print N'Trùng tên loại tiết kiệm'
-rollback tran
+rollback
 end
 if(@term > 0)
 begin
@@ -285,21 +284,6 @@ where month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id= w
 return @value1
 end
 go
-create proc usp_ReportTypePassbookDay
-@day int,
-@month int,
-@year int
-as
-begin
-select ROW_NUMBER() over(order by typename) STT , typename TypePassbook, collect MoneyIncome , withdraw MoneyOutcome, abs(collect - withdraw) Difference
-from (select id as idc,
-case when collect is null then 0 else collect end as collect,
-case when withdraw is null then 0 else withdraw end as withdraw
-from 
- (select id, dbo.reportC(id,@day,@month,@year) as collect , dbo.reportW(id,@day,@month,@year) as withdraw
- from typepassbook)as a) b,typepassbook where idc=typepassbook.id
-end
-go
 create proc usp_ReportTypePassbookMonth
 @month int,
 @year int,
@@ -346,6 +330,31 @@ values
 @balance,
 @cusid,
 @day)
+end
+go
+create proc usp_ReportTypePassbookDay
+@day int,
+@month int,
+@year int
+as
+begin
+select ROW_NUMBER() over(order by typename) STT , typename TypePassbook, collect MoneyIncome , withdraw MoneyOutcome, abs(collect - withdraw) Difference
+from (select id as idc,
+case when collect is null then 0 else collect end as collect,
+case when withdraw is null then 0 else withdraw end as withdraw
+from 
+ (select id, dbo.reportC(id,@day,@month,@year) as collect , dbo.reportW(id,@day,@month,@year) as withdraw
+ from typepassbook)as a) b,typepassbook where idc=typepassbook.id
+end
+go
+create proc usp_Update_cus 
+@id int,
+@name nvarchar(200),
+@address nvarchar(200),
+@cmnd char(9)
+as
+begin
+update customer set cus_name='''+  @name + ''', cus_address= ''' + @address + ''', cmnd=@cmnd where id=@id 
 end
 go
 create proc usp_InsertPassbook1
@@ -420,7 +429,28 @@ values
 @money,
 @day)
 go
+create proc usp_DeleteTypePassbook 
+@id int
+as
+begin
+declare @count int
+select @count=(select count(*) from passbook where passbook_type=@id and status=1)
+if(@count!=0)
+begin
+print N'Vẫn còn sổ sử dụng loại tiết kiệm này'
+rollback
+end
+else
+begin 
+print N'Xóa loại tiết kiệm thành công'
+delete withdrawbill where withdraw_passbook in (select id from passbook where passbook_type=@id)
+delete collectbill where collect_passbook in (select id from passbook where passbook_type=@id)
+delete passbook where passbook_type=@id
+delete typepassbook where id=@id
+end
+end
 
+go
 -- DU LIEU GIA
 --typepassbook
 exec usp_InsertTypePassbook 0.005,3,1000000,100000
