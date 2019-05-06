@@ -130,8 +130,8 @@
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock VerticalAlignment="Top">Loại tiết kiệm:</TextBlock>
                                 <StackPanel>
-                                    <RadioButton x:Name="RadioButton_Noterm" IsChecked="True" Background="#FF5C99D6" Margin="5 0 0 0" Click="Change_Term_Type">Không kì hạn</RadioButton>
-                                    <RadioButton x:Name="RadioButton_Yesterm" Background="#FF5C99D6" Margin="5 0 0 0" Click="Change_Term_Type">Có kì hạn</RadioButton>
+                                    <RadioButton x:Name="RadioButton_Noterm" IsHitTestVisible="False"  IsChecked="True" Background="#FF5C99D6" Margin="5 0 0 0" Click="Change_Term_Type">Không kì hạn</RadioButton>
+                                    <RadioButton x:Name="RadioButton_Yesterm" IsHitTestVisible="False"  Background="#FF5C99D6" Margin="5 0 0 0" Click="Change_Term_Type">Có kì hạn</RadioButton>
                                 </StackPanel>
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0" x:Name="Stackpanel_term">
@@ -144,15 +144,23 @@
                             <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
                                 <TextBlock Margin="0 0 10 4" 
                                            VerticalAlignment="Bottom">Số tiền gửi tối thiểu:</TextBlock>
-                                <TextBox x:Name="TextBox_MinMoney"
+                                <TextBox x:Name="TextBox_MinCollectMoney"
                                     materialDesign:HintAssist.Hint="Nhập số tiền"
                                     ></TextBox>
                                 <TextBlock VerticalAlignment="Bottom" Margin="10 0 0 4">VNĐ</TextBlock>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0">
+                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0" >
+                                <TextBlock Margin="0 0 10 4" 
+                                           VerticalAlignment="Bottom">Số tiền ban đầu tối thiểu:</TextBlock>
+                                <TextBox x:Name="TextBox_MinBalanceMoney"
+                                    materialDesign:HintAssist.Hint="Nhập số tiền"
+                                    ></TextBox>
+                                <TextBlock VerticalAlignment="Bottom" Margin="10 0 0 4">VNĐ</TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0 5 0 0" x:Name="Stackpanel_MinWithdrawday">
                                 <TextBlock VerticalAlignment="Bottom" Margin="0 0 10 4">Có thể rút sau tối thiểu:</TextBlock>
                                 <TextBox materialDesign:HintAssist.Hint="Nhập ngày" 
-                                         x:Name="TextBox_MinCollectDay"
+                                         x:Name="TextBox_MinWithdrawDay"
                                     ></TextBox>
                                 <TextBlock VerticalAlignment="Bottom" Margin="10 0 0 4">Ngày</TextBlock>
                             </StackPanel>

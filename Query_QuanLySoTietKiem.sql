@@ -30,7 +30,7 @@ create table typepassbook
 id int identity(1,1) primary key,
 typename nvarchar(200) default N'Không kì hạn',
 interest_rate float not null,
-term int default 0,
+term int default 0 unique,
 kind nvarchar(200) default N'Không kì hạn',
 withdrawterm int default 0,
 min_collectmoney bigint default 0,
@@ -143,7 +143,38 @@ update withdrawbill set id=@id where @iID=withdrawbill.id
 end
 go
 create trigger insert_typepasbook on typepassbook
-for insert,update
+for insert
+as
+begin
+declare @term int
+declare @id int
+select @id=id from inserted
+select @term= term from inserted
+declare @name nvarchar(200)
+if(@term > 0)
+	set @name=N'Kì hạn '+cast(@term as nvarchar(196))+N' tháng'
+else
+	set @name=N'Không kì hạn'
+declare @count int
+select @count=(select count(*) from typepassbook where typename=@name)
+if(@count>0)
+begin
+print N'Trùng tên loại tiết kiệm'
+rollback tran
+end
+if(@term > 0)
+begin
+update typepassbook set kind = N'Có kì hạn' where typepassbook.id=@id;
+update typepassbook set typename=@name where typepassbook.id=@id;
+update typepassbook set withdrawterm=@term*30 where typepassbook.id=@id
+end
+else
+update typepassbook set withdrawterm=15 where typepassbook.id=@id
+end
+
+go
+create trigger update_typepasbook on typepassbook
+for update
 as
 begin
 declare @term int
@@ -153,12 +184,7 @@ select @term= term from inserted
 declare @name nvarchar(200)
 set @name=N'Kì hạn '+cast(@term as nvarchar(196))+N' tháng'
 declare @count int
-select @count=(select count(*) from typepassbook where @name=typename)
-if(@count>0)
-begin
-print N'Trùng tên loại tiết kiệm'
-rollback tran
-end
+select @count=(select count(*) from typepassbook where typename=@name)
 if(@term > 0)
 begin
 update typepassbook set kind = N'Có kì hạn' where typepassbook.id=@id;
@@ -468,7 +494,5 @@ exec usp_Insertwithdrawbill 6,17,4000000,'20190321'
 exec usp_Insertwithdrawbill 7,18,7000000,'20191107'
 exec usp_Insertwithdrawbill 8,19,7000000,'20190819'
 exec usp_Insertwithdrawbill 9,20,2000000,'20170725'
-select * from passbook
 select * from withdrawbill
 go
-
