@@ -34,7 +34,7 @@ namespace DAO
         {
             //tìm kiếm gần đúng %CusName%
             //trả về bảng gồm các hàng STT, IDPassbook, CustomerName, PassbookType, Balance, DateOpenPassbook, WithDrawDate (WithDrawDate là ngày mở + thời hạn rút, nếu không có thời hạn trả về null)
-            string query = "select ROW_NUMBER() over(order by passbook.id) STT, passbook.id IDPassbook, cus_name CustomerName, typename PassbookType, passbook_balance Balance, opendate DateOpenPassbook, withdrawday WithDrawDate from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and cus_name like '%" + CusName + "%'";
+            string query = "select ROW_NUMBER() over(order by passbook.id) STT, passbook.id IDPassbook, cus_name CustomerName, typename PassbookType, passbook_balance Balance, opendate DateOpenPassbook, withdrawday WithDrawDate from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and status=1 and cus_name like '%" + CusName + "%'";
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
             return data;    
         }
@@ -42,7 +42,7 @@ namespace DAO
         {
             //tìm kiếm chính xác ID
             //trả về bảng gồm 1 hàng STT, IDPassbook, CustomerName, PassbookType, Balance, DateOpenPassbook, WithDrawDate (WithDrawDate là ngày mở + thời hạn rút, nếu không có thời hạn thì ghi là --)
-            string query = "select ROW_NUMBER() over(order by passbook.id) STT, passbook.id IDPassbook, cus_name CustomerName, typename PassbookType, passbook_balance Balance, opendate DateOpenPassbook, withdrawday WithDrawDate from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and passbook.id like '%" + PassbookID + "%'";
+            string query = "select ROW_NUMBER() over(order by passbook.id) STT, passbook.id IDPassbook, cus_name CustomerName, typename PassbookType, passbook_balance Balance, opendate DateOpenPassbook, withdrawday WithDrawDate from dbo.passbook, dbo.customer, dbo.typepassbook where passbook_customer = customer.id and passbook_type = typepassbook.id and status=1 and passbook.id like '%" + PassbookID + "%'";
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
             return data;
         }
@@ -74,12 +74,22 @@ namespace DAO
         }
         public void InsertPassbook(Passbook passbook)
         {
+            int type = passbook.Passbooktype;
+            long balance = passbook.Passbook_balance;
+            int cusid = passbook.Passbook_customer;
+            DateTime? opendate = passbook.Opendate;
+            if (opendate != null)
+                DataProvider.Instance.ExcuteNonQuery("usp_InsertPassbook @type , @balance , @cusid , @day", new object[] { type, balance, cusid, opendate });
+            else
+                DataProvider.Instance.ExcuteNonQuery("usp_InsertPassbook1 @type , @balance , @cusid", new object[] { type, balance, cusid });
+            
             //opendate,type,balance,customer
+
         }
-        public void SendMoney(string PassbookID, string AccountType, int Smoney)
+        public void SendMoney(string s, string ss, int sss)
         {
-            //check passbook ID with AccountType;
-            //Money += Money +Smoney;
+            //do not code in here
         }
+
     }
 }

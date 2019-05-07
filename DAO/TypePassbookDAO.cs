@@ -23,7 +23,7 @@ namespace DAO
             List<string> list = new List<string>();
             string query = "select * from dbo.typepassbook";
             DataTable data = DataProvider.Instance.ExcuteQuery(query);
-            foreach(DataRow item in data.Rows)
+            foreach (DataRow item in data.Rows)
             {
                 TypePassbook type = new TypePassbook(item);
                 list.Add(type.Typename);
@@ -52,12 +52,24 @@ namespace DAO
         }
         public void DeleteType(int idType)
         {
-            //co the phai xoa account thuoc type truoc, sau do moi xoa type, dung trigger     
-          
+            //co the phai xoa account thuoc type truoc, sau do moi xoa type, dung trigger 
+            DataProvider.Instance.ExcuteNonQuery("usp_DeleteTypePassbook @id", new object[] { idType} );
         }
         public void InsertType(TypePassbook type)
         {
-            //Min_passbookblance,Interest_rate,Term,TextBox_MinCollectDay
+            float Interset_rate = type.Interest_rate;
+            int term = type.Term;
+            long min_passbookblance = type.Min_passbookblance;
+            long min_collectmoney = type.Min_collectmoney;
+            string query1 = string.Format("usp_InsertTypePassbook {0}, {1}, {2}, {3} ", Interset_rate, term, min_passbookblance, min_collectmoney);
+            DataProvider.Instance.ExcuteNonQuery(query1);
+            string query = string.Format("update dbo.typepassbook set withdrawterm = {0} where interest_rate = {1} and term = {2} and min_balance = {3} and min_collectmoney = {4} ", type.Withdrawterm, Interset_rate, term, min_passbookblance, min_collectmoney);
+            if (type.Term == 0) DataProvider.Instance.ExcuteNonQuery(query);
+        }
+        public void UpdateType(int idtype, long minmoney, long minbalance, float rate, int mindaywithdraw)
+        {
+            string query = string.Format("update dbo.typepassbook set min_collectmoney = {0}, min_passbookbalance = {1}, interest_rate = {2}, withdrawterm = case when term = 0 then {3} else withdrawterm end where id = {4}", minmoney, minbalance, rate, mindaywithdraw,  idtype);
+            DataProvider.Instance.ExcuteNonQuery(query);
         }
     }
 }

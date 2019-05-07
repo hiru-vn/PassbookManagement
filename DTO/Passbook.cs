@@ -15,6 +15,7 @@ namespace DTO
         int _passbook_customer;
         long _passbook_balance;
         DateTime? opendate;
+        int status;
 
         public Passbook() { }
 
@@ -25,6 +26,7 @@ namespace DTO
             this.Passbook_balance = long.Parse(row["passbook_balance"].ToString());
             this.Passbook_customer = int.Parse(row["passbook_customer"].ToString());
             this.Opendate = (DateTime?)row["opendate"];
+            this.Status=int.Parse(row["status"].ToString());
 
 
         }
@@ -35,5 +37,6 @@ namespace DTO
         public long Passbook_balance { get => _passbook_balance; set => _passbook_balance = value; }
 
         public DateTime? Opendate { get => opendate; set => opendate = value; }
+        public int Status { get => status; set => status = value; }
     }
 }

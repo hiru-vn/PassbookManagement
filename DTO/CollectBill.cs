@@ -11,7 +11,7 @@ namespace DTO
     {
         string _id;
         int _collect_passbook;
-        int _collect_money;
+        long _collect_money;
         DateTime? _collectdate;
         public CollectBill() { }
 
@@ -19,13 +19,13 @@ namespace DTO
         {
             this.Id = row["id"].ToString();
             this.Collect_passbook = int.Parse(row["collect_passbook"].ToString());
-            this.Collect_money = int.Parse(row["collect_money"].ToString());
+            this.Collect_money = long.Parse(row["collect_money"].ToString());
             this.Collectdate = (DateTime?)row["collectdate"];
         }
 
         public string Id { get => _id; set => _id = value; }
         public int Collect_passbook { get => _collect_passbook; set => _collect_passbook = value; }
-        public int Collect_money { get => _collect_money; set => _collect_money = value; }
+        public long Collect_money { get => _collect_money; set => _collect_money = value; }
         public DateTime? Collectdate { get => _collectdate; set => _collectdate = value; }
     }
 }

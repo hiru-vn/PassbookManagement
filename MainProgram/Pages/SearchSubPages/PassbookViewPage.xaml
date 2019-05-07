@@ -97,7 +97,7 @@
                     x:Name="ListView"
             HorizontalAlignment="Left"
             ScrollViewer.CanContentScroll="True"
-            AllowDrop="True" BorderThickness="0"
+            AllowDrop="True"
             >
                     <ListView.View>
                         <GridView>

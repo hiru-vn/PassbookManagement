@@ -83,7 +83,11 @@ namespace DAO
         }
         public void UpdateCustomer(Customer cus)
         {
-            //code
+            int id = cus.Id;
+            string name = cus.Cus_name;
+            string address = cus.Cus_address;
+            string cmnd = cus.Cmnd;
+            DataProvider.Instance.ExcuteNonQuery("usp_Update_cus @id , @name , @address , @cmnd ", new object[] { id, name, address, cmnd });
         }
         public DataTable GetCusInfoByName(string CusName)
         {
@@ -115,7 +119,12 @@ namespace DAO
         }
         public void InsertCustomer(Customer cus)
         {
+            string cmnd = cus.Cmnd;
+            string name = cus.Cus_name;
+            string address = cus.Cus_address;
+            DataProvider.Instance.ExcuteNonQuery("usp_InsertCustomer @cmnd , @name , @address", new object[] { cmnd, name, address });
             //cmnd,name,address
+
         }
     }
 }

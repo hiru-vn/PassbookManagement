@@ -26,6 +26,7 @@ namespace MainProgram.Pages.ReportSubPages
         {
             InitializeComponent();
             SetMonthYear();
+            SetTypeBox();
         }
         void SetMonthYear()
         {
@@ -49,7 +50,7 @@ namespace MainProgram.Pages.ReportSubPages
         {
             List<TypePassbook> listtype = TypePassbookDAO.Instance.GetListType();
             this.Combobox_type.ItemsSource = listtype;
-            this.Combobox_type.SelectedValuePath = "_typename";
+            this.Combobox_type.DisplayMemberPath = "Typename";
             if (this.Combobox_type.Items.Count>0) this.Combobox_type.SelectedIndex = 0;
         }
         private void GetReport(object sender, SelectionChangedEventArgs e)

@@ -11,13 +11,13 @@ namespace DTO
     {
         string _id;
         int _withdraw_passbook;
-        int _withdrawmoney;
+        long _withdrawmoney;
         DateTime? withdrawdate;
         public WithdrawBill() { }
         public WithdrawBill(DataRow row)
         {
             this.Id = row["id"].ToString();
-            this.Withdrawmoney = int.Parse(row["withdrawmoney"].ToString());
+            this.Withdrawmoney = long.Parse(row["withdrawmoney"].ToString());
             this.Withdraw_passbook = int.Parse(row["withdrawpassbook"].ToString());
             this.Withdrawdate = (DateTime?)row["withdrawdate"];
 
@@ -25,7 +25,7 @@ namespace DTO
 
         public string Id { get => _id; set => _id = value; }
         public int Withdraw_passbook { get => _withdraw_passbook; set => _withdraw_passbook = value; }
-        public int Withdrawmoney { get => _withdrawmoney; set => _withdrawmoney = value; }
+        public long Withdrawmoney { get => _withdrawmoney; set => _withdrawmoney = value; }
         public DateTime? Withdrawdate { get => withdrawdate; set => withdrawdate = value; }
     }
 }
