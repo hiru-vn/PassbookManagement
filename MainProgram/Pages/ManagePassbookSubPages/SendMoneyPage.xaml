@@ -35,7 +35,8 @@
                        Margin="10" FontSize="20">
                 Phiếu gởi tiền tiết kiệm
             </TextBlock>
-            <materialDesign:ColorZone Background="LightBlue">
+            <Grid x:Name="Grid_BillInfo">
+                <materialDesign:ColorZone Background="LightBlue">
                 <StackPanel Margin="30">
                     <TextBlock Foreground="#FF31577E"
                                FontWeight="Light"
@@ -110,6 +111,7 @@
                     </DockPanel>
                 </StackPanel>
             </materialDesign:ColorZone>
+            </Grid>
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition></ColumnDefinition>

@@ -44,6 +44,7 @@
     <Compile Include="Passbook.cs" />
     <Compile Include="Transaction.cs" />
     <Compile Include="TypePassbook.cs" />
+    <Compile Include="User.cs" />
     <Compile Include="WithdrawBill.cs" />
   </ItemGroup>
   <ItemGroup>
