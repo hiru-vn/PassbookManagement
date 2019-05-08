@@ -50,7 +50,7 @@ namespace DAO
         }
         public string GetCustomerCardNumber(int IDCustomer)
         {
-            DataRow row = DataProvider.Instance.ExcuteQuery("select cmnd from dbo.customer where id=" + IDCustomer).Rows[0];
+            DataRow row = DataProvider.Instance.ExcuteQuery("select * from dbo.customer where id=" + IDCustomer).Rows[0];
             Customer result = new Customer(row);
             return result.Cmnd;
         }
@@ -65,14 +65,18 @@ namespace DAO
             }
             return "Khong co ID khach hang";
         }
-        public bool CheckCustomerHasAccountType(int customerID , string TypePassbook)
+        public bool CheckCustomerHasAccountType(int customerID , int? TypeID)
         {
-            bool check = false;
-            string query = "select count(*) from dbo.passbook, dbo.typepassbook where passbook.passbook_customer=" + customerID + "and passbook.passbook_type=typepassbook.id and typename=" + TypePassbook;
-            int result = (int)DataProvider.Instance.ExcuteScarar(query);
-            if (result != 0)
-                check = true;
-            return check;
+            if(TypeID!=null)
+            {
+                bool check = false;
+                string query = "select count(*) from dbo.passbook, dbo.typepassbook where passbook.passbook_customer= " + customerID + " and passbook.passbook_type=typepassbook.id and typepassbook.id=" + TypeID;
+                int result = (int)DataProvider.Instance.ExcuteScarar(query);
+                if (result != 0)
+                    check = true;
+                return check;
+            }
+            return false;
         }
         public Customer GetCustomer(int IDcustomer)
         {
@@ -124,7 +128,6 @@ namespace DAO
             string address = cus.Cus_address;
             DataProvider.Instance.ExcuteNonQuery("usp_InsertCustomer @cmnd , @name , @address", new object[] { cmnd, name, address });
             //cmnd,name,address
-
         }
     }
 }

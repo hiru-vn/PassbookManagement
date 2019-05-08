@@ -107,6 +107,7 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             this.Button_Save.Visibility = Visibility.Collapsed;
             this.RadioButton_Noterm.IsChecked = true;
             this.RadioButton_Yesterm.IsChecked = true;
+
         }
         private void Add_Type(object sender, RoutedEventArgs e)
         {
@@ -126,7 +127,7 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             try { TypePassbookDAO.Instance.InsertType(type); }
             catch { MessageBoxCustom.setContent("Trùng loại tiết kiệm").ShowDialog(); }
             SetReadOnly(true);
-            enableRadioButton(true);
+            enableRadioButton(false);
             this.TextBox_Term.IsReadOnly = true;
             showTreeItem();
         }
@@ -167,6 +168,10 @@ namespace MainProgram.Pages.ManageTransactionSubPages
                     {
                         TypePassbookDAO.Instance.DeleteType(typepassbook.Id);
                         showTreeItem();
+                    }
+                    else
+                    {
+                        MessageBoxCustom.setContent("Loại tiết kiệm này vẫn còn sổ mở").ShowDialog() ;
                     }
                 }
             }

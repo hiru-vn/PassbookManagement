@@ -18,11 +18,7 @@ namespace DAO
             private set { instance = value; }
         }
         private PassbookDAO() { }
-        public int GetMaxID()
-        {
-            int value=0;
-            return value;
-        }
+
         public Passbook GetAccount(int ID)
         {
             string query = string.Format("select * from dbo.savingaccount where id = {0}", ID);
@@ -79,12 +75,21 @@ namespace DAO
             int cusid = passbook.Passbook_customer;
             DateTime? opendate = passbook.Opendate;
             if (opendate != null)
-                DataProvider.Instance.ExcuteNonQuery("usp_InsertPassbook @type , @balance , @cusid , @day", new object[] { type, balance, cusid, opendate });
+            {
+                string query = string.Format("exec usp_InsertPassbook {0} , {1} , {2} , '{3}' ", type, balance, cusid, opendate.Value.ToString("yyyy/MM/dd"));
+                DataProvider.Instance.ExcuteNonQuery(query);
+            }
             else
                 DataProvider.Instance.ExcuteNonQuery("usp_InsertPassbook1 @type , @balance , @cusid", new object[] { type, balance, cusid });
             
             //opendate,type,balance,customer
 
+        }
+        public int GetMaxID()
+        {
+            int max = 0;
+            max = (int)DataProvider.Instance.ExcuteScarar("select max(id) from dbo.Passbook ");
+            return max;
         }
         public void SendMoney(string s, string ss, int sss)
         {

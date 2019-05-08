@@ -53,11 +53,11 @@ namespace MainProgram.Pages.ManageTransactionSubPages
 
                 if (CollectBillDAO.Instance.CheckIfExistBillID(idBill) == true)
                 {
-
+                    //update
                 }
                 else if (WithdrawBillDAO.Instance.CheckIfExistBillID(idBill) == true)
                 {
-
+                    //update
                 }
             }
             //cap nhat khach hang

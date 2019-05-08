@@ -36,7 +36,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListTypeName();
             this.DatePicker_DateOpen.SelectedDate = DateTime.Now;
             this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListType();
-            this.Combobox_TypePassbook.SelectedValuePath = "Typename";
+            this.Combobox_TypePassbook.DisplayMemberPath = "Typename";
         }
         // new customer/ old customer change => change form format
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
@@ -110,18 +110,20 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 }
                 CustomerDAO.Instance.InsertCustomer(customer);
             }
-            string AccountType = this.Combobox_TypePassbook.SelectedValue.ToString();
-            bool Check = CustomerDAO.Instance.CheckCustomerHasAccountType(IDcustomer, AccountType);
-            if (Check)
+            int? idType = (this.Combobox_TypePassbook.SelectedItem as TypePassbook).Id;
+            bool Check = CustomerDAO.Instance.CheckCustomerHasAccountType(IDcustomer, idType);
+            if (!Check) //cus dont have any active passbook of this kind
             {
-                int? idType = (this.Combobox_TypePassbook.SelectedItem as TypePassbook).Id;
                 if (idType != null)
                 {
                     Passbook pass = new Passbook();
+                    pass.Passbook_customer = IDcustomer;
                     pass.Opendate = this.DatePicker_DateOpen.SelectedDate ?? DateTime.Now;
                     pass.Passbooktype = idType??-1;
                     pass.Passbook_balance = long.Parse(this.TextBox_Money.Text);
                     PassbookDAO.Instance.InsertPassbook(pass);
+                    MessageBoxCustom.setContent("Thêm sổ thành công").ShowDialog();
+                    //clear
                 }
             }
             else
