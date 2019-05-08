@@ -284,19 +284,73 @@ where month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id= w
 return @value1
 end
 go
+create function reportTypeOpen
+(@id int,
+@day int,
+@month int, @year int)
+returns int
+as
+begin
+declare @value int
+select @value = (select count(*) from dbo.typepassbook as t,dbo.passbook as p where p.passbook_type = t.id and  t.id = @id and  month(p.opendate) = @month and year(p.opendate) = @year and day(p.opendate) = @day)
+return @value
+end
+go
+create function reportTypeClose
+(@id int,
+@day int,
+@month int, @year int)
+returns int
+as
+begin
+declare @value int
+select @value = (select count(*) from dbo.typepassbook as t,dbo.passbook as p where p.passbook_type = t.id and  t.id = @id and  month(p.withdrawday) = @month and year(p.withdrawday) = @year and day(p.withdrawday) = @day)
+return @value
+end
+go
+--drop TABLE dbo.Calendar
+CREATE TABLE dbo.Calendar (
+    calendar_date    DATETIME    NOT NULL,
+    CONSTRAINT PK_Calendar PRIMARY KEY CLUSTERED (calendar_date)
+)
+go
+DECLARE @dIncr DATE = '2000-01-01'
+DECLARE @dEnd DATE = '2100-01-01'
+
+WHILE ( @dIncr < @dEnd )
+BEGIN
+  INSERT INTO Calendar (calendar_date) VALUES( @dIncr )
+  SELECT @dIncr = DATEADD(DAY, 1, @dIncr )
+END
+--drop proc usp_ReportTypePassbookMonth
 create proc usp_ReportTypePassbookMonth
 @month int,
 @year int,
 @typeid int
 as
 begin
-select ROW_NUMBER() over(order by typename) STT , typename TypePassbook, collect MoneyIncome , withdraw MoneyOutcome, abs(collect - withdraw) Difference
-from (select id as idc,
-case when collect is null then 0 else collect end as collect,
-case when withdraw is null then 0 else withdraw end as withdraw
-from 
- (select id, dbo.reportCM(id,@month,@year) as collect , dbo.reportWM(id,@month,@year) as withdraw
- from typepassbook)as a) b,typepassbook where idc=typepassbook.id and typepassbook.id=@typeid
+declare @startday int
+declare @lastday int
+select @startday = 1
+select @lastday = day(DATEADD(month, ((@year - 1900) * 12) + 5, -1))
+declare @startdate datetime
+select @startdate = datefromparts(@year, @month, @startday)
+declare @lastdate datetime
+select @lastdate = datefromparts(@year, @month, @lastday)
+
+select ROW_NUMBER() over(order by calendar_date) STT , calendar_date Day ,
+dbo.reportTypeOpen(@typeid, day(calendar_date),month(calendar_date),year(calendar_date)) openP,
+dbo.reportTypeClose(@typeid, day(calendar_date),month(calendar_date),year(calendar_date)) closeP,
+abs(dbo.reportTypeOpen(@typeid, day(calendar_date),month(calendar_date),year(calendar_date)) - dbo.reportTypeClose(@typeid, day(calendar_date),month(calendar_date),year(calendar_date))) Difference
+from dbo.Calendar 
+where calendar_date between @startdate and @lastdate
+--left join openP PassOpen , closeP PassClose, abs(openP - closeP) Difference
+--from (select id as idc,
+--case when openP is null then 0 else openP end as openP,
+--case when closeP is null then 0 else closeP end as closeP
+--from 
+-- (select id, dbo.reportTypeOpen(id,@month,@year) as openP , dbo.reportTypeClose(id,@month,@year) as closeP
+-- from typepassbook)as a) b,typepassbook where idc=typepassbook.id and typepassbook.id=@typeid
 end
 go
 create function find_date
@@ -495,12 +549,16 @@ exec usp_InsertPassbook 3,1000000,12,'20180430'
 exec usp_InsertPassbook 1,1000000,13,'20170531'
 exec usp_InsertPassbook 2,2000000,14,'20180616'
 exec usp_InsertPassbook 3,9000000,15,'20180717'
+exec usp_InsertPassbook 1,9000000,17,'2018-07-17'
+exec usp_InsertPassbook 1 , 2132142142 , 13 , '2019-00-08' 
+exec usp_InsertPassbook 1 , 12321421421 , 13 , '2019-05-08' 
 exec usp_InsertPassbook 1,6000000,16,'20170818'
 exec usp_InsertPassbook 2,4000000,17,'20180922'
 exec usp_InsertPassbook 3,8000000,18,'20191023'
 exec usp_InsertPassbook 1,7000000,19,'20190521'
 exec usp_InsertPassbook 1,2000000,20,'20170426'
 select * from dbo.passbook
+select count(*) from dbo.passbook, dbo.typepassbook where passbook.passbook_customer= 13 and passbook.passbook_type=typepassbook.id and typepassbook.id=1
 --collectbill.
 exec usp_Insertcollectbill 1,1,200000,'20190516'
 exec usp_Insertcollectbill 2,2,500000,'20171128'
