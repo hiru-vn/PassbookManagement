@@ -36,7 +36,8 @@
             <ColumnDefinition Width="0.72*"></ColumnDefinition>
             <ColumnDefinition Width="0.28*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Margin="20 10 20 10">
+        <ScrollViewer>
+            <StackPanel Grid.Column="0" Margin="20 10 20 10">
             <materialDesign:ColorZone Background="LightBlue" MinHeight = "{Binding Path=ActualHeight, ElementName=Grid_Main, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE-190 }">
                 <StackPanel Margin="10 10 10 30">
                     <TextBlock Foreground="#FF31577E"
@@ -80,7 +81,7 @@
                         >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Number}"
+                                            <TextBlock Text="{Binding STT}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -92,7 +93,7 @@
                         >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Id}"
+                                            <TextBlock Text="{Binding Day, StringFormat=dd/MM/yyyy}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -103,7 +104,7 @@
                         >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Name}"
+                                            <TextBlock Text="{Binding openP}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -114,7 +115,7 @@
                      >
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding CustomerIDCard}"
+                                            <TextBlock Text="{Binding closeP}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -123,7 +124,7 @@
                      Header="Chênh lệch" Width="auto">
                                     <GridViewColumn.CellTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Address}"
+                                            <TextBlock Text="{Binding Difference}"
                                  TextWrapping="Wrap"/>
                                         </DataTemplate>
                                     </GridViewColumn.CellTemplate>
@@ -134,6 +135,8 @@
                 </StackPanel>
             </materialDesign:ColorZone>
         </StackPanel>
+        </ScrollViewer>
+
         <StackPanel Grid.Column="1" Margin="10 10 20 10">
             <ComboBox materialDesign:HintAssist.IsFloating="True" 
                       x:Name="Combobox_type"
