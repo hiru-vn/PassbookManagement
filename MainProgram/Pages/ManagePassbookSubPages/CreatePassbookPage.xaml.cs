@@ -44,7 +44,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             if (this.RadioButton_NewCustomer.IsChecked == false)
             {
                 this.TextBox_CustomerID.IsEnabled = true;
-                this.TextBox_CustomerID.Text = "";
+                    
             }
             else
             {
@@ -131,5 +131,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 MessageBoxCustom.setContent("Lỗi, khách hàng này đã có tài khoản thuộc loại " + this.Combobox_TypePassbook.SelectedValue.ToString() + " còn thời hạn.").ShowDialog();
             }
         }
+
+ 
     }
 }

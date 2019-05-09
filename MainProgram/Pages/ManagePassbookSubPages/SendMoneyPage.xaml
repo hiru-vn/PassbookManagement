@@ -46,7 +46,7 @@
                         <TextBox x:Name="Txt_CustomerID" materialDesign:HintAssist.Hint="Mã khách hàng" 
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             Width="auto"></TextBox>
+                             Width="auto" LostFocus="Txt_CustomerID_LostFocus"></TextBox>
                         <Button x:Name="Btn_Search" VerticalAlignment="Bottom" Padding="10 0 10 0" Margin="20 0 0 0" Width="85" Click="BtnSearch_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Magnify"></materialDesign:PackIcon>
@@ -64,8 +64,8 @@
                         <TextBox x:Name="Txt_CustomerName" DockPanel.Dock="Left"
                              materialDesign:HintAssist.Hint="Tên khách hàng" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             materialDesign:HintAssist.IsFloating="True"></TextBox>
-                    </DockPanel>
+                             materialDesign:HintAssist.IsFloating="True"/>
+                        </DockPanel>
                     <DockPanel Margin="0 10 0 0">
                         <TextBox x:Name="Txt_CustomerAddress" HorizontalAlignment="Stretch"  
                              materialDesign:HintAssist.IsFloating="True" 
@@ -81,18 +81,17 @@
                                Margin="0 20 0 0"
                                >Thông tin sổ tiết kiệm:</TextBlock>
                     <DockPanel Margin="0 10 0 0">
-                        <TextBox x:Name="Txt_PassbookID" DockPanel.Dock="Left"
-                             IsEnabled="False" 
+                        <TextBox x:Name="Txt_PassbookID" DockPanel.Dock="Left" 
                              HorizontalAlignment="Left" 
                              materialDesign:HintAssist.Hint="Mã sổ tiết kiệm" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             materialDesign:HintAssist.IsFloating="True"></TextBox>
-                        <TextBlock VerticalAlignment="Center" 
+                             materialDesign:HintAssist.IsFloating="True" IsEnabled="False"/>
+                            <TextBlock VerticalAlignment="Center" 
                                Margin="20 10 0 0" 
                                DockPanel.Dock="Left">
                         Loại tiết kiệm:</TextBlock>
                         <ComboBox x:Name="Cb_TypePassbook" Margin="10 0 0 0" 
-                              VerticalAlignment="Bottom">
+                              VerticalAlignment="Bottom" SelectionChanged="Cb_TypePassbook_SelectionChanged">
                             <ComboBoxItem IsSelected="True">không kì hạn</ComboBoxItem>
                         </ComboBox>
                     </DockPanel>
@@ -109,7 +108,8 @@
                              materialDesign:HintAssist.IsFloating="True" PreviewTextInput="Numberic_txtbox">
                         </TextBox>
                     </DockPanel>
-                </StackPanel>
+                        <TextBlock x:Name="TextBox_warning_1" Visibility="Collapsed" Margin="0 5 0 0" FontSize="11" HorizontalAlignment="Center" Foreground="PaleVioletRed">Mã khách hàng không đúng</TextBlock>
+                    </StackPanel>
             </materialDesign:ColorZone>
             </Grid>
             <Grid>

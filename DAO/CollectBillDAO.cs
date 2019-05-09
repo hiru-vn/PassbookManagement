@@ -39,7 +39,7 @@ namespace DAO
             {
                 //truy van gan dung voi %cusname%
                 List<CollectBill> list = new List<CollectBill>();
-                string query = "select * from dbo.collectbill where collect_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%')";
+                string query = "select * from dbo.collectbill where collect_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like N'%" + cusname + "%')";
                 DataTable data = DataProvider.Instance.ExcuteQuery(query);
                 foreach (DataRow item in data.Rows)
                 {
@@ -58,7 +58,7 @@ namespace DAO
                 int day = date1.Day;
                 int month = date1.Month;
                 int year = date1.Year;
-                string query = "select * from dbo.collectbill where collect_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%') and day(collectdate)=" + day + " and month(collectdate)=" + month+ " and year(collectdate)=" + year;
+                string query = "select * from dbo.collectbill where collect_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like N'%" + cusname + "%') and day(collectdate)=" + day + " and month(collectdate)=" + month+ " and year(collectdate)=" + year;
                 DataTable data = DataProvider.Instance.ExcuteQuery(query);
                 foreach (DataRow item in data.Rows)
                 {
@@ -68,6 +68,22 @@ namespace DAO
                 return list;
                 
             }
-        }   
+        }
+        void InsertCollectBill(CollectBill bill)
+        {
+            int passbook = bill.Collect_passbook;
+            long money = bill.Collect_money;
+            DateTime? date =bill.Collectdate;
+            int id = int.Parse(bill.Id.ToString());
+            if (date != null)
+            {
+                string query = string.Format("usp_Insertcollectbill {0} , {1}, {2} , {3}, {4}", id, passbook, money, date.Value.ToString("yyyy/MM/dd"));
+                DataProvider.Instance.ExcuteNonQuery(query);
+            }
+            else
+            {
+
+            }
+        }
     }
 }

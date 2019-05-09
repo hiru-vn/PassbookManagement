@@ -56,14 +56,76 @@ namespace MainProgram.Pages.ManagePassbookSubPages
 
         private void BtnSMoney_Click(object sender, RoutedEventArgs e)
         {
-            String PassbookID = this.Txt_PassbookID.Text;
-            string AccountType = this.Cb_TypePassbook.SelectedValue.ToString();
-            PassbookDAO.Instance.SendMoney(PassbookID, AccountType, int.Parse(this.Money.Text));
+            CollectBill bill = new CollectBill();
+            int idPasbook = int.Parse(Txt_PassbookID.Text);
+            long money = long.Parse(Money.Text);
+          
+
+
+        //    String PassbookID = this.Txt_PassbookID.Text;
+        //    string AccountType = this.Cb_TypePassbook.SelectedValue.ToString();
+        //    PassbookDAO.Instance.SendMoney(PassbookID, AccountType, int.Parse(this.Money.Text));
         }
 
         private void BtnPrint_Click(object sender, RoutedEventArgs e)
         {
             //CaptureUIElement.Instance.SaveFrameworkElementToPng(Grid_BillInfo, 200, 200, "MyImage.png");
+
         }
+
+        private void Txt_CustomerID_LostFocus(object sender, RoutedEventArgs e)
+        {
+            int customerID;
+            if (int.TryParse(this.Txt_CustomerID.Text, out customerID) == true)
+            {
+                customerID = int.Parse(this.Txt_CustomerID.Text);
+                bool exist_ID = CustomerDAO.Instance.CheckExistID(customerID);
+                if (exist_ID)
+                {
+
+                    this.TextBox_warning_1.Visibility = Visibility.Collapsed;
+                    this.Txt_CustomerName.Text = CustomerDAO.Instance.GetCustomerName(customerID);
+                    this.Txt_CustomerCard.Text = CustomerDAO.Instance.GetCustomerCardNumber(customerID);
+                    this.Txt_CustomerAddress.Text = CustomerDAO.Instance.GetCustomerAddress(customerID);
+                    this.Cb_TypePassbook.ItemsSource = null;
+                    this.Cb_TypePassbook.Items.Clear();
+                    this.Cb_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListTypeByCusID(customerID);
+                    this.Cb_TypePassbook.DisplayMemberPath = "Typename";
+
+                }
+                else
+                {
+                    this.TextBox_warning_1.Visibility = Visibility.Visible;
+                    MessageBox.Show("Mã khách hàng này không tồn tại!");
+                    this.Txt_CustomerID.Clear();
+                }
+            }
+
+        }
+
+        private void Cb_TypePassbook_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int customerID;
+            if (int.TryParse(this.Txt_CustomerID.Text, out customerID) == true)
+            {
+                if (this.Cb_TypePassbook.ItemsSource == null)
+                    return;
+                else
+                {
+                    ComboBox cb = sender as ComboBox;
+                    if (cb.SelectedItem != null)
+                    {
+                        customerID = int.Parse(this.Txt_CustomerID.Text);
+                        TypePassbook type = cb.SelectedItem as TypePassbook;
+                        string name = type.Typename;
+                        this.Txt_PassbookID.Clear();
+                        this.Txt_PassbookID.Text = PassbookDAO.Instance.GetPassbookIDbyCusIDandidType(customerID, name).ToString();
+                    }
+                }
+            }
+        }
+
     }
+
 }
+

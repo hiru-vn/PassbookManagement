@@ -17,7 +17,7 @@ namespace DTO
         public Customer() { }
         public Customer(DataRow row)
         {
-            this.Id = int.Parse(row["ID"].ToString());
+            this.Id = int.Parse(row["id"].ToString());
             this.Cus_name = row["cus_name"].ToString();
             this.Cus_address = row["cus_address"].ToString();
             this.Cmnd = row["cmnd"].ToString();
