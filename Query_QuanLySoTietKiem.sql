@@ -474,58 +474,6 @@
 	@money)
 	end
 go
-create function reportC
-(@id int,
-@day int,@month int, @year int)
-returns bigint
-as
-begin 
-declare @value bigint
-select @value =(select sum(collectmoney) 'collectmoney1'
-from dbo.collectbill, dbo.typepassbook, dbo.passbook
-where day(collectdate)=@day and month(collectdate)=@month and year(collectdate)=@year and passbook.id= collect_passbook and passbook_type = typepassbook.id group by typepassbook.id having typepassbook.id=@id) 
-return @value
-end
-go
-create function reportW
-(@id int,
-@day int,@month int, @year int)
-returns bigint
-as
-begin
-declare @value1 bigint
-select @value1 = (select sum(withdrawmoney)
-from dbo.withdrawbill, dbo.typepassbook, dbo.passbook 
-where day(withdrawdate)=@day and month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id= withdraw_passbook and passbook_type = typepassbook.id group by typepassbook.id having typepassbook.id=@id)
-return @value1
-end
-go
-create function reportCM
-(@id int,
-@month int, @year int)
-returns bigint
-as
-begin 
-declare @value bigint
-select @value =(select sum(collectmoney) 'collectmoney1'
-from dbo.collectbill, dbo.typepassbook, dbo.passbook
-where month(collectdate)=@month and year(collectdate)=@year and passbook.id= collect_passbook and passbook_type = typepassbook.id group by typepassbook.id having typepassbook.id=@id) 
-return @value
-end
-go
-create function reportWM
-(@id int,
-@month int, @year int)
-returns bigint
-as
-begin
-declare @value1 bigint
-select @value1 = (select sum(withdrawmoney)
-from dbo.withdrawbill, dbo.typepassbook, dbo.passbook 
-where month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id= withdraw_passbook and passbook_type = typepassbook.id group by typepassbook.id having typepassbook.id=@id)
-return @value1
-end
-go
 create function reportTypeOpen
 (@id int,
 @day int,
