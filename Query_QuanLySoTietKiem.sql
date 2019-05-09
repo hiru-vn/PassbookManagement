@@ -379,7 +379,7 @@
 	@cmnd char(9)
 	as
 	begin
-	update customer set cus_name='''+  @name + ''', cus_address= ''' + @address + ''', cmnd=@cmnd where id=@id 
+	update customer set cus_name='N''+  @name + ''', cus_address= 'N'' + @address + ''', cmnd=@cmnd where id=@id 
 	end
 	go
 	--Tạo Passbook có ngày tạo sổ 
@@ -460,7 +460,6 @@
 	@money,
 	@day)
 	end
-
 	go
 	--Tạo phiếu gởi không có ngày tạo phiếu
 	create proc usp_Insertcollectbill1
@@ -474,8 +473,128 @@
 	@passbook,
 	@money)
 	end
+go
+create function reportC
+(@id int,
+@day int,@month int, @year int)
+returns bigint
+as
+begin 
+declare @value bigint
+select @value =(select sum(collectmoney) 'collectmoney1'
+from dbo.collectbill, dbo.typepassbook, dbo.passbook
+where day(collectdate)=@day and month(collectdate)=@month and year(collectdate)=@year and passbook.id= collect_passbook and passbook_type = typepassbook.id group by typepassbook.id having typepassbook.id=@id) 
+return @value
+end
+go
+create function reportW
+(@id int,
+@day int,@month int, @year int)
+returns bigint
+as
+begin
+declare @value1 bigint
+select @value1 = (select sum(withdrawmoney)
+from dbo.withdrawbill, dbo.typepassbook, dbo.passbook 
+where day(withdrawdate)=@day and month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id= withdraw_passbook and passbook_type = typepassbook.id group by typepassbook.id having typepassbook.id=@id)
+return @value1
+end
+go
+create function reportCM
+(@id int,
+@month int, @year int)
+returns bigint
+as
+begin 
+declare @value bigint
+select @value =(select sum(collectmoney) 'collectmoney1'
+from dbo.collectbill, dbo.typepassbook, dbo.passbook
+where month(collectdate)=@month and year(collectdate)=@year and passbook.id= collect_passbook and passbook_type = typepassbook.id group by typepassbook.id having typepassbook.id=@id) 
+return @value
+end
+go
+create function reportWM
+(@id int,
+@month int, @year int)
+returns bigint
+as
+begin
+declare @value1 bigint
+select @value1 = (select sum(withdrawmoney)
+from dbo.withdrawbill, dbo.typepassbook, dbo.passbook 
+where month(withdrawdate)=@month and year(withdrawdate)=@year and passbook.id= withdraw_passbook and passbook_type = typepassbook.id group by typepassbook.id having typepassbook.id=@id)
+return @value1
+end
+go
+create function reportTypeOpen
+(@id int,
+@day int,
+@month int, @year int)
+returns int
+as
+begin
+declare @value int
+select @value = (select count(*) from dbo.typepassbook as t,dbo.passbook as p where p.passbook_type = t.id and  t.id = @id and  month(p.opendate) = @month and year(p.opendate) = @year and day(p.opendate) = @day)
+return @value
+end
+go
+create function reportTypeClose
+(@id int,
+@day int,
+@month int, @year int)
+returns int
+as
+begin
+declare @value int
+select @value = (select count(*) from dbo.typepassbook as t,dbo.passbook as p where p.passbook_type = t.id and  t.id = @id and  month(p.withdrawday) = @month and year(p.withdrawday) = @year and day(p.withdrawday) = @day)
+return @value
+end
+go
+--drop TABLE dbo.Calendar
+CREATE TABLE dbo.Calendar (
+    calendar_date    DATETIME    NOT NULL,
+    CONSTRAINT PK_Calendar PRIMARY KEY CLUSTERED (calendar_date)
+)
+go
+DECLARE @dIncr DATE = '2000-01-01'
+DECLARE @dEnd DATE = '2100-01-01'
 
-	go
+WHILE ( @dIncr < @dEnd )
+BEGIN
+  INSERT INTO Calendar (calendar_date) VALUES( @dIncr )
+  SELECT @dIncr = DATEADD(DAY, 1, @dIncr )
+END
+--drop proc usp_ReportTypePassbookMonth
+create proc usp_ReportTypePassbookMonth
+@month int,
+@year int,
+@typeid int
+as
+begin
+declare @startday int
+declare @lastday int
+select @startday = 1
+select @lastday = day(DATEADD(month, ((@year - 1900) * 12) + 5, -1))
+declare @startdate datetime
+select @startdate = datefromparts(@year, @month, @startday)
+declare @lastdate datetime
+select @lastdate = datefromparts(@year, @month, @lastday)
+
+select ROW_NUMBER() over(order by calendar_date) STT , calendar_date Day ,
+dbo.reportTypeOpen(@typeid, day(calendar_date),month(calendar_date),year(calendar_date)) openP,
+dbo.reportTypeClose(@typeid, day(calendar_date),month(calendar_date),year(calendar_date)) closeP,
+abs(dbo.reportTypeOpen(@typeid, day(calendar_date),month(calendar_date),year(calendar_date)) - dbo.reportTypeClose(@typeid, day(calendar_date),month(calendar_date),year(calendar_date))) Difference
+from dbo.Calendar 
+where calendar_date between @startdate and @lastdate
+--left join openP PassOpen , closeP PassClose, abs(openP - closeP) Difference
+--from (select id as idc,
+--case when openP is null then 0 else openP end as openP,
+--case when closeP is null then 0 else closeP end as closeP
+--from 
+-- (select id, dbo.reportTypeOpen(id,@month,@year) as openP , dbo.reportTypeClose(id,@month,@year) as closeP
+-- from typepassbook)as a) b,typepassbook where idc=typepassbook.id and typepassbook.id=@typeid
+end
+go
 	--Tạo phiếu rút có ngày rút
 	create proc usp_Insertwithdrawbill
 	@id int,
@@ -628,3 +747,40 @@
 	select * from customer
 	select * from collectbill
 go
+create proc usp_SearchTranByCustomerName 
+@cusname nvarchar
+as
+begin
+select ROW_NUMBER() over(order by cus_name) STT, cc.id as [idtran], cc.collectdate as [datetran], N'Gửi tiền' as typetran ,
+ c.cus_name as [cusname], t.typename  from dbo.customer as c,dbo.collectbill as cc,dbo.typepassbook as t,dbo.passbook as p 
+where
+c.id = p.passbook_customer and cc.collect_passbook = p.id and p.passbook_type = t.id and c.cus_name like '%'+@cusname+'%'
+UNION
+select ROW_NUMBER() over(order by cus_name) STT, cc.id as [idtran], cc.withdrawdate as [datetran], N'Rút tiền' as typetran ,
+ c.cus_name as [cusname], t.typename  from dbo.customer as c,dbo.withdrawbill as cc,dbo.typepassbook as t,dbo.passbook as p 
+where
+c.id = p.passbook_customer and cc.withdraw_passbook = p.id and p.passbook_type = t.id and c.cus_name like '%'+@cusname+'%'
+end
+
+go 
+create proc usp_SearchTranByCustomerNameAndDate
+@cusname nvarchar,
+@date datetime
+as
+begin
+select ROW_NUMBER() over(order by cus_name) STT, cc.id as [idtran], cc.collectdate as [datetran], N'Gửi tiền' as typetran ,
+ c.cus_name as [cusname], t.typename  from dbo.customer as c,dbo.collectbill as cc,dbo.typepassbook as t,dbo.passbook as p 
+where
+c.id = p.passbook_customer and cc.collect_passbook = p.id and p.passbook_type = t.id 
+and c.cus_name like '%'+@cusname+'%'
+and day(cc.collectdate) = day(@date) and month(cc.collectdate) = month(@date) and year(cc.collectdate) = year(@date)
+UNION
+select ROW_NUMBER() over(order by cus_name) STT, cc.id as [idtran], cc.withdrawdate as [datetran], N'Rút tiền' as typetran ,
+ c.cus_name as [cusname], t.typename  from dbo.customer as c,dbo.withdrawbill as cc,dbo.typepassbook as t,dbo.passbook as p 
+where
+c.id = p.passbook_customer and cc.withdraw_passbook = p.id and p.passbook_type = t.id
+and c.cus_name like '%'+@cusname+'%'
+and day(cc.withdrawdate) = day(@date) and month(cc.withdrawdate) = month(@date) and year(cc.withdrawdate) = year(@date)
+end
+
+

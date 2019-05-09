@@ -21,7 +21,7 @@ namespace DAO
         public bool CheckIfExistBillID(string idBill)
         {
 
-            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.withdrawbill where id=" + idBill);
+            int result = (int)DataProvider.Instance.ExcuteScarar("select count(*) from dbo.withdrawbill where id='" + idBill+"'");
             if (result != 0)
                 return true;
             return false;

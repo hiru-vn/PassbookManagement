@@ -41,10 +41,14 @@ namespace MainProgram.Pages.SearchSubPages
         {
             if (e.Key == Key.Enter)
             {
-                string content = this.Textbox_Search.Text;
-                if (!string.IsNullOrEmpty(content))
+                string name = this.Textbox_Search.Text.Trim();
+                if (this.DatePicker.SelectedDate == null)
                 {
-                    //search query
+                    this.ListView.ItemsSource = TransactionDAO.Instance.GetSearchTransactionByCustomerName(name).DefaultView;
+                }
+                else
+                {
+                    this.ListView.ItemsSource = TransactionDAO.Instance.GetSearchTransactionByCustomerNameAndDate(name,this.DatePicker.SelectedDate??DateTime.MinValue).DefaultView;
                 }
             }
         }
@@ -63,8 +67,17 @@ namespace MainProgram.Pages.SearchSubPages
         {
             try
             {
-                string cus_name = this.Textbox_Search.Text.Trim();
-                this.ListView.ItemsSource = TransactionDAO.Instance.GetListTransaction(cus_name, this.DatePicker.SelectedDate);
+                //string cus_name = this.Textbox_Search.Text.Trim();
+                //this.ListView.ItemsSource = TransactionDAO.Instance.GetListTransaction(cus_name, this.DatePicker.SelectedDate);
+                string name = this.Textbox_Search.Text.Trim();
+                if (this.DatePicker.SelectedDate == null)
+                {
+                    this.ListView.ItemsSource = TransactionDAO.Instance.GetSearchTransactionByCustomerName(name).DefaultView;
+                }
+                else
+                {
+                    this.ListView.ItemsSource = TransactionDAO.Instance.GetSearchTransactionByCustomerNameAndDate(name, this.DatePicker.SelectedDate ?? DateTime.MinValue).DefaultView;
+                }
             }
             catch
             {

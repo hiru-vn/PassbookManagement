@@ -71,7 +71,7 @@ namespace DAO
             string query = string.Format("update dbo.typepassbook set min_collectmoney = {0}, min_passbookbalance = {1}, interest_rate = {2}, withdrawterm = case when term = 0 then {3} else withdrawterm end where id = {4}", minmoney, minbalance, rate, mindaywithdraw,  idtype);
             DataProvider.Instance.ExcuteNonQuery(query);
         }
-       
+
         public List<TypePassbook> GetListTypeByCusID(int CusID)
         {
             List<TypePassbook> list = new List<TypePassbook>();
@@ -83,6 +83,13 @@ namespace DAO
                 list.Add(type);
             }
             return list;
+        }
+        public string GetTypeNameByID(int id)
+        {
+            string result = "";
+            string query = string.Format("select typename from dbo.typepassbook where id = " + id);
+            result = DataProvider.Instance.ExcuteScarar(query).ToString();
+            return result;
         }
     }
 }

@@ -1,0 +1,20 @@
+﻿MainProgram
+
+
+winexe
+C#
+.cs
+C:\Users\Nguyen Huy\Source\repos\PassbookManagement\MainProgram\obj\Debug\
+MainProgram
+none
+false
+DEBUG;TRACE
+C:\Users\Nguyen Huy\Source\repos\PassbookManagement\MainProgram\App.xaml
+20-1699757264
+
+31768925012
+20218831723
+CustomControls\MessageBoxCustom.xaml;CustomControls\SettingWindow.xaml;MainWindow.xaml;Pages\HelpPage.xaml;Pages\ManagePassbookSubPages\CreatePassbookPage.xaml;Pages\ManagePassbookSubPages\SendMoneyPage.xaml;Pages\ManagePassbookSubPages\WithdrawMoneyPage.xaml;Pages\ManageTransactionSubPages\ManageTransactionRecordsPage.xaml;Pages\ManageTransactionSubPages\TransactionTypePage.xaml;Pages\ReportSubPages\ChartPage.xaml;Pages\ReportSubPages\DailyReportPage.xaml;Pages\ReportSubPages\MonthlyReportPage.xaml;Pages\SearchSubPages\CustomerViewPage.xaml;Pages\SearchSubPages\PassbookViewPage.xaml;Pages\ManageTransactionPage.xaml;Pages\ManagePassbookPage.xaml;Pages\ReportPage.xaml;Pages\SearchPage.xaml;Pages\SearchSubPages\TransactionHistoryViewPage.xaml;Pages\SystemPage.xaml;
+
+True
+

@@ -114,7 +114,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn
-                        Header="Mã số"
+                        Header="Mã giao dịch"
                         Width="auto"
                         ScrollViewer.CanContentScroll="True"
                         >
@@ -158,7 +158,7 @@
                     Header="Ngày mở sổ" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding DateOpenPassbook}"
+                                        <TextBlock Text="{Binding DateOpenPassbook, StringFormat=dd/MM/yyyy}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -167,7 +167,7 @@
                     Header="Ngày kỳ hạn" Width="auto">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding WithDrawDate}"
+                                        <TextBlock Text="{Binding WithDrawDate, StringFormat=dd/MM/yyyy}"
                                  TextWrapping="Wrap"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
