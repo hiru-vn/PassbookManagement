@@ -584,3 +584,42 @@ exec usp_Insertwithdrawbill 8,19,7000000,'20190819'
 exec usp_Insertwithdrawbill 9,20,2000000,'20170725'
 select * from withdrawbill
 go
+
+go
+create proc usp_SearchTranByCustomerName 
+@cusname nvarchar
+as
+begin
+select ROW_NUMBER() over(order by cus_name) STT, cc.id as [idtran], cc.collectdate as [datetran], N'Gửi tiền' as typetran ,
+ c.cus_name as [cusname], t.typename  from dbo.customer as c,dbo.collectbill as cc,dbo.typepassbook as t,dbo.passbook as p 
+where
+c.id = p.passbook_customer and cc.collect_passbook = p.id and p.passbook_type = t.id and c.cus_name like '%'+@cusname+'%'
+UNION
+select ROW_NUMBER() over(order by cus_name) STT, cc.id as [idtran], cc.withdrawdate as [datetran], N'Rút tiền' as typetran ,
+ c.cus_name as [cusname], t.typename  from dbo.customer as c,dbo.withdrawbill as cc,dbo.typepassbook as t,dbo.passbook as p 
+where
+c.id = p.passbook_customer and cc.withdraw_passbook = p.id and p.passbook_type = t.id and c.cus_name like '%'+@cusname+'%'
+end
+
+go 
+create proc usp_SearchTranByCustomerNameAndDate
+@cusname nvarchar,
+@date datetime
+as
+begin
+select ROW_NUMBER() over(order by cus_name) STT, cc.id as [idtran], cc.collectdate as [datetran], N'Gửi tiền' as typetran ,
+ c.cus_name as [cusname], t.typename  from dbo.customer as c,dbo.collectbill as cc,dbo.typepassbook as t,dbo.passbook as p 
+where
+c.id = p.passbook_customer and cc.collect_passbook = p.id and p.passbook_type = t.id 
+and c.cus_name like '%'+@cusname+'%'
+and day(cc.collectdate) = day(@date) and month(cc.collectdate) = month(@date) and year(cc.collectdate) = year(@date)
+UNION
+select ROW_NUMBER() over(order by cus_name) STT, cc.id as [idtran], cc.withdrawdate as [datetran], N'Rút tiền' as typetran ,
+ c.cus_name as [cusname], t.typename  from dbo.customer as c,dbo.withdrawbill as cc,dbo.typepassbook as t,dbo.passbook as p 
+where
+c.id = p.passbook_customer and cc.withdraw_passbook = p.id and p.passbook_type = t.id
+and c.cus_name like '%'+@cusname+'%'
+and day(cc.withdrawdate) = day(@date) and month(cc.withdrawdate) = month(@date) and year(cc.withdrawdate) = year(@date)
+end
+
+

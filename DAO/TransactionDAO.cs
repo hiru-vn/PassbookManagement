@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,6 +43,16 @@ namespace DAO
                 }
             }
             return list;
+        }
+        public DataTable GetSearchTransactionByCustomerName(string name)
+        {
+            string query = string.Format("exec usp_SearchTranByCustomerName " + name);
+            return DataProvider.Instance.ExcuteQuery(query);
+        }
+        public DataTable GetSearchTransactionByCustomerNameAndDate(string name,DateTime date)
+        {
+            string query = string.Format("exec usp_SearchTranByCustomerNameAndDate " + name + ", '" + date.ToString("yyyy/MM/dd")+"'");
+            return DataProvider.Instance.ExcuteQuery(query);
         }
     }
 }

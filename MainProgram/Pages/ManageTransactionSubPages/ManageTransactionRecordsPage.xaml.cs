@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using DAO;
 using DTO;
 using MainProgram.CustomControls;
+using MaterialDesignThemes.Wpf;
 
 namespace MainProgram.Pages.ManageTransactionSubPages
 {
@@ -39,7 +40,6 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         {
             if (MessageBoxCustom.setContent("bạn muốn xóa giao dịch này?").ShowDialog() == true)
             {
-
                 //cap nhat giao dich
                 ClearPage();
             }
@@ -89,18 +89,42 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             {
                 IsWithdrawBill = false;
                 CollectBill bill = CollectBillDAO.Instance.GetBill(idBill);
-                //SavingAccount acc = SavingAccountDAO.Instance.GetAccount(id);
-                //Customer customerInfo = CustomerDAO.Instance.GetCustomer(id);
+                Passbook passbook = PassbookDAO.Instance.GetAccount(bill.Collect_passbook);
+                Customer customerInfo = CustomerDAO.Instance.GetCustomer(passbook.Passbook_customer);
                 //update form
+                this.TextBox_CustomerID.Text = customerInfo.Id.ToString();
+                this.TextBox_CustomerIDcard.Text = customerInfo.Cmnd.ToString();
+                this.TextBox_CustomerName.Text = customerInfo.Cus_name.ToString();
+                this.TextBox_CustomerAddress.Text = customerInfo.Cus_address.ToString();
+                this.TextBox_SavingBookID.Text = passbook.Id.ToString();
+                this.TextBox_Money.Text = bill.Collect_money.ToString();
+                this.Calender.SelectedDate = bill.Collectdate;
+                this.Combobox_Type.Items.Clear();
+                this.Combobox_Type.Items.Add(TypePassbookDAO.Instance.GetTypeNameByID(passbook.Passbooktype));
+                this.Combobox_Type.SelectedIndex = 0;
+
+                HintAssist.SetHint(this.TextBox_Money, "Số tiền gởi");
 
             }
             else if (WithdrawBillDAO.Instance.CheckIfExistBillID(idBill) == true)
             {
                 IsWithdrawBill = true;
                 WithdrawBill bill = WithdrawBillDAO.Instance.GetBill(idBill);
-                //SavingAccount acc = SavingAccountDAO.Instance.GetAccount(id);
-                //Customer customerInfo = CustomerDAO.Instance.GetCustomer(id);
+                Passbook passbook = PassbookDAO.Instance.GetAccount(bill.Withdraw_passbook);
+                Customer customerInfo = CustomerDAO.Instance.GetCustomer(passbook.Passbook_customer);
                 //update form
+                this.TextBox_CustomerID.Text = customerInfo.Id.ToString();
+                this.TextBox_CustomerIDcard.Text = customerInfo.Cmnd.ToString();
+                this.TextBox_CustomerName.Text = customerInfo.Cus_name.ToString();
+                this.TextBox_CustomerAddress.Text = customerInfo.Cus_address.ToString();
+                this.TextBox_SavingBookID.Text = passbook.Id.ToString();
+                this.TextBox_Money.Text = bill.Withdrawmoney.ToString();
+                this.Calender.SelectedDate = bill.Withdrawdate;
+                this.Combobox_Type.Items.Clear();
+                this.Combobox_Type.Items.Add(TypePassbookDAO.Instance.GetTypeNameByID(passbook.Passbooktype));
+                this.Combobox_Type.SelectedIndex = 0;
+
+                HintAssist.SetHint(this.TextBox_Money, "Số tiền rút");
             }
             else
             {

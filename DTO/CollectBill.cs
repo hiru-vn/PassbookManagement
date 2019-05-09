@@ -19,7 +19,7 @@ namespace DTO
         {
             this.Id = row["id"].ToString();
             this.Collect_passbook = int.Parse(row["collect_passbook"].ToString());
-            this.Collect_money = long.Parse(row["collect_money"].ToString());
+            this.Collect_money = long.Parse(row["collectmoney"].ToString());
             this.Collectdate = (DateTime?)row["collectdate"];
         }
 

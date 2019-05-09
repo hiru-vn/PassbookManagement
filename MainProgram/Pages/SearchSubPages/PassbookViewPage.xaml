@@ -114,7 +114,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn
-                        Header="Mã số"
+                        Header="Mã giao dịch"
                         Width="auto"
                         ScrollViewer.CanContentScroll="True"
                         >

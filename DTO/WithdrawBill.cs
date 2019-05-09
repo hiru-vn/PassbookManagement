@@ -18,7 +18,7 @@ namespace DTO
         {
             this.Id = row["id"].ToString();
             this.Withdrawmoney = long.Parse(row["withdrawmoney"].ToString());
-            this.Withdraw_passbook = int.Parse(row["withdrawpassbook"].ToString());
+            this.Withdraw_passbook = int.Parse(row["withdraw_passbook"].ToString());
             this.Withdrawdate = (DateTime?)row["withdrawdate"];
 
         }

@@ -22,7 +22,7 @@ namespace DTO
         public Passbook(DataRow row)
         {
             this.Id = int.Parse(row["ID"].ToString());
-            this.Passbooktype = int.Parse(row["passbooktype"].ToString());
+            this.Passbooktype = int.Parse(row["passbook_type"].ToString());
             this.Passbook_balance = long.Parse(row["passbook_balance"].ToString());
             this.Passbook_customer = int.Parse(row["passbook_customer"].ToString());
             this.Opendate = (DateTime?)row["opendate"];

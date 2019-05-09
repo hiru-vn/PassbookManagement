@@ -88,7 +88,7 @@
                                Margin="20 10 0 0" 
                                DockPanel.Dock="Left">
                         Loại tiết kiệm:</TextBlock>
-                        <ComboBox Margin="10 0 0 0" 
+                        <ComboBox Margin="10 0 0 0"  x:Name="Combobox_Type"
                               VerticalAlignment="Bottom">
                         </ComboBox>
                     </DockPanel>
@@ -96,7 +96,7 @@
                         <DatePicker Margin="0 0 20 0" 
                                 DockPanel.Dock="Left"
                                     x:Name="Calender"
-                                materialDesign:HintAssist.Hint="Ngày mở sổ" 
+                                materialDesign:HintAssist.Hint="Ngày giao dịch" 
                                 materialDesign:HintAssist.FloatingScale="0.7" 
                                 materialDesign:HintAssist.IsFloating="True" 
                                 Width="150">
@@ -158,12 +158,12 @@
                         <TextBlock>Sửa</TextBlock>
                     </StackPanel>
                 </Button>
-                <Button Grid.Column="1" Background="PaleVioletRed" Width="70" Click="Delete_Transaction">
+                <!--<Button Grid.Column="1" Background="PaleVioletRed" Width="70" Click="Delete_Transaction">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Trashcan" Margin="0 -1 0 0"/>
                         <TextBlock>Xóa</TextBlock>
                     </StackPanel>
-                </Button>
+                </Button>-->
             </Grid>
         </StackPanel>
     </Grid>

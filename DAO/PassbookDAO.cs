@@ -21,7 +21,7 @@ namespace DAO
 
         public Passbook GetAccount(int ID)
         {
-            string query = string.Format("select * from dbo.savingaccount where id = {0}", ID);
+            string query = string.Format("select * from dbo.passbook where id = {0}", ID);
             DataRow row = DataProvider.Instance.ExcuteQuery(query).Rows[0];
             Passbook acc = new Passbook(row);
             return acc;
