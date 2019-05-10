@@ -111,8 +111,7 @@
                         Loại tiết kiệm:</TextBlock>
                             <ComboBox Margin="10 0 0 0" 
                                   x:Name="Combobox_TypePassbook"
-                              VerticalAlignment="Bottom">
-                            </ComboBox>
+                              VerticalAlignment="Bottom"/>
                         </DockPanel>
                         <DockPanel Margin="0 10 0 0">
                             <DatePicker Margin="0 0 20 0" 

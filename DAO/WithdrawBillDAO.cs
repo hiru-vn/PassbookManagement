@@ -69,6 +69,24 @@ namespace DAO
                 return list;
             }
         }
+
+        public void InsertWithdrawBill(WithdrawBill bill)
+        {
+            int passbook = bill.Withdraw_passbook;
+            long money = bill.Withdrawmoney;
+            DateTime? date = bill.Withdrawdate;
+            int id = int.Parse(bill.Id.ToString());
+            if (date != null)
+            {
+                string query = string.Format("usp_Insertwithdrawbill {0} , {1}, {2} , {3}", id, passbook, money, "'" + date.Value.ToString("yyyy/MM/dd") + "'");
+                DataProvider.Instance.ExcuteNonQuery(query);
+            }
+            else
+            {
+
+            }
+        }
+
         public void WithdrawMoney(string s, string ss, int n)
         {
             // do not code in here
