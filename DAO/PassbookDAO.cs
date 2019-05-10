@@ -95,6 +95,17 @@ namespace DAO
         {
             //do not code in here
         }
-
+        public int GetPassbookIDbyCusIDandidType(int cusID, string Typename)
+        {
+            string query = "select passbook.id from dbo.passbook where passbook_customer=" + cusID + " and passbook_type in(select id from dbo.typepassbook where typename=N'" + Typename + "')";
+            int value = (int)DataProvider.Instance.ExcuteScarar(query);
+            return value;
+        }
+        public long GetBalancebyIDPassbook(int ID)
+        {
+            string query = ("select passbook_balance from dbo.passbook where id=" + ID);
+            long value = (long)DataProvider.Instance.ExcuteScarar(query);
+            return value;
+        }
     }
 }

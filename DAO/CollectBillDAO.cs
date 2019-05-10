@@ -69,6 +69,22 @@ namespace DAO
                 return list;
                 
             }
-        }   
+        }
+        public void InsertCollectBill(CollectBill bill)
+        {
+            int passbook = bill.Collect_passbook;
+            long money = bill.Collect_money;
+            DateTime? date = bill.Collectdate;
+            int id = int.Parse(bill.Id.ToString());
+            if (date != null)
+            {
+                string query = string.Format("usp_Insertcollectbill {0} , {1}, {2} , {3}", id, passbook, money, "'" + date.Value.ToString("yyyy/MM/dd") + "'");
+                DataProvider.Instance.ExcuteNonQuery(query);
+            }
+            else
+            {
+
+            }
+        }
     }
 }
