@@ -54,5 +54,9 @@ namespace DAO
             string query = string.Format("exec usp_SearchTranByCustomerNameAndDate " + name + ", '" + date.ToString("yyyy/MM/dd")+"'");
             return DataProvider.Instance.ExcuteQuery(query);
         }
+        public void UpdatePassbookBalance()
+        {
+            DataProvider.Instance.ExcuteNonQuery("usp_CheckPassbookIncreasement");
+        }
     }
 }

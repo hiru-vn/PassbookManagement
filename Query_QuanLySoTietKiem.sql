@@ -20,7 +20,8 @@ id int identity(1,1) primary key,
 passbook_balance bigint not null,
 passbook_type int not null,
 passbook_customer int not null,
-opendate datetime default getdate(),
+opendate datetime default getdate() not null,
+increasement_date datetime default DATEADD(month, 1, getdate()),
 withdrawday datetime default getdate(),
 status int default 1
 )
@@ -56,7 +57,7 @@ alter table collectbill add constraint fk_passbook_id_1 foreign key (collect_pas
 alter table withdrawbill add constraint fk_passbook_id_2 foreign key (withdraw_passbook) references passbook(id)
 alter table passbook add constraint ckeck_status check (status in(0,1))
 go
-create trigger TG_Checkpassbookbalanace on passbook
+create trigger TG_Checkpassbookbalanace on passbook 
 for insert
 as
 begin
@@ -70,7 +71,15 @@ end
 else 
 print N'Tạo sổ tiết kiệm thành công'
 end
-
+----
+----
+----
+go
+create trigger TG_SetIncreasementPassbookDay on passbook 
+for insert
+as begin
+update dbo.passbook set increasement_date = (select opendate from inserted) where id = (select id from inserted)
+end
 go
 create trigger trg_ckeckcollectmoney on collectbill
 for insert
@@ -258,6 +267,38 @@ where day(withdrawdate)=@day and month(withdrawdate)=@month and year(withdrawdat
 return @value1
 end
 go
+create function func_GetBalanceMoney 
+(@passbook_type int,
+@passbook_balance bigint,
+@opendate datetime)
+returns bigint
+as
+begin
+	declare @month int
+	select @month = (select t.term from dbo.typepassbook as t where id = @passbook_type)
+	declare @rate float
+	select @rate = (select t.interest_rate from dbo.typepassbook as t where id = @passbook_type)
+	if (@month != 0)
+	begin
+		if (month(getdate()) - MONTH(@opendate) > @month)
+			return @passbook_balance
+	end
+	return @passbook_balance + @passbook_balance * @rate
+end
+go
+create proc usp_CheckPassbookIncreasement 
+as
+begin
+select * from dbo.passbook
+	update dbo.passbook set passbook_balance = dbo.func_GetBalanceMoney(passbook_type,passbook_balance,opendate)  
+	where id
+	in
+	(select id from dbo.passbook as p where p.increasement_date <= GETDATE())
+	update dbo.passbook set increasement_date = DATEADD(month,1,increasement_date) where id
+	in
+	(select id from dbo.passbook as p where p.increasement_date <= GETDATE())
+end
+go
 create function reportCM
 (@id int,
 @month int, @year int)
@@ -322,8 +363,8 @@ BEGIN
   INSERT INTO Calendar (calendar_date) VALUES( @dIncr )
   SELECT @dIncr = DATEADD(DAY, 1, @dIncr )
 END
---drop proc usp_ReportTypePassbookMonth
-create proc usp_ReportTypePassbookMonth
+go
+create proc usp_ReportTypePassbookMonth 
 @month int,
 @year int,
 @typeid int
@@ -408,7 +449,7 @@ create proc usp_Update_cus
 @cmnd char(9)
 as
 begin
-update customer set cus_name='''+  @name + ''', cus_address= ''' + @address + ''', cmnd=@cmnd where id=@id 
+update customer set cus_name= @name, cus_address= @address , cmnd=@cmnd where id=@id 
 end
 go
 create proc usp_InsertPassbook1

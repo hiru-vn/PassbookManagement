@@ -128,7 +128,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             }
             else
             {
-                MessageBoxCustom.setContent("Lỗi, khách hàng này đã có tài khoản thuộc loại " + this.Combobox_TypePassbook.SelectedValue.ToString() + " còn thời hạn.").ShowDialog();
+                MessageBoxCustom.setContent("Lỗi, khách hàng này đã có tài khoản thuộc loại " + (this.Combobox_TypePassbook.SelectedItem as TypePassbook).Typename + " còn thời hạn.").ShowDialog();
             }
         }
     }
