@@ -25,6 +25,12 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         public SendMoneyPage()
         {
             InitializeComponent();
+            Default();
+        }
+
+        void Default()
+        {
+            this.DatePicker_Time.SelectedDate = DateTime.Now;
         }
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
@@ -56,15 +62,27 @@ namespace MainProgram.Pages.ManagePassbookSubPages
 
         private void BtnSMoney_Click(object sender, RoutedEventArgs e)
         {
-            CollectBill bill = new CollectBill();
-            int idPasbook = int.Parse(Txt_PassbookID.Text);
-            long money = long.Parse(Money.Text);
-          
+            if (string.IsNullOrEmpty(this.Money.Text))
+            {
+                MessageBox.Show("Người dùng nhập thiếu dữ liệu");
+                return;
+            }
+            else
+            {
+                CollectBill bill = new CollectBill();
+                bill.Id = 1.ToString().Trim();
+                bill.Collect_passbook = int.Parse(Txt_PassbookID.Text);
+                bill.Collect_money = long.Parse(Money.Text);
+                bill.Collectdate = this.DatePicker_Time.SelectedDate ?? DateTime.Now;
+                CollectBillDAO.Instance.InsertCollectBill(bill);
+                MessageBox.Show("Thêm phiếu gởi thành công");
+            }
 
 
-        //    String PassbookID = this.Txt_PassbookID.Text;
-        //    string AccountType = this.Cb_TypePassbook.SelectedValue.ToString();
-        //    PassbookDAO.Instance.SendMoney(PassbookID, AccountType, int.Parse(this.Money.Text));
+
+            //    String PassbookID = this.Txt_PassbookID.Text;
+            //    string AccountType = this.Cb_TypePassbook.SelectedValue.ToString();
+            //    PassbookDAO.Instance.SendMoney(PassbookID, AccountType, int.Parse(this.Money.Text));
         }
 
         private void BtnPrint_Click(object sender, RoutedEventArgs e)
@@ -87,6 +105,8 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                     this.Txt_CustomerName.Text = CustomerDAO.Instance.GetCustomerName(customerID);
                     this.Txt_CustomerCard.Text = CustomerDAO.Instance.GetCustomerCardNumber(customerID);
                     this.Txt_CustomerAddress.Text = CustomerDAO.Instance.GetCustomerAddress(customerID);
+                    this.Money.Clear();
+                    this.Txt_PassbookID.Clear();
                     this.Cb_TypePassbook.ItemsSource = null;
                     this.Cb_TypePassbook.Items.Clear();
                     this.Cb_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListTypeByCusID(customerID);
@@ -118,13 +138,13 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                         customerID = int.Parse(this.Txt_CustomerID.Text);
                         TypePassbook type = cb.SelectedItem as TypePassbook;
                         string name = type.Typename;
-                        this.Txt_PassbookID.Clear();
-                        this.Txt_PassbookID.Text = PassbookDAO.Instance.GetPassbookIDbyCusIDandidType(customerID, name).ToString();
+                        
+                        this.Txt_PassbookID.Text = PassbookDAO.Instance.GetPassbookIDbyCusIDandidType(customerID, name).ToString();    
                     }
                 }
             }
         }
-
+        
     }
 
 }

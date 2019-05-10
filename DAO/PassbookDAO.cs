@@ -101,5 +101,11 @@ namespace DAO
             int value = (int)DataProvider.Instance.ExcuteScarar(query);
             return value;
         }
+        public long GetBalancebyIDPassbook(int ID)
+        {
+            string query = ("select passbook_balance from dbo.passbook where id=" + ID );
+            long value  = (long)DataProvider.Instance.ExcuteScarar(query);
+            return value;
+        }
     }
 }

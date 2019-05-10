@@ -70,7 +70,7 @@ namespace DAO
                 
             }
         }
-        void InsertCollectBill(CollectBill bill)
+        public  void InsertCollectBill(CollectBill bill)
         {
             int passbook = bill.Collect_passbook;
             long money = bill.Collect_money;
@@ -78,7 +78,7 @@ namespace DAO
             int id = int.Parse(bill.Id.ToString());
             if (date != null)
             {
-                string query = string.Format("usp_Insertcollectbill {0} , {1}, {2} , {3}, {4}", id, passbook, money, date.Value.ToString("yyyy/MM/dd"));
+                string query = string.Format("usp_Insertcollectbill {0} , {1}, {2} , {3}", id, passbook, money, "'" + date.Value.ToString("yyyy/MM/dd") + "'");
                 DataProvider.Instance.ExcuteNonQuery(query);
             }
             else

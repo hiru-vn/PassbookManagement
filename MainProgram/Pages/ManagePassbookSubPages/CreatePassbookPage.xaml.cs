@@ -120,8 +120,14 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                     pass.Passbook_customer = IDcustomer;
                     pass.Opendate = this.DatePicker_DateOpen.SelectedDate ?? DateTime.Now;
                     pass.Passbooktype = idType??-1;
-                    pass.Passbook_balance = long.Parse(this.TextBox_Money.Text);
+                    pass.Passbook_balance = 0;
                     PassbookDAO.Instance.InsertPassbook(pass);
+                    CollectBill bill = new CollectBill();
+                    bill.Id = 1.ToString();
+                    bill.Collect_passbook = int.Parse(this.TextBox_PassbookID.Text.ToString());
+                    bill.Collect_money = long.Parse(this.TextBox_Money.Text.ToString());
+                    bill.Collectdate=this.DatePicker_DateOpen.SelectedDate ?? DateTime.Now;
+                    CollectBillDAO.Instance.InsertCollectBill(bill);
                     MessageBoxCustom.setContent("Thêm sổ thành công").ShowDialog();
                     //clear
                 }

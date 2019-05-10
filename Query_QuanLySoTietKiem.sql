@@ -240,14 +240,16 @@
 	declare @id int
 	declare @money bigint
 	declare @date datetime
+	declare @balance bigint
 	select @id=withdraw_passbook from inserted
 	select @money=withdrawmoney from inserted
 	select @date=withdrawdate from inserted
+	select @balance=passbook_balance from passbook where id=@id
 	declare @kind nvarchar(200) 
 	select @kind=kind from typepassbook, passbook where @id=passbook.id and passbook_type= typepassbook.id
 	declare @withdrawdate datetime
 	select @withdrawdate = withdrawday from passbook where id=@id
-	if (day(@date)=day(@withdrawdate) and month(@date)=month(@withdrawdate) and year(@date)=year(@withdrawdate))
+	if (@date>@withdrawdate)
 	begin
 	if(@kind=N'Có kì hạn')
 	begin
@@ -259,10 +261,20 @@
 	else
 	begin
 	print N'Hoàn tất giao dịch, sổ bị xóa'
-	update passbook set status=0 where id=@id 
-	end
-	end
+	update passbook set status=0 where id=@id
 	update passbook set passbook_balance=passbook_balance-(select withdrawmoney from inserted) where id=@id
+	end
+	end
+	else
+	begin
+	if(@money<=@balance)
+	update passbook set passbook_balance=passbook_balance-(select withdrawmoney from inserted) where id=@id
+	else
+	begin
+	print 'Số tiền rút vượt quá số dư'
+	rollback tran
+	end
+	end
 	end
 	else
 	begin
@@ -694,6 +706,8 @@ go
 	select * from dbo.typepassbook
 	select * from customer
 	select * from collectbill
+	go
+	
 go
 create proc usp_SearchTranByCustomerName 
 @cusname nvarchar
@@ -731,4 +745,4 @@ and c.cus_name like '%'+@cusname+'%'
 and day(cc.withdrawdate) = day(@date) and month(cc.withdrawdate) = month(@date) and year(cc.withdrawdate) = year(@date)
 end
 
-
+select * from passbook
