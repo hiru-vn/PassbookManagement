@@ -65,10 +65,5 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         {
             //CaptureUIElement.Instance.SaveFrameworkElementToPng(Grid_BillInfo, 200, 200, "MyImage.png");
         }
-        private void Search_Customer(object sender, RoutedEventArgs e)
-        {
-            Frame frame = Application.Current.MainWindow.FindName("FramePage") as Frame;
-            frame.Navigate(new System.Uri("Pages/SearchPage.xaml", UriKind.Relative));
-        }
     }
 }

@@ -29,20 +29,6 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             InitializeComponent();
             showTreeItem();
         }
-        // apply for numberic textbox
-        private void Numberic_TextBox(object sender, TextCompositionEventArgs e)
-        {
-            foreach (char ch in e.Text)
-                if (!Char.IsDigit(ch))
-                    e.Handled = true;
-        }
-        // apply for money textbox
-        private void Money_TextBox(object sender, TextCompositionEventArgs e)
-        {
-            foreach (char ch in e.Text)
-                if (!Char.IsDigit(ch) || ch == ',')
-                    e.Handled = true;
-        }
         void LoadListTreeItem()
         {
             this.ListView_TransactionType.Items.Clear();
@@ -106,7 +92,6 @@ namespace MainProgram.Pages.ManageTransactionSubPages
                 }
                 this.Texblock_title.Text = "Thông tin";
                 SetReadOnly(true);
-                enableRadioButton(false);
             }
         }
         
@@ -223,20 +208,16 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         }
         void SetTermTypeMode(bool flag)
         {
-            try
+            if (flag)
             {
-                if (flag)
-                {
-                    this.Stackpanel_term.Visibility = Visibility.Visible;
-                    this.Stackpanel_MinWithdrawday.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    this.Stackpanel_term.Visibility = Visibility.Collapsed;
-                    this.Stackpanel_MinWithdrawday.Visibility = Visibility.Visible;
-                }
+                this.Stackpanel_term.Visibility = Visibility.Visible;
+                this.Stackpanel_MinWithdrawday.Visibility = Visibility.Collapsed;
             }
-            catch { }
+            else
+            {
+                this.Stackpanel_term.Visibility = Visibility.Collapsed;
+                this.Stackpanel_MinWithdrawday.Visibility = Visibility.Visible;
+            }
         }
         void enableRadioButton(bool flag)
         {

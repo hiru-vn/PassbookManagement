@@ -102,7 +102,8 @@
                                 Width="150">
                         </DatePicker>
                         <TextBox materialDesign:HintAssist.Hint="Số tiền gởi/rút"
-                                 x:Name="TextBox_Money" IsReadOnly="True"
+                                 x:Name="TextBox_Money"
+                                 PreviewTextInput="Money_TextBox"
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              materialDesign:HintAssist.IsFloating="True">
                         </TextBox>

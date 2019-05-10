@@ -47,9 +47,7 @@
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
                              Width="auto"></TextBox>
-                        <Button x:Name="Btn_Search" VerticalAlignment="Bottom" 
-                                Padding="10 0 10 0" Margin="20 0 0 0" Width="85" 
-                                Click="BtnSearch_Click">
+                        <Button x:Name="Btn_Search" VerticalAlignment="Bottom" Padding="10 0 10 0" Margin="20 0 0 0" Width="85" Click="BtnSearch_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Magnify"></materialDesign:PackIcon>
                                 <TextBlock>Tra cứu</TextBlock>
@@ -84,7 +82,7 @@
                                >Thông tin sổ tiết kiệm:</TextBlock>
                     <DockPanel Margin="0 10 0 0">
                         <TextBox x:Name="Txt_PassbookID" DockPanel.Dock="Left"
-                             IsReadOnly="True" 
+                             IsEnabled="False" 
                              HorizontalAlignment="Left" 
                              materialDesign:HintAssist.Hint="Mã sổ tiết kiệm" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
