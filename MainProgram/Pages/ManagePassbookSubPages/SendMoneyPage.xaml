@@ -46,15 +46,10 @@
                         <TextBox x:Name="Txt_CustomerID" materialDesign:HintAssist.Hint="Mã khách hàng" 
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-<<<<<<< HEAD
-                             Width="auto" LostFocus="Txt_CustomerID_LostFocus"></TextBox>
-                        <Button x:Name="Btn_Search" VerticalAlignment="Bottom" Padding="10 0 10 0" Margin="20 0 0 0" Width="85" Click="BtnSearch_Click">
-=======
                              Width="auto"></TextBox>
                         <Button x:Name="Btn_Search" VerticalAlignment="Bottom" 
                                 Padding="10 0 10 0" Margin="20 0 0 0" Width="85" 
                                 Click="BtnSearch_Click">
->>>>>>> parent of 255059f... Revert "update sql"
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Magnify"></materialDesign:PackIcon>
                                 <TextBlock>Tra cứu</TextBlock>
@@ -71,8 +66,8 @@
                         <TextBox x:Name="Txt_CustomerName" DockPanel.Dock="Left"
                              materialDesign:HintAssist.Hint="Tên khách hàng" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             materialDesign:HintAssist.IsFloating="True"/>
-                        </DockPanel>
+                             materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    </DockPanel>
                     <DockPanel Margin="0 10 0 0">
                         <TextBox x:Name="Txt_CustomerAddress" HorizontalAlignment="Stretch"  
                              materialDesign:HintAssist.IsFloating="True" 
@@ -88,22 +83,18 @@
                                Margin="0 20 0 0"
                                >Thông tin sổ tiết kiệm:</TextBlock>
                     <DockPanel Margin="0 10 0 0">
-<<<<<<< HEAD
-                        <TextBox x:Name="Txt_PassbookID" DockPanel.Dock="Left" 
-=======
                         <TextBox x:Name="Txt_PassbookID" DockPanel.Dock="Left"
                              IsReadOnly="True" 
->>>>>>> parent of 255059f... Revert "update sql"
                              HorizontalAlignment="Left" 
                              materialDesign:HintAssist.Hint="Mã sổ tiết kiệm" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             materialDesign:HintAssist.IsFloating="True" IsEnabled="False"/>
-                            <TextBlock VerticalAlignment="Center" 
+                             materialDesign:HintAssist.IsFloating="True"></TextBox>
+                        <TextBlock VerticalAlignment="Center" 
                                Margin="20 10 0 0" 
                                DockPanel.Dock="Left">
                         Loại tiết kiệm:</TextBlock>
                         <ComboBox x:Name="Cb_TypePassbook" Margin="10 0 0 0" 
-                              VerticalAlignment="Bottom" SelectionChanged="Cb_TypePassbook_SelectionChanged">
+                              VerticalAlignment="Bottom">
                             <ComboBoxItem IsSelected="True">không kì hạn</ComboBoxItem>
                         </ComboBox>
                     </DockPanel>
@@ -120,8 +111,7 @@
                              materialDesign:HintAssist.IsFloating="True" PreviewTextInput="Numberic_txtbox">
                         </TextBox>
                     </DockPanel>
-                        <TextBlock x:Name="TextBox_warning_1" Visibility="Collapsed" Margin="0 5 0 0" FontSize="11" HorizontalAlignment="Center" Foreground="PaleVioletRed">Mã khách hàng không đúng</TextBlock>
-                    </StackPanel>
+                </StackPanel>
             </materialDesign:ColorZone>
             </Grid>
             <Grid>

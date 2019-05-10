@@ -13,7 +13,7 @@ namespace DAO
         private static DataProvider instance; //singleton
 
         //private string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|data.mdf;Integrated Security=True";
-        private string connectionString = @"Data Source=localhost\SQLExpress;Initial Catalog=savingpassbook;Integrated Security=True";
+        private string connectionString = @"Data Source=.\;Initial Catalog=savingpassbook;Integrated Security=True";
         public static DataProvider Instance
         {
             get { if (instance == null) instance = new DataProvider(); return DataProvider.instance; }

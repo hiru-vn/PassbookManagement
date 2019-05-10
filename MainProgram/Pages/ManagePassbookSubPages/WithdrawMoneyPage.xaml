@@ -45,7 +45,7 @@
                         <TextBox x:Name="Txt_CustomerID" materialDesign:HintAssist.Hint="Mã khách hàng" 
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             Width="auto" LostFocus="Txt_CustomerID_LostFocus"></TextBox>
+                             Width="auto"></TextBox>
                         <Button x:Name="Btn_Search" VerticalAlignment="Bottom" Padding="10 0 10 0" Margin="20 0 0 0" Width="85" Click="BtnSearch_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Magnify"></materialDesign:PackIcon>
@@ -91,7 +91,7 @@
                                DockPanel.Dock="Left">
                         Loại tiết kiệm:</TextBlock>
                         <ComboBox x:Name="Cb_TypePassbook" Margin="10 0 0 0" 
-                              VerticalAlignment="Bottom" SelectionChanged="Cb_TypePassbook_SelectionChanged">
+                              VerticalAlignment="Bottom">
                             <ComboBoxItem IsSelected="True">không kì hạn</ComboBoxItem>
                         </ComboBox>
                     </DockPanel>
@@ -109,9 +109,8 @@
                         </TextBox>
                     </DockPanel>
                     <DockPanel Margin="0 15 0 0">
-                        <TextBlock x:Name="Balance"  Foreground="#FF31577E" FontSize="14" FontWeight="SemiBold">Số dư:</TextBlock>
+                        <TextBlock Foreground="#FF31577E" FontSize="14" FontWeight="SemiBold">Số dư:</TextBlock>
                     </DockPanel>
-                    <TextBlock x:Name="TextBox_warning_1" Visibility="Collapsed" Margin="0 5 0 0" FontSize="11" HorizontalAlignment="Center" Foreground="PaleVioletRed">Mã khách hàng không đúng</TextBlock>
                 </StackPanel>
             </materialDesign:ColorZone>
             <Grid>
