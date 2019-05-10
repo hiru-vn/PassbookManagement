@@ -46,8 +46,15 @@
                         <TextBox x:Name="Txt_CustomerID" materialDesign:HintAssist.Hint="Mã khách hàng" 
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
+<<<<<<< HEAD
                              Width="auto" LostFocus="Txt_CustomerID_LostFocus"></TextBox>
                         <Button x:Name="Btn_Search" VerticalAlignment="Bottom" Padding="10 0 10 0" Margin="20 0 0 0" Width="85" Click="BtnSearch_Click">
+=======
+                             Width="auto"></TextBox>
+                        <Button x:Name="Btn_Search" VerticalAlignment="Bottom" 
+                                Padding="10 0 10 0" Margin="20 0 0 0" Width="85" 
+                                Click="BtnSearch_Click">
+>>>>>>> parent of 255059f... Revert "update sql"
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="Magnify"></materialDesign:PackIcon>
                                 <TextBlock>Tra cứu</TextBlock>
@@ -81,7 +88,12 @@
                                Margin="0 20 0 0"
                                >Thông tin sổ tiết kiệm:</TextBlock>
                     <DockPanel Margin="0 10 0 0">
+<<<<<<< HEAD
                         <TextBox x:Name="Txt_PassbookID" DockPanel.Dock="Left" 
+=======
+                        <TextBox x:Name="Txt_PassbookID" DockPanel.Dock="Left"
+                             IsReadOnly="True" 
+>>>>>>> parent of 255059f... Revert "update sql"
                              HorizontalAlignment="Left" 
                              materialDesign:HintAssist.Hint="Mã sổ tiết kiệm" 
                              materialDesign:HintAssist.FloatingScale="0.7" 

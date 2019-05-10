@@ -46,10 +46,18 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             }
         }
 
-        private void Numberic_Txtbox(object sender, TextCompositionEventArgs e)
+        // apply for numberic textbox
+        private void Numberic_TextBox(object sender, TextCompositionEventArgs e)
         {
             foreach (char ch in e.Text)
                 if (!Char.IsDigit(ch))
+                    e.Handled = true;
+        }
+        // apply for money textbox
+        private void Money_TextBox(object sender, TextCompositionEventArgs e)
+        {
+            foreach (char ch in e.Text)
+                if (!Char.IsDigit(ch) || ch == ',')
                     e.Handled = true;
         }
         private void BtnWithdraw_click(object sender, RoutedEventArgs e)

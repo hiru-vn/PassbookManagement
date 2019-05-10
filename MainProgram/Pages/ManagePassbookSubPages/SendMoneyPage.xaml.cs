@@ -144,7 +144,15 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 }
             }
         }
+<<<<<<< HEAD
         
+=======
+        private void Search_Customer(object sender, RoutedEventArgs e)
+        {
+            Frame frame = Application.Current.MainWindow.FindName("FramePage") as Frame;
+            frame.Navigate(new System.Uri("Pages/SearchPage.xaml", UriKind.Relative));
+        }
+>>>>>>> parent of 255059f... Revert "update sql"
     }
 
 }

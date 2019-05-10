@@ -15,7 +15,7 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         
         Height="200" Width="330" 
-        MaxHeight="200" MaxWidth="330"
+        MaxWidth="330"
         MinHeight="200" MinWidth="330"
         WindowStyle="None" 
         WindowStartupLocation="CenterScreen">
