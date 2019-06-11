@@ -3,12 +3,35 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts" 
       xmlns:local="clr-namespace:MainProgram.Pages.ReportSubPages"
+      xmlns:CustomControls="clr-namespace:MainProgram.CustomControls"
       mc:Ignorable="d" 
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="#FF31577E"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource PrimaryHueLightBrush}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+      
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ChartPage">
 
-    <Grid>
-        
+    <Grid Background="White">
+        <Grid Margin="20 20 20 0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+                <RadioButton Margin="10 0 10 10" Checked="SetChartMonthlyReport" Content="đóng mở sổ tháng"/>
+                <RadioButton Margin="10 0 10 10" Checked="SetChartDailyReport" Content="doanh số hoạt động"/>
+            </StackPanel>
+            <CustomControls:ChartDailyReport Grid.Row="1" x:Name="ChartDailyReport" Visibility="Collapsed"></CustomControls:ChartDailyReport>
+            <CustomControls:ChartMonthlyReport Grid.Row="1" x:Name="ChartMonthlyReport"></CustomControls:ChartMonthlyReport>
+        </Grid>
     </Grid>
 </Page>

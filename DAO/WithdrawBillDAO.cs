@@ -85,9 +85,5 @@ namespace DAO
 
             }
         }
-        public void WithdrawMoney(string s, string ss, int n)
-        {
-            // do not code in here
-        }
     }
 }

@@ -21,7 +21,7 @@ namespace DAO
         public bool CheckIfExistBillID(string idBill)
         {
             bool check = false;
-            string query = "select count(*) from dbo.collectbill where id='" + idBill+"'";
+            string query = "select count(*) from dbo.collectbill where id='" + idBill + "'";
             int result = (int)DataProvider.Instance.ExcuteScarar(query);
             if (result != 0)
                 check = true;
@@ -48,7 +48,7 @@ namespace DAO
                     list.Add(result);
                 }
                 return list;
-                
+
             }
             else
             {
@@ -59,7 +59,7 @@ namespace DAO
                 int day = date1.Day;
                 int month = date1.Month;
                 int year = date1.Year;
-                string query = "select * from dbo.collectbill where collect_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%') and day(collectdate)=" + day + " and month(collectdate)=" + month+ " and year(collectdate)=" + year;
+                string query = "select * from dbo.collectbill where collect_passbook in(select passbook.id from dbo.passbook, dbo.customer where passbook.passbook_customer=customer.id and cus_name like '%" + cusname + "%') and day(collectdate)=" + day + " and month(collectdate)=" + month + " and year(collectdate)=" + year;
                 DataTable data = DataProvider.Instance.ExcuteQuery(query);
                 foreach (DataRow item in data.Rows)
                 {
@@ -67,7 +67,7 @@ namespace DAO
                     list.Add(result);
                 }
                 return list;
-                
+
             }
         }
         public void InsertCollectBill(CollectBill bill)
@@ -86,5 +86,24 @@ namespace DAO
 
             }
         }
+        public bool CheckCollectMoney(long money, string Typename)
+        {
+            string query = "select min_collectmoney from typepassbook where typename=N'" + Typename + "'";
+            long result = (long)DataProvider.Instance.ExcuteScarar(query);
+            if (money < result)
+                return true;
+            else
+                return false;
+        }
+        public bool CheckCollectdate(DateTime? date, int id)
+        {
+            string query = "select count(*) from dbo.passbook where id=" + id + "and withdrawday ='" + date.Value.ToString("yyyy/MM/dd") + "'";
+            int result = (int)DataProvider.Instance.ExcuteScarar(query);
+            if (result > 0)
+                return false;
+            else
+                 return true;
+        }
+    
     }
 }

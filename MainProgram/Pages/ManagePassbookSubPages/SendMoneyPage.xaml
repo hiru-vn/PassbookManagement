@@ -7,7 +7,7 @@
       
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Converter="clr-namespace:MainProgram.Converter"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="#FF31577E"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
@@ -46,7 +46,7 @@
                             <TextBox x:Name="Txt_CustomerID" materialDesign:HintAssist.Hint="Mã khách hàng" 
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             Width="auto" LostFocus="Txt_CustomerID_LostFocus"></TextBox>
+                             Width="auto" LostFocus="Txt_CustomerID_LostFocus" GotFocus="Txt_CustomerID_GotFocus"></TextBox>
                             <Button x:Name="Btn_Search" VerticalAlignment="Bottom" Padding="10 0 10 0" Margin="20 0 0 0" Width="85" Click="BtnSearch_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="Magnify"></materialDesign:PackIcon>

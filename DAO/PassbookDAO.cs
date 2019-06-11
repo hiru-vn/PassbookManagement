@@ -91,10 +91,6 @@ namespace DAO
             max = (int)DataProvider.Instance.ExcuteScarar("select max(id) from dbo.Passbook ");
             return max;
         }
-        public void SendMoney(string s, string ss, int sss)
-        {
-            //do not code in here
-        }
         public int GetPassbookIDbyCusIDandidType(int cusID, string Typename)
         {
             string query = "select passbook.id from dbo.passbook where passbook_customer=" + cusID + " and passbook_type in(select id from dbo.typepassbook where typename=N'" + Typename + "')";
@@ -106,6 +102,21 @@ namespace DAO
             string query = ("select passbook_balance from dbo.passbook where id=" + ID);
             long value = (long)DataProvider.Instance.ExcuteScarar(query);
             return value;
+        }
+        public bool CheckBalance(long Balance, string Typename)
+        {
+            string query = "select min_passbookbalance from typepassbook where typename=N'" + Typename + "'";
+            long result = (long)DataProvider.Instance.ExcuteScarar(query);
+            if (Balance < result)
+                return true;
+            else
+                return false;
+        }
+        public DateTime? GetWithdrawday(int id)
+        {
+            string query = "select withdrawday from dbo.passbook where id=" + id;
+            DateTime day = (DateTime)DataProvider.Instance.ExcuteScarar(query);
+            return day;
         }
     }
 }

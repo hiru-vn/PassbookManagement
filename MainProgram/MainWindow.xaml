@@ -8,7 +8,7 @@
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Customcontrols="clr-namespace:MainProgram.CustomControls"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="#FF31577E"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
@@ -69,7 +69,7 @@
                     </StackPanel>
                 </materialDesign:PopupBox>
             </StackPanel>
-            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">QUẢN LÝ SỔ TIẾT KIỆM</TextBlock>
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontWeight="DemiBold">QUẢN LÝ SỔ TIẾT KIỆM</TextBlock>
         </Grid>
         <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" x:Name="GridMenu" Width="70" HorizontalAlignment="Left">
             <Grid.Background>
@@ -102,37 +102,37 @@
                 <ListView x:Name="ListViewMenu" Foreground="#FF5C99D6" ScrollViewer.HorizontalScrollBarVisibility="Disabled" SelectionChanged="ListViewMenu_SelectionChanged">
                     <ListViewItem x:Name="PageSystem" Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Bank" Height="25" Width="25" Margin="10"/>
+                            <materialDesign:PackIcon Kind="Bank" Foreground="#FF5C99D6" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Hệ thống" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem x:Name="PageCreate" Height="60">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Notebook" Height="25" Width="25" Margin="10"/>
+                            <materialDesign:PackIcon Kind="Notebook" Foreground="#FF5C99D6" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Quản lý sổ" VerticalAlignment="Center" Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60" x:Name="PageManage">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="CashUsd" Height="25" Width="25" Margin="10"/>
+                            <materialDesign:PackIcon Foreground="#FF5C99D6" Kind="CashUsd" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Quản lý giao dịch" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60" x:Name="PageSearch">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="Magnify" Height="25" Width="25" Margin="10"/>
+                            <materialDesign:PackIcon Foreground="#FF5C99D6" Kind="Magnify" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Tra cứu" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60" x:Name="PageReport">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="ClipboardTextOutline" Height="25" Width="25" Margin="10"/>
+                            <materialDesign:PackIcon Foreground="#FF5C99D6" Kind="ClipboardTextOutline" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Báo cáo/Thống kê" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>
                     <ListViewItem Height="60" x:Name="PageHelp">
                         <StackPanel Orientation="Horizontal">
-                            <materialDesign:PackIcon Kind="QuestionMarkCircleOutline" Height="25" Width="25" Margin="10"/>
+                            <materialDesign:PackIcon Foreground="#FF5C99D6" Kind="QuestionMarkCircleOutline" Height="25" Width="25" Margin="10"/>
                             <TextBlock Text="Trợ giúp" VerticalAlignment="Center"  Margin="20 10"/>
                         </StackPanel>
                     </ListViewItem>

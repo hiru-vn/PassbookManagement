@@ -69,22 +69,29 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             }
             else
             {
-                CollectBill bill = new CollectBill();
-                bill.Id = 1.ToString().Trim();
-                bill.Collect_passbook = int.Parse(Txt_PassbookID.Text);
-                bill.Collect_money = long.Parse(Money.Text);
-                bill.Collectdate = this.DatePicker_Time.SelectedDate ?? DateTime.Now;
+                if (CollectBillDAO.Instance.CheckCollectMoney(long.Parse(this.Money.Text.ToString()), (this.Cb_TypePassbook.SelectedItem as TypePassbook).Typename))
+                {
+                    MessageBox.Show("Số tiên gởi không hợp lê");
+                    Clearall();
+                    return;
+                }
+                if (CollectBillDAO.Instance.CheckCollectdate(this.DatePicker_Time.SelectedDate, int.Parse(Txt_PassbookID.Text.ToString())))
+                {
+                    MessageBox.Show("Chưa đến ngày đáo hạn sổ, Ngày đáo hạn là: " + (PassbookDAO.Instance.GetWithdrawday(int.Parse(this.Txt_PassbookID.Text.ToString()))).Value.ToString("dd/MM/yyyy"));
+                    return;
+                }
+                CollectBill bill = new CollectBill
+                {
+                    Id = 1.ToString().Trim(),
+                    Collect_passbook = int.Parse(Txt_PassbookID.Text),
+                    Collect_money = long.Parse(Money.Text),
+                    Collectdate = this.DatePicker_Time.SelectedDate ?? DateTime.Now
+                };
                 CollectBillDAO.Instance.InsertCollectBill(bill);
-                MessageBox.Show("Thêm phiếu gởi thành công");
+                MessageBox.Show("Thêm phiếu gởi thành công");   
+                Clearall();
             }
-
-
-
-            //    String PassbookID = this.Txt_PassbookID.Text;
-            //    string AccountType = this.Cb_TypePassbook.SelectedValue.ToString();
-            //    PassbookDAO.Instance.SendMoney(PassbookID, AccountType, int.Parse(this.Money.Text));
         }
-
         private void BtnPrint_Click(object sender, RoutedEventArgs e)
         {
             //CaptureUIElement.Instance.SaveFrameworkElementToPng(Grid_BillInfo, 200, 200, "MyImage.png");
@@ -144,7 +151,27 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 }
             }
         }
-
+        private void Clearall()
+        {
+            this.Txt_CustomerID.Text = null;
+            this.Txt_CustomerName.Text = null;
+            this.Txt_CustomerCard.Text = null;
+            this.Txt_CustomerAddress.Text = null;
+            this.Cb_TypePassbook.ItemsSource = null;
+            this.Txt_PassbookID.Text = null;
+            this.Money.Text = null;
+            this.Txt_CustomerID.Clear();
+            this.Txt_CustomerName.Clear();
+            this.Txt_CustomerCard.Clear();
+            this.Txt_CustomerAddress.Clear();
+            this.Cb_TypePassbook.Items.Clear();
+            this.Txt_PassbookID.Clear();
+            this.Money.Clear();
+        }
+        private void Txt_CustomerID_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Clearall();
+        }
     }
 
 }

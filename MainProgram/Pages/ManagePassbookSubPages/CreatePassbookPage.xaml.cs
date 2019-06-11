@@ -45,6 +45,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             {
                 this.TextBox_CustomerID.IsEnabled = true;
                 this.TextBox_CustomerID.Text = "";
+                Clearall();
             }
             else
             {
@@ -97,15 +98,24 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         private void Button_OpenPassbook(object sender, RoutedEventArgs e)
         {
             int IDcustomer = int.Parse(this.TextBox_CustomerID.Text);
-            Customer customer = new Customer();
-            customer.Cus_address = TextBox_Address.Text.Trim();
-            customer.Cus_name = TextBox_CustomerName.Text.Trim();
-            customer.Cmnd = TextBox_CardID.Text.Trim();
+            Customer customer = new Customer
+            {
+                Cus_address = TextBox_Address.Text.Trim(),
+                Cus_name = TextBox_CustomerName.Text.Trim(),
+                Cmnd = TextBox_CardID.Text.Trim()
+            };
             if (this.RadioButton_NewCustomer.IsChecked == true)
             {               
                 if (string.IsNullOrEmpty(customer.Cus_name) || string.IsNullOrEmpty(customer.Cmnd))
                 {
                     MessageBoxCustom.setContent("Chưa điền đầy đủ thông tin khách hàng");
+                    return;
+                }
+                if (PassbookDAO.Instance.CheckBalance(long.Parse(this.TextBox_Money.Text.ToString()), (this.Combobox_TypePassbook.SelectedItem as TypePassbook).Typename))
+                {
+                    MessageBoxCustom.setContent("Số tiền gởi ban đầu không hợp lệ ").ShowDialog();
+                    Clearall();
+                    this.TextBox_CustomerID.Text = (CustomerDAO.Instance.GetCurrentMaxCustomerID() + 1).ToString();
                     return;
                 }
                 CustomerDAO.Instance.InsertCustomer(customer);
@@ -116,26 +126,93 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             {
                 if (idType != null)
                 {
-                    Passbook pass = new Passbook();
-                    pass.Passbook_customer = IDcustomer;
-                    pass.Opendate = this.DatePicker_DateOpen.SelectedDate ?? DateTime.Now;
-                    pass.Passbooktype = idType ?? -1;
-                    pass.Passbook_balance = 0;
+                    Passbook pass = new Passbook
+                    {
+                        Passbook_customer = IDcustomer,
+                        Opendate = this.DatePicker_DateOpen.SelectedDate ?? DateTime.Now,
+                        Passbooktype = idType ?? -1,
+                        Passbook_balance = 0
+                    };
                     PassbookDAO.Instance.InsertPassbook(pass);
-                    CollectBill bill = new CollectBill();
-                    bill.Id = 1.ToString();
-                    bill.Collect_passbook = int.Parse(this.TextBox_PassbookID.Text.ToString());
-                    bill.Collect_money = long.Parse(this.TextBox_Money.Text.ToString());
-                    bill.Collectdate = this.DatePicker_DateOpen.SelectedDate ?? DateTime.Now;
+                    CollectBill bill = new CollectBill
+                    {
+                        Id = 1.ToString(),
+                        Collect_passbook = int.Parse(this.TextBox_PassbookID.Text.ToString()),
+                        Collect_money = long.Parse(this.TextBox_Money.Text.ToString()),
+                        Collectdate = this.DatePicker_DateOpen.SelectedDate ?? DateTime.Now
+                    };
                     CollectBillDAO.Instance.InsertCollectBill(bill);
                     MessageBoxCustom.setContent("Thêm sổ thành công").ShowDialog();
-                    //clear
+                    Clearall();
+                    this.TextBox_PassbookID.Text = (PassbookDAO.Instance.GetMaxID() + 1).ToString();
+                    this.TextBox_Money.Clear();
+                    if (this.RadioButton_NewCustomer.IsChecked == true) this.TextBox_CustomerID.Text = (CustomerDAO.Instance.GetCurrentMaxCustomerID() + 1).ToString();
+
+
                 }
             }
             else
             {
                 MessageBoxCustom.setContent("Lỗi, khách hàng này đã có tài khoản thuộc loại " + (this.Combobox_TypePassbook.SelectedItem as TypePassbook).Typename + " còn thời hạn.").ShowDialog();
             }
+        }
+        private void Clearall()
+        {
+            this.TextBox_CustomerID.Text = null;
+            this.TextBox_CustomerName.Text = null;
+            this.TextBox_CardID.Text = null;
+            this.TextBox_Address.Text = null;
+            this.TextBox_Money.Text = null;
+            this.TextBox_CustomerID.Clear();
+            this.TextBox_CustomerName.Clear();
+            this.TextBox_CardID.Clear();
+            this.TextBox_Address.Clear();
+            this.TextBox_Money.Clear();
+            this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListType();
+            this.Combobox_TypePassbook.DisplayMemberPath = "Typename";
+        }
+        private void TextBox_CustomerID_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Clearall();
+        }
+
+        private void RadioButton_NewCustomer_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Clearall();
+        }
+        public bool IsNumber(string pValue)
+        {
+            foreach (Char c in pValue)
+            {
+                if (!Char.IsDigit(c))
+                    return false;
+            }
+            return true;
+        }
+        private void TextBox_CardID_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(this.TextBox_CardID.Text))
+                return;
+            else
+            {
+                if (this.TextBox_CardID.Text.Length == 9)
+                {
+                    if (IsNumber(this.TextBox_CardID.Text))
+                        if (CustomerDAO.Instance.CheckCardIDexist(this.TextBox_CardID.Text))
+                            return;
+                        else
+                        {
+                            MessageBoxCustom.setContent("Số CMND đã tồn tại. Vui lòng nhập lại").ShowDialog();
+                            this.TextBox_CardID.Clear();
+                            return;
+                        }   
+                    
+                    
+                }
+                MessageBoxCustom.setContent("Số CMND chưa đúng, Vui lòng nhập lại").ShowDialog();
+               this.TextBox_CardID.Clear();
+            }
+            
         }
     }
 }

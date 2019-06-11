@@ -48,7 +48,10 @@ namespace MainProgram.Pages.SearchSubPages
                 string content = this.Textbox_Search.Text;
                 if (!string.IsNullOrEmpty(content))
                 {
-                    //search query
+                    if (isSearchByName)
+                        this.ListView.ItemsSource = CustomerDAO.Instance.GetCusInfoByName(this.Textbox_Search.Text.Trim()).DefaultView;
+                    else
+                        this.ListView.ItemsSource = CustomerDAO.Instance.GetCusInfoByCardID(this.Textbox_Search.Text.Trim()).DefaultView;
                 }
             }
         }
