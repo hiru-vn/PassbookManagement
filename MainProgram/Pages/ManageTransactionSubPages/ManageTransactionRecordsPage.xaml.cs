@@ -65,11 +65,13 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             {
                 try
                 {
-                    Customer cus = new Customer();
-                    cus.Id = int.Parse(this.TextBox_CustomerID.Text);
-                    cus.Cus_name = this.TextBox_CustomerName.Text.Trim();
-                    cus.Cmnd = this.TextBox_CustomerIDcard.Text.Trim();
-                    cus.Cus_address = this.TextBox_CustomerAddress.Text.Trim();
+                    Customer cus = new Customer
+                    {
+                        Id = int.Parse(this.TextBox_CustomerID.Text),
+                        Cus_name = this.TextBox_CustomerName.Text.Trim(),
+                        Cmnd = this.TextBox_CustomerIDcard.Text.Trim(),
+                        Cus_address = this.TextBox_CustomerAddress.Text.Trim()
+                    };
                     CustomerDAO.Instance.UpdateCustomer(cus);
                     MessageBoxCustom.setContent("Sửa thông tin khách hàng thành công").ShowDialog();
                 }

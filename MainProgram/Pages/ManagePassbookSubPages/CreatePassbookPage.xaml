@@ -7,7 +7,7 @@
       
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Converter="clr-namespace:MainProgram.Converter"
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.Foreground="#FF31577E"
         TextElement.FontWeight="Regular"
         TextElement.FontSize="13"
         TextOptions.TextFormattingMode="Ideal" 
@@ -50,14 +50,14 @@
                              materialDesign:HintAssist.Hint="Mã khách hàng" 
                              materialDesign:HintAssist.IsFloating="True" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             Width="auto"></TextBox>
+                             Width="auto" GotFocus="TextBox_CustomerID_GotFocus"></TextBox>
                             <RadioButton VerticalAlignment="Center"
                                      x:Name="RadioButton_NewCustomer"
                                  Margin="15 5 10 0" 
                                  BorderBrush="#FF5C99D6" 
                                  Background="#FF5C99D6" 
                                  IsChecked="True" 
-                                 Checked="RadioButton_Checked">
+                                 Checked="RadioButton_Checked" GotFocus="RadioButton_NewCustomer_GotFocus">
                                 Khách hàng mới</RadioButton>
                             <RadioButton VerticalAlignment="Center"
                                  x:Name="RadioButton_OldCustomer"
@@ -74,7 +74,7 @@
                              DockPanel.Dock="Right" 
                              materialDesign:HintAssist.Hint="Mã thẻ căn cước/CMND" 
                              materialDesign:HintAssist.FloatingScale="0.7" 
-                             materialDesign:HintAssist.IsFloating="True"></TextBox>
+                             materialDesign:HintAssist.IsFloating="True" LostFocus="TextBox_CardID_LostFocus"></TextBox>
 
                             <TextBox DockPanel.Dock="Left"
                                  x:Name="TextBox_CustomerName"
@@ -111,7 +111,8 @@
                         Loại tiết kiệm:</TextBlock>
                             <ComboBox Margin="10 0 0 0" 
                                   x:Name="Combobox_TypePassbook"
-                              VerticalAlignment="Bottom"/>
+                              VerticalAlignment="Bottom">
+                            </ComboBox>
                         </DockPanel>
                         <DockPanel Margin="0 10 0 0">
                             <DatePicker Margin="0 0 20 0" 

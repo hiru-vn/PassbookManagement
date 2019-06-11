@@ -46,18 +46,10 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             }
         }
 
-        // apply for numberic textbox
-        private void Numberic_TextBox(object sender, TextCompositionEventArgs e)
+        private void Numberic_Txtbox(object sender, TextCompositionEventArgs e)
         {
             foreach (char ch in e.Text)
                 if (!Char.IsDigit(ch))
-                    e.Handled = true;
-        }
-        // apply for money textbox
-        private void Money_TextBox(object sender, TextCompositionEventArgs e)
-        {
-            foreach (char ch in e.Text)
-                if (!Char.IsDigit(ch) || ch == ',')
                     e.Handled = true;
         }
         private void BtnWithdraw_click(object sender, RoutedEventArgs e)
@@ -69,20 +61,38 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             }
             else
             {
-                WithdrawBill bill = new WithdrawBill();
-                bill.Id = 1.ToString().Trim();
-                bill.Withdraw_passbook = int.Parse(this.Txt_PassbookID.Text.ToString());
-                bill.Withdrawmoney = long.Parse(this.Money.Text.ToString());
-                bill.Withdrawdate = this.DatePicker_Time.SelectedDate ?? DateTime.Now;
+                if (PassbookDAO.Instance.GetWithdrawday(int.Parse(this.Txt_PassbookID.Text.ToString())) <= this.DatePicker_Time.SelectedDate)
+                {
+                    if ((this.Cb_TypePassbook.SelectedItem as TypePassbook).Typename != "Không kì hạn")
+                    {
+                        MessageBoxResult result = MessageBox.Show("Ngày hoàn thành kì hạn chưa tới, Quý Khách có muốn rút?", "Thông Báo", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
+                        if (result == MessageBoxResult.Cancel)
+                        {
+                            Clearall();
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Chưa đến được rút, thời hạn rút tiền là 15 ngày", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    Clearall();
+                    return;
+                  
+                }
+                WithdrawBill bill = new WithdrawBill
+                {
+                    Id = 1.ToString().Trim(),
+                    Withdraw_passbook = int.Parse(this.Txt_PassbookID.Text.ToString()),
+                    Withdrawmoney = long.Parse(this.Money.Text.ToString()),
+                    Withdrawdate = this.DatePicker_Time.SelectedDate ?? DateTime.Now
+                };
                 WithdrawBillDAO.Instance.InsertWithdrawBill(bill);
-                MessageBox.Show("Tạo phiếu rút thành công!");
                 int id = int.Parse(this.Txt_PassbookID.Text);
+                MessageBox.Show("Tạo phiếu rút thành công! Số dư còn lại là: "+ PassbookDAO.Instance.GetBalancebyIDPassbook(id).ToString(),"Thông Báo");
                 this.Balance.Text = "Số dư:" + PassbookDAO.Instance.GetBalancebyIDPassbook(id).ToString();
+                Clearall();
             }
-
-            //String PassbookID = this.Txt_PassbookID.Text;
-            //string AccountType = this.Cb_TypePassbook.SelectedValue.ToString();
-            //WithdrawBillDAO.Instance.WithdrawMoney(PassbookID, AccountType, int.Parse(this.Money.Text));
         }
         private void BtnPrint_Click(object sender, RoutedEventArgs e)
         {
@@ -125,7 +135,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         private void Cb_TypePassbook_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (this.Cb_TypePassbook.ItemsSource != null)
-            { 
+            {
                 ComboBox cb = sender as ComboBox;
                 if (cb.SelectedItem != null)
                 {
@@ -141,8 +151,32 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                         this.Money.IsEnabled = false;
                     }
                     else this.Money.IsEnabled = true;
+
                 }
             }
         }
+        private void Clearall()
+        {
+            this.Txt_CustomerID.Text = null;
+            this.Txt_CustomerName.Text = null;
+            this.Txt_CustomerCard.Text = null;
+            this.Txt_CustomerAddress.Text = null;
+            this.Cb_TypePassbook.ItemsSource = null;
+            this.Txt_PassbookID.Text = null;
+            this.Money.Text = null;
+            this.Txt_CustomerID.Clear();
+            this.Txt_CustomerName.Clear();
+            this.Txt_CustomerCard.Clear();
+            this.Txt_CustomerAddress.Clear();
+            this.Cb_TypePassbook.Items.Clear();
+            this.Txt_PassbookID.Clear();
+            this.Money.Clear();
+            this.Balance.Text = "Số dư:";
+        }
+        private void Txt_CustomerID_GotFocus(object sender, RoutedEventArgs e)
+        {
+            Clearall();
+        } 
+     
     }
 }

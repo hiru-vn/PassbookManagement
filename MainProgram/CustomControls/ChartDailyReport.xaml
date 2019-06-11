@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="MainProgram.CustomControls.ChartDailyReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MainProgram.CustomControls"
+             mc:Ignorable="d" 
+             xmlns:Converter="clr-namespace:MainProgram.Converter"
+             xmlns:dxc="http://schemas.devexpress.com/winfx/2008/xaml/charts"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="#FF31577E"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"   
+        HorizontalAlignment="Stretch"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Converter:MathConverter x:Key="MathConverter"></Converter:MathConverter>
+    </UserControl.Resources>
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <dxc:ChartControl x:Name="ChartDaily" Grid.Row="0">
+            <dxc:ChartControl.Diagram>
+                <dxc:XYDiagram2D>
+                    <dxc:XYDiagram2D.Series>
+                        <dxc:LineSeries2D x:Name="Incom" DisplayName="Tổng thu" MarkerVisible="True">
+                            <dxc:LineSeries2D.LineStyle>
+                                <dxc:LineStyle Thickness="4" />
+                            </dxc:LineSeries2D.LineStyle>
+
+                        </dxc:LineSeries2D>
+                        <dxc:LineSeries2D x:Name="Outcome" DisplayName="Thổng chi" MarkerVisible="True">
+                            <dxc:LineSeries2D.LineStyle>
+                                <dxc:LineStyle Thickness="4" />
+                            </dxc:LineSeries2D.LineStyle>
+
+                        </dxc:LineSeries2D>
+                    </dxc:XYDiagram2D.Series>
+                </dxc:XYDiagram2D>
+            </dxc:ChartControl.Diagram>
+            <dxc:ChartControl.Legend>
+                <dxc:Legend />
+            </dxc:ChartControl.Legend>
+        </dxc:ChartControl>
+        <Grid VerticalAlignment="Top" Grid.Row="1" x:Name="Panel_DailyReport" Margin="60 20 60 0">
+            <Button x:Name="Button_MoveBackward" Background="#FF5C99D6" BorderBrush="#FF5C99D6" Width="70" HorizontalAlignment="Left" Click="MoveChartBackward">Trước</Button>
+            <ComboBox HorizontalAlignment="Center"
+                      x:Name="Combobox_type"
+                      SelectionChanged="UpdateChart"
+                      materialDesign:HintAssist.Hint="Loại tiết kiệm">
+            </ComboBox>
+            <Button x:Name="Button_MoveForward" Click="MoveChartForward" Background="#FF5C99D6" BorderBrush="#FF5C99D6" Width="70" HorizontalAlignment="Right">Sau</Button>
+        </Grid>
+    </Grid>
+</UserControl>

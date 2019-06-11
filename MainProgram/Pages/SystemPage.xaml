@@ -80,7 +80,7 @@
                        FontSize="18">
             </TextBlock>
             <StackPanel VerticalAlignment="Center" Margin="10">
-                <TextBox Text="Tên đăng nhập"
+                <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
                          Margin="0,10"/>
                 <PasswordBox Password="Mật khẩu"
                              Margin="0,10"

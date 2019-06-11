@@ -69,7 +69,6 @@ namespace DAO
                 return list;
             }
         }
-
         public void InsertWithdrawBill(WithdrawBill bill)
         {
             int passbook = bill.Withdraw_passbook;
@@ -85,11 +84,6 @@ namespace DAO
             {
 
             }
-        }
-
-        public void WithdrawMoney(string s, string ss, int n)
-        {
-            // do not code in here
         }
     }
 }

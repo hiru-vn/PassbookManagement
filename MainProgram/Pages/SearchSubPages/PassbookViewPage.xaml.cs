@@ -47,7 +47,20 @@ namespace MainProgram.Pages.SearchSubPages
                 string content = this.Textbox_Search.Text;
                 if (!string.IsNullOrEmpty(content))
                 {
-                    //search query
+                    if (isSearchByName)
+                        this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByCusName(this.Textbox_Search.Text.Trim()).DefaultView;
+                    else
+                    {
+                        try
+                        {
+                            int id = int.Parse(this.Textbox_Search.Text.Trim());
+                            this.ListView.ItemsSource = PassbookDAO.Instance.GetPassInfoByPassID(id).DefaultView;
+                        }
+                        catch
+                        {
+                            this.ListView.Items.Clear();
+                        }
+                    }
                 }
             }
         }

@@ -129,5 +129,14 @@ namespace DAO
             DataProvider.Instance.ExcuteNonQuery("usp_InsertCustomer @cmnd , @name , @address", new object[] { cmnd, name, address });
             //cmnd,name,address
         }
+        public bool CheckCardIDexist(string CardID)
+        {
+            string query = "select count(*) from dbo.customer where cmnd= " + CardID;
+            int result = (int)DataProvider.Instance.ExcuteScarar(query);
+            if (result >0)
+                return false;
+            else
+                return true;
+        }
     }
 }
