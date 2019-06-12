@@ -36,7 +36,7 @@
                        Margin="10" FontSize="20">
                 Phiếu mở sổ tiết kiệm
             </TextBlock>
-            <materialDesign:ColorZone Background="LightBlue">
+            <materialDesign:ColorZone x:Name="Panel_Bill" Background="LightBlue">
                 <Grid x:Name="Grid_BillInfo">
                     <StackPanel Margin="30">
                         <TextBlock Foreground="#FF31577E"

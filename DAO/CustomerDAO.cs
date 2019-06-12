@@ -18,7 +18,29 @@ namespace DAO
             private set { instance = value; }
         }
         private CustomerDAO() { }
+        #region insert
+        public void InsertCustomer(Customer cus)
+        {
+            string cmnd = cus.Cmnd;
+            string name = cus.Cus_name;
+            string address = cus.Cus_address;
+            DataProvider.Instance.ExcuteNonQuery("usp_InsertCustomer @cmnd , @name , @address", new object[] { cmnd, name, address });
+            //cmnd,name,address
+        }
+        #endregion
 
+        #region update
+        public void UpdateCustomer(Customer cus)
+        {
+            int id = cus.Id;
+            string name = cus.Cus_name;
+            string address = cus.Cus_address;
+            string cmnd = cus.Cmnd;
+            DataProvider.Instance.ExcuteNonQuery("usp_Update_cus @id , @name , @address , @cmnd ", new object[] { id, name, address, cmnd });
+        }
+        #endregion
+
+        #region queries
         public int GetCurrentMaxCustomerID()
         {
             int value = 0;
@@ -85,14 +107,7 @@ namespace DAO
             Customer cus = new Customer(row);
             return cus;
         }
-        public void UpdateCustomer(Customer cus)
-        {
-            int id = cus.Id;
-            string name = cus.Cus_name;
-            string address = cus.Cus_address;
-            string cmnd = cus.Cmnd;
-            DataProvider.Instance.ExcuteNonQuery("usp_Update_cus @id , @name , @address , @cmnd ", new object[] { id, name, address, cmnd });
-        }
+        
         public DataTable GetCusInfoByName(string CusName)
         {
             //tìm kiếm gần đúng %CusName%
@@ -120,15 +135,7 @@ namespace DAO
             string query = "select cus_name from dbo.customer,dbo.passbook, dbo.withdrawbill where withdrawbill.id='" + WithdrawID + "' and customer.id=  passbook_customer and passbook.id= withdraw_passbook";
             string result = (string)DataProvider.Instance.ExcuteScarar(query).ToString();
             return result;
-        }
-        public void InsertCustomer(Customer cus)
-        {
-            string cmnd = cus.Cmnd;
-            string name = cus.Cus_name;
-            string address = cus.Cus_address;
-            DataProvider.Instance.ExcuteNonQuery("usp_InsertCustomer @cmnd , @name , @address", new object[] { cmnd, name, address });
-            //cmnd,name,address
-        }
+        }        
         public bool CheckCardIDexist(string CardID)
         {
             string query = "select count(*) from dbo.customer where cmnd= " + CardID;
@@ -138,5 +145,6 @@ namespace DAO
             else
                 return true;
         }
+        #endregion
     }
 }

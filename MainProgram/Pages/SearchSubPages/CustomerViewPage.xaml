@@ -67,7 +67,7 @@
                 BorderThickness="0"
                 MinWidth="200"
                 Width="{Binding Path=ActualWidth, ElementName= RadioButton_searchName, Converter={StaticResource MathConverter}, ConverterParameter=@VALUE*2+30 }"
-                VerticalAlignment="Center" KeyDown="TextBox_Search_KeyDown" KeyUp="TextBox_Search_KeyUp" TextChanged="Textbox_Search_TextChanged" />
+                VerticalAlignment="Center" KeyDown="TextBox_Search_KeyDown" KeyUp="TextBox_Search_KeyUp" />
                 <Button x:Name="Button_ClearText" Visibility="Hidden"
                     Style="{DynamicResource MaterialDesignToolButton}"
                     Grid.Column="2" Click="Button_ClearText_Click">

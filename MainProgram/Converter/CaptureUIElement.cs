@@ -57,9 +57,11 @@ namespace MainProgram.Converter
                                 string filePath)
         {
             TransformGroup transformGroup = new TransformGroup();
-            ScaleTransform scaleTransform = new ScaleTransform();
-            scaleTransform.ScaleX = (double)width / sourceImage.PixelWidth;
-            scaleTransform.ScaleY = (double)height / sourceImage.PixelHeight;
+            ScaleTransform scaleTransform = new ScaleTransform
+            {
+                ScaleX = (double)width / sourceImage.PixelWidth,
+                ScaleY = (double)height / sourceImage.PixelHeight
+            };
             transformGroup.Children.Add(scaleTransform);
 
             DrawingVisual vis = new DrawingVisual();

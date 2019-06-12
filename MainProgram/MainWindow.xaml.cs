@@ -25,9 +25,10 @@ namespace MainProgram
         public MainWindow()
         {
             InitializeComponent();
-            TransactionDAO.Instance.UpdatePassbookBalance();
+            PassbookDAO.Instance.UpdatePassbookBalance();
         }
 
+        #region events
         private void Close_Application(object sender, MouseButtonEventArgs e)
         {
             this.Close();
@@ -70,5 +71,6 @@ namespace MainProgram
                     break;
             }
         }
+        #endregion
     }
 }

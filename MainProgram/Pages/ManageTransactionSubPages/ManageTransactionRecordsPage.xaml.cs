@@ -29,13 +29,17 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         {
             InitializeComponent();
         }
+        #region functions
         void ClearPage()
         {
-            foreach(TextBlock control in this.PanelForm.Children)
+            foreach (TextBlock control in this.PanelForm.Children)
             {
                 control.Text = "";
             }
         }
+        #endregion
+
+        #region events
         private void Delete_Transaction(object sender, RoutedEventArgs e)
         {
             if (MessageBoxCustom.setContent("bạn muốn xóa giao dịch này?").ShowDialog() == true)
@@ -134,6 +138,7 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             {
                 MessageBoxCustom.setContent("Không tìm thấy mã giao dịch này.").ShowDialog();
             }
+            #endregion
         }
     }
 }

@@ -18,6 +18,8 @@ namespace DAO
             private set { instance = value; }
         }
         private TransactionDAO() { }
+
+        #region queries
         public List<Transaction> GetListTransaction(string cusname, DateTime? date)
         {
             List<Transaction> list = new List<Transaction>();
@@ -54,9 +56,6 @@ namespace DAO
             string query = string.Format("exec usp_SearchTranByCustomerNameAndDate " + name + ", '" + date.ToString("yyyy/MM/dd")+"'");
             return DataProvider.Instance.ExcuteQuery(query);
         }
-        public void UpdatePassbookBalance()
-        {
-            DataProvider.Instance.ExcuteNonQuery("usp_CheckPassbookIncreasement");
-        }
+        #endregion
     }
 }

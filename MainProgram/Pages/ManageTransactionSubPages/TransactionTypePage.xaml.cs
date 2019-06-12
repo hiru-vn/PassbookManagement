@@ -27,8 +27,111 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         public TransactionTypePage()
         {
             InitializeComponent();
-            showTreeItem();
+            ShowTreeItem();
         }
+        #region functions
+        void LoadListTreeItem()
+        {
+            //get list typepassbook and show them on listview
+            this.ListView_TransactionType.Items.Clear();
+            List<TypePassbook> list = new List<TypePassbook>();
+            list = TypePassbookDAO.Instance.GetListType();
+            foreach (TypePassbook type in list)
+            {
+                StackPanel stackPanel = new StackPanel
+                {
+                    VerticalAlignment = VerticalAlignment.Stretch,
+                    HorizontalAlignment = HorizontalAlignment.Stretch,
+                    Orientation = Orientation.Horizontal
+                };
+                PackIcon icon = new PackIcon
+                {
+                    Kind = PackIconKind.Notebook,
+                    Margin = new Thickness(-5, 0, 5, 0),
+                    Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF31577E"))
+                };
+                TextBlock textBlock = new TextBlock
+                {
+                    Text = type.Typename
+                };
+                stackPanel.Children.Add(icon);
+                stackPanel.Children.Add(textBlock);
+                ListViewItem item = new ListViewItem
+                {
+                    Content = stackPanel,
+                    Tag = type
+                };
+
+                this.ListView_TransactionType.Items.Add(item);
+            }
+        }
+        void Look_Type_Mode()
+        {
+            //set view for user to look
+            this.Button_Fix.Visibility = Visibility.Visible;
+            this.Texblock_title.Text = "Thông tin";
+            if (this.ListView_TransactionType.Items.Count > 0)
+                this.ListView_TransactionType.SelectedIndex = 0;
+        }
+        void ShowTreeItem()
+        {
+            //default view
+            LoadListTreeItem();
+            Look_Type_Mode();
+        }
+        void SetReadOnly(bool flag)
+        {
+            //change textbox to prevent user change unpermission properties in database
+            if (flag)
+            {
+                this.TextBox_MinBalanceMoney.IsReadOnly = true;
+                this.TextBox_MinWithdrawDay.IsReadOnly = true;
+                this.TextBox_MinCollectMoney.IsReadOnly = true;
+                this.TextBox_InterestRate.IsReadOnly = true;
+            }
+            else
+            {
+                this.TextBox_MinBalanceMoney.IsReadOnly = false;
+                this.TextBox_MinWithdrawDay.IsReadOnly = false;
+                this.TextBox_MinCollectMoney.IsReadOnly = false;
+                this.TextBox_InterestRate.IsReadOnly = false;
+            }
+        }
+        void SetTermTypeMode(bool flag)
+        {
+            //view for term typepassbook or not
+            try
+            {
+                if (flag)
+                {
+                    this.Stackpanel_term.Visibility = Visibility.Visible;
+                    this.Stackpanel_MinWithdrawday.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    this.Stackpanel_term.Visibility = Visibility.Collapsed;
+                    this.Stackpanel_MinWithdrawday.Visibility = Visibility.Visible;
+                }
+            }
+            catch { }
+        }
+        void enableRadioButton(bool flag)
+        {
+            //enable radiobutton to prevent user change unpermission properties in database
+            if (flag)
+            {
+                this.RadioButton_Noterm.IsHitTestVisible = true;
+                this.RadioButton_Yesterm.IsHitTestVisible = true;
+            }
+            else
+            {
+                this.RadioButton_Noterm.IsHitTestVisible = false;
+                this.RadioButton_Yesterm.IsHitTestVisible = false;
+            }
+        }
+        #endregion
+
+        #region events
         // apply for numberic textbox
         private void Numberic_TextBox(object sender, TextCompositionEventArgs e)
         {
@@ -42,44 +145,6 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             foreach (char ch in e.Text)
                 if (!Char.IsDigit(ch) || ch == ',')
                     e.Handled = true;
-        }
-        void LoadListTreeItem()
-        {
-            this.ListView_TransactionType.Items.Clear();
-            List<TypePassbook> list = new List<TypePassbook>();
-            list = TypePassbookDAO.Instance.GetListType();
-            foreach (TypePassbook type in list)
-            {
-                StackPanel stackPanel = new StackPanel();
-                stackPanel.VerticalAlignment = VerticalAlignment.Stretch;
-                stackPanel.HorizontalAlignment = HorizontalAlignment.Stretch;
-                stackPanel.Orientation = Orientation.Horizontal;
-                PackIcon icon = new PackIcon();
-                icon.Kind = PackIconKind.Notebook;
-                icon.Margin = new Thickness(-5, 0, 5, 0);
-                icon.Foreground = (SolidColorBrush)(new BrushConverter().ConvertFrom("#FF31577E"));
-                TextBlock textBlock = new TextBlock();
-                textBlock.Text = type.Typename;
-                stackPanel.Children.Add(icon);
-                stackPanel.Children.Add(textBlock);
-                ListViewItem item = new ListViewItem();
-                item.Content = stackPanel;
-                item.Tag = type;
-
-                this.ListView_TransactionType.Items.Add(item);
-            }
-        }
-        void Look_Type_Mode()
-        {
-            this.Button_Fix.Visibility = Visibility.Visible;
-            this.Texblock_title.Text = "Thông tin";
-            if (this.ListView_TransactionType.Items.Count > 0)
-                this.ListView_TransactionType.SelectedIndex = 0;
-        }
-        void showTreeItem()
-        {
-            LoadListTreeItem();
-            Look_Type_Mode();
         }
         private void Listview_SelectionChange(object sender, SelectionChangedEventArgs e)
         {
@@ -109,7 +174,7 @@ namespace MainProgram.Pages.ManageTransactionSubPages
                 enableRadioButton(false);
             }
         }
-        
+
 
         private void Add_Type_Mode(object sender, RoutedEventArgs e)
         {
@@ -126,9 +191,11 @@ namespace MainProgram.Pages.ManageTransactionSubPages
         }
         private void Add_Type(object sender, RoutedEventArgs e)
         {
-            TypePassbook type = new TypePassbook();
-            type.Min_passbookblance = int.Parse(this.TextBox_MinBalanceMoney.Text);
-            type.Interest_rate = float.Parse(this.TextBox_InterestRate.Text) / 100;
+            TypePassbook type = new TypePassbook
+            {
+                Min_passbookblance = int.Parse(this.TextBox_MinBalanceMoney.Text),
+                Interest_rate = float.Parse(this.TextBox_InterestRate.Text) / 100
+            };
             if (this.RadioButton_Noterm.IsChecked == true)
             {
                 type.Term = 0;
@@ -144,7 +211,7 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             SetReadOnly(true);
             enableRadioButton(false);
             this.TextBox_Term.IsReadOnly = true;
-            showTreeItem();
+            ShowTreeItem();
         }
         private void Fix_Type(object sender, RoutedEventArgs e)
         {
@@ -178,19 +245,19 @@ namespace MainProgram.Pages.ManageTransactionSubPages
             {
                 if (this.ListView_TransactionType.Items.Count > 0)
                 {
-                    TypePassbook typepassbook =(TypePassbook) (this.ListView_TransactionType.SelectedItem as ListViewItem).Tag;
+                    TypePassbook typepassbook = (TypePassbook)(this.ListView_TransactionType.SelectedItem as ListViewItem).Tag;
                     if (!TypePassbookDAO.Instance.CheckIfExistActivePassbookInType(typepassbook.Id))
                     {
                         TypePassbookDAO.Instance.DeleteType(typepassbook.Id);
-                        showTreeItem();
+                        ShowTreeItem();
                     }
                     else
                     {
-                        MessageBoxCustom.setContent("Loại tiết kiệm này vẫn còn sổ mở").ShowDialog() ;
+                        MessageBoxCustom.setContent("Loại tiết kiệm này vẫn còn sổ mở").ShowDialog();
                     }
                 }
             }
-        }       
+        }
 
         private void Change_Term_Type(object sender, RoutedEventArgs e)
         {
@@ -203,53 +270,6 @@ namespace MainProgram.Pages.ManageTransactionSubPages
                 SetTermTypeMode(true);
             }
         }
-
-        void SetReadOnly(bool flag)
-        {
-            if (flag)
-            {
-                this.TextBox_MinBalanceMoney.IsReadOnly = true;
-                this.TextBox_MinWithdrawDay.IsReadOnly = true;
-                this.TextBox_MinCollectMoney.IsReadOnly = true;
-                this.TextBox_InterestRate.IsReadOnly = true;
-            }
-            else
-            {
-                this.TextBox_MinBalanceMoney.IsReadOnly = false;
-                this.TextBox_MinWithdrawDay.IsReadOnly = false;
-                this.TextBox_MinCollectMoney.IsReadOnly = false;
-                this.TextBox_InterestRate.IsReadOnly = false;
-            }
-        }
-        void SetTermTypeMode(bool flag)
-        {
-            try
-            {
-                if (flag)
-                {
-                    this.Stackpanel_term.Visibility = Visibility.Visible;
-                    this.Stackpanel_MinWithdrawday.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    this.Stackpanel_term.Visibility = Visibility.Collapsed;
-                    this.Stackpanel_MinWithdrawday.Visibility = Visibility.Visible;
-                }
-            }
-            catch { }
-        }
-        void enableRadioButton(bool flag)
-        {
-            if (flag)
-            {
-                this.RadioButton_Noterm.IsHitTestVisible = true;
-                this.RadioButton_Yesterm.IsHitTestVisible = true;
-            }
-            else
-            {
-                this.RadioButton_Noterm.IsHitTestVisible = false;
-                this.RadioButton_Yesterm.IsHitTestVisible = false;
-            }
-        }
+        #endregion
     }
 }

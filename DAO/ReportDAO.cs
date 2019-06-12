@@ -17,6 +17,8 @@ namespace DAO
             private set { instance = value; }
         }
         private ReportDAO() { }
+
+        #region queries
         public DataTable GetDailyReport(DateTime date)
         {
             //trả về bảng gồm các cột được đặt tên: STT, TypePassbook, MoneyIncome, MoneyOutcome, Difference
@@ -38,6 +40,7 @@ namespace DAO
         }
         public Tuple<int,int> GetCountOpenClosePassbook(int month, int year, int typeid)
         {
+            //trả về số lượng sổ mở/ đóng trong tháng
             string query = "usp_ReportChartTypePassbookMonth " + month + ", " + year + ", " + typeid;
             DataRow data = DataProvider.Instance.ExcuteQuery(query).Rows[0];
             int open =int.Parse(data["openP"].ToString());
@@ -48,6 +51,7 @@ namespace DAO
         }
         public Tuple<int,int> GetIncomeOutcomeMoney(int month, int year, int typeid)
         {
+            //trả về tổng tiền thu/chi trong tháng
             string query = "usp_ReportChartTypePassbookDay " + month + ", " + year + ", " + typeid;
             DataRow data = DataProvider.Instance.ExcuteQuery(query).Rows[0];
             int Collect = int.Parse(data["Collect"].ToString());
@@ -56,5 +60,6 @@ namespace DAO
 
             return result;
         }
+        #endregion
     }
 }

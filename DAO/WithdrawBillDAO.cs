@@ -18,6 +18,8 @@ namespace DAO
             private set { instance = value; }
         }
         private WithdrawBillDAO() { }
+
+        #region queries
         public bool CheckIfExistBillID(string idBill)
         {
 
@@ -85,5 +87,11 @@ namespace DAO
 
             }
         }
+        public string GetLastBillID()
+        {
+            string billid = (string)DataProvider.Instance.ExcuteScarar("select top 1 id from dbo.withdrawbill order by id desc");
+            return billid;
+        }
+        #endregion
     }
 }

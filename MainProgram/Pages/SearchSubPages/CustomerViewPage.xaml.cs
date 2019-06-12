@@ -27,8 +27,11 @@ namespace MainProgram.Pages.SearchSubPages
         public CustomerViewPage()
         {
             InitializeComponent();
-            
         }
+
+        #region function
+
+        #endregion
         private void TextBox_Search_KeyUp(object sender, KeyEventArgs e)
         {
             if (string.IsNullOrEmpty((sender as TextBox).Text))
@@ -55,7 +58,6 @@ namespace MainProgram.Pages.SearchSubPages
                 }
             }
         }
-
         private void Button_ClearText_Click(object sender, RoutedEventArgs e)
         {
             this.Textbox_Search.Clear();
@@ -70,11 +72,6 @@ namespace MainProgram.Pages.SearchSubPages
         { 
             HintAssist.SetHint(this.Textbox_Search, "Nhập tên khách hàng");
             isSearchByName = true;
-        }
-
-        private void Textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            
         }
 
         private void Button_LoadList_Click(object sender, RoutedEventArgs e)

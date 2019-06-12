@@ -36,7 +36,7 @@
                 Phiếu gởi tiền tiết kiệm
             </TextBlock>
             <Grid x:Name="Grid_BillInfo">
-                <materialDesign:ColorZone Background="LightBlue">
+                <materialDesign:ColorZone x:Name="Panel_Bill" Background="LightBlue">
                     <StackPanel Margin="30">
                         <TextBlock Foreground="#FF31577E"
                                FontWeight="Light"

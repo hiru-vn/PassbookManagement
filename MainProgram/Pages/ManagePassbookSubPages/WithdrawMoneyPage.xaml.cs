@@ -12,8 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MainProgram.CustomControls;
 using DTO;
 using DAO;
+using MainProgram.Converter;
+using System.Reflection;
+
 namespace MainProgram.Pages.ManagePassbookSubPages
 {
     /// <summary>
@@ -25,6 +29,28 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         {
             InitializeComponent();
         }
+        #region functions
+        private void Clearall()
+        {
+            this.Txt_CustomerID.Text = null;
+            this.Txt_CustomerName.Text = null;
+            this.Txt_CustomerCard.Text = null;
+            this.Txt_CustomerAddress.Text = null;
+            this.Cb_TypePassbook.ItemsSource = null;
+            this.Txt_PassbookID.Text = null;
+            this.Money.Text = null;
+            this.Txt_CustomerID.Clear();
+            this.Txt_CustomerName.Clear();
+            this.Txt_CustomerCard.Clear();
+            this.Txt_CustomerAddress.Clear();
+            this.Cb_TypePassbook.Items.Clear();
+            this.Txt_PassbookID.Clear();
+            this.Money.Clear();
+            this.Balance.Text = "Số dư:";
+        }
+        #endregion
+
+        #region events
         private void BtnSearch_Click(object sender, RoutedEventArgs e)
         {
             int customerID;
@@ -41,7 +67,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 }
                 else
                 {
-                    MessageBox.Show("CustomerID is not available");
+                    MessageBoxCustom.setContent("CustomerID is not available").ShowDialog();
                 }
             }
         }
@@ -56,7 +82,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         {
             if (string.IsNullOrEmpty(this.Money.Text))
             {
-                MessageBox.Show("Thiếu thông tin phiếu gởi!");
+                MessageBoxCustom.setContent("Thiếu thông tin phiếu gởi!").ShowDialog();
                 return;
             }
             else
@@ -65,8 +91,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 {
                     if ((this.Cb_TypePassbook.SelectedItem as TypePassbook).Typename != "Không kì hạn")
                     {
-                        MessageBoxResult result = MessageBox.Show("Ngày hoàn thành kì hạn chưa tới, Quý Khách có muốn rút?", "Thông Báo", MessageBoxButton.OKCancel, MessageBoxImage.Question, MessageBoxResult.Cancel);
-                        if (result == MessageBoxResult.Cancel)
+                        if (MessageBoxCustom.setContent("Ngày hoàn thành kì hạn chưa tới, Quý Khách có muốn rút?").ShowDialog() == true)
                         {
                             Clearall();
                             return;
@@ -75,10 +100,10 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 }
                 else
                 {
-                    MessageBox.Show("Chưa đến được rút, thời hạn rút tiền là 15 ngày", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    MessageBoxCustom.setContent("Chưa đến được rút, thời hạn rút tiền là 15 ngày").ShowDialog();
                     Clearall();
                     return;
-                  
+
                 }
                 WithdrawBill bill = new WithdrawBill
                 {
@@ -89,14 +114,16 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 };
                 WithdrawBillDAO.Instance.InsertWithdrawBill(bill);
                 int id = int.Parse(this.Txt_PassbookID.Text);
-                MessageBox.Show("Tạo phiếu rút thành công! Số dư còn lại là: "+ PassbookDAO.Instance.GetBalancebyIDPassbook(id).ToString(),"Thông Báo");
+                MessageBoxCustom.setContent("Tạo phiếu rút thành công! Số dư còn lại là: " + PassbookDAO.Instance.GetBalancebyIDPassbook(id).ToString()).ShowDialog();
                 this.Balance.Text = "Số dư:" + PassbookDAO.Instance.GetBalancebyIDPassbook(id).ToString();
                 Clearall();
             }
         }
         private void BtnPrint_Click(object sender, RoutedEventArgs e)
         {
-            //CaptureUIElement.Instance.SaveFrameworkElementToPng(Grid_BillInfo, 200, 200, "MyImage.png");
+            string name = "Bill" + WithdrawBillDAO.Instance.GetLastBillID() + ".png";
+            CaptureUIElement.Instance.SaveFrameworkElementToPng(Panel_Bill, (int)Panel_Bill.ActualWidth, (int)Panel_Bill.ActualHeight, name);
+            MessageBoxCustom.setContent("phiếu lưu tại: "+ System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)).ShowDialog();
         }
 
         private void Txt_CustomerID_LostFocus(object sender, RoutedEventArgs e)
@@ -155,28 +182,12 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 }
             }
         }
-        private void Clearall()
-        {
-            this.Txt_CustomerID.Text = null;
-            this.Txt_CustomerName.Text = null;
-            this.Txt_CustomerCard.Text = null;
-            this.Txt_CustomerAddress.Text = null;
-            this.Cb_TypePassbook.ItemsSource = null;
-            this.Txt_PassbookID.Text = null;
-            this.Money.Text = null;
-            this.Txt_CustomerID.Clear();
-            this.Txt_CustomerName.Clear();
-            this.Txt_CustomerCard.Clear();
-            this.Txt_CustomerAddress.Clear();
-            this.Cb_TypePassbook.Items.Clear();
-            this.Txt_PassbookID.Clear();
-            this.Money.Clear();
-            this.Balance.Text = "Số dư:";
-        }
+
         private void Txt_CustomerID_GotFocus(object sender, RoutedEventArgs e)
         {
             Clearall();
-        } 
-     
+        }
+        #endregion
+
     }
 }

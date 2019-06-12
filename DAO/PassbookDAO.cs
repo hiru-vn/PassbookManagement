@@ -19,6 +19,34 @@ namespace DAO
         }
         private PassbookDAO() { }
 
+        #region insert
+        public void InsertPassbook(Passbook passbook)
+        {
+            int type = passbook.Passbooktype;
+            long balance = passbook.Passbook_balance;
+            int cusid = passbook.Passbook_customer;
+            DateTime? opendate = passbook.Opendate;
+            if (opendate != null)
+            {
+                string query = string.Format("exec usp_InsertPassbook {0} , {1} , {2} , '{3}' ", type, balance, cusid, opendate.Value.ToString("yyyy/MM/dd"));
+                DataProvider.Instance.ExcuteNonQuery(query);
+            }
+            else
+                DataProvider.Instance.ExcuteNonQuery("usp_InsertPassbook1 @type , @balance , @cusid", new object[] { type, balance, cusid });
+
+            //opendate,type,balance,customer
+
+        }
+        #endregion
+
+        #region update
+        public void UpdatePassbookBalance()
+        {
+            DataProvider.Instance.ExcuteNonQuery("usp_CheckPassbookIncreasement");
+        }
+        #endregion
+
+        #region queries
         public Passbook GetAccount(int ID)
         {
             string query = string.Format("select * from dbo.passbook where id = {0}", ID);
@@ -68,23 +96,6 @@ namespace DAO
             string result = (string)DataProvider.Instance.ExcuteScarar(query).ToString();
             return result;
         }
-        public void InsertPassbook(Passbook passbook)
-        {
-            int type = passbook.Passbooktype;
-            long balance = passbook.Passbook_balance;
-            int cusid = passbook.Passbook_customer;
-            DateTime? opendate = passbook.Opendate;
-            if (opendate != null)
-            {
-                string query = string.Format("exec usp_InsertPassbook {0} , {1} , {2} , '{3}' ", type, balance, cusid, opendate.Value.ToString("yyyy/MM/dd"));
-                DataProvider.Instance.ExcuteNonQuery(query);
-            }
-            else
-                DataProvider.Instance.ExcuteNonQuery("usp_InsertPassbook1 @type , @balance , @cusid", new object[] { type, balance, cusid });
-            
-            //opendate,type,balance,customer
-
-        }
         public int GetMaxID()
         {
             int max = 0;
@@ -118,5 +129,6 @@ namespace DAO
             DateTime day = (DateTime)DataProvider.Instance.ExcuteScarar(query);
             return day;
         }
+        #endregion
     }
 }

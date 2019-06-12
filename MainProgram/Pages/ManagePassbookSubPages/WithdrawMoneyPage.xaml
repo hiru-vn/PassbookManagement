@@ -35,7 +35,7 @@
                        Margin="10" FontSize="20">
                 Phiếu rút tiền tiết kiệm
             </TextBlock>
-            <materialDesign:ColorZone Background="LightBlue">
+            <materialDesign:ColorZone Background="LightBlue" x:Name="Panel_Bill">
                 <StackPanel Margin="30">
                     <TextBlock Foreground="#FF31577E"
                                FontWeight="Light"

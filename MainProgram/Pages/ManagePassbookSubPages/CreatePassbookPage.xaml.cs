@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,7 +30,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             InitializeComponent();
             Default();
         }
-
+        #region functions
         void Default()
         {
             this.TextBox_PassbookID.Text = (PassbookDAO.Instance.GetMaxID() + 1).ToString();
@@ -38,6 +39,33 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListType();
             this.Combobox_TypePassbook.DisplayMemberPath = "Typename";
         }
+        private void Clearall()
+        {
+            this.TextBox_CustomerID.Text = null;
+            this.TextBox_CustomerName.Text = null;
+            this.TextBox_CardID.Text = null;
+            this.TextBox_Address.Text = null;
+            this.TextBox_Money.Text = null;
+            this.TextBox_CustomerID.Clear();
+            this.TextBox_CustomerName.Clear();
+            this.TextBox_CardID.Clear();
+            this.TextBox_Address.Clear();
+            this.TextBox_Money.Clear();
+            this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListType();
+            this.Combobox_TypePassbook.DisplayMemberPath = "Typename";
+        }
+        public bool IsNumber(string pValue)
+        {
+            foreach (Char c in pValue)
+            {
+                if (!Char.IsDigit(c))
+                    return false;
+            }
+            return true;
+        }
+        #endregion
+
+        #region events
         // new customer/ old customer change => change form format
         private void RadioButton_Checked(object sender, RoutedEventArgs e)
         {
@@ -92,7 +120,9 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         //capture the grid
         private void Button_Print_Clicked(object sender, RoutedEventArgs e)
         {
-            CaptureUIElement.Instance.SaveFrameworkElementToPng(Grid_BillInfo, 200, 200, "MyImage.png");
+            string name = "Bill" + CollectBillDAO.Instance.GetLastBillID() + ".png";
+            CaptureUIElement.Instance.SaveFrameworkElementToPng(Panel_Bill, (int)Panel_Bill.ActualWidth, (int)Panel_Bill.ActualHeight, name);
+            MessageBoxCustom.setContent("phiếu lưu tại: "+ System.IO.Path.GetDirectoryName(Assembly.GetEntryAssembly().Location)).ShowDialog();
         }
         //check if the customer has had an account type before, if not, create new passbook, if yes, show messagebox warning
         private void Button_OpenPassbook(object sender, RoutedEventArgs e)
@@ -156,21 +186,7 @@ namespace MainProgram.Pages.ManagePassbookSubPages
                 MessageBoxCustom.setContent("Lỗi, khách hàng này đã có tài khoản thuộc loại " + (this.Combobox_TypePassbook.SelectedItem as TypePassbook).Typename + " còn thời hạn.").ShowDialog();
             }
         }
-        private void Clearall()
-        {
-            this.TextBox_CustomerID.Text = null;
-            this.TextBox_CustomerName.Text = null;
-            this.TextBox_CardID.Text = null;
-            this.TextBox_Address.Text = null;
-            this.TextBox_Money.Text = null;
-            this.TextBox_CustomerID.Clear();
-            this.TextBox_CustomerName.Clear();
-            this.TextBox_CardID.Clear();
-            this.TextBox_Address.Clear();
-            this.TextBox_Money.Clear();
-            this.Combobox_TypePassbook.ItemsSource = TypePassbookDAO.Instance.GetListType();
-            this.Combobox_TypePassbook.DisplayMemberPath = "Typename";
-        }
+       
         private void TextBox_CustomerID_GotFocus(object sender, RoutedEventArgs e)
         {
             Clearall();
@@ -179,15 +195,6 @@ namespace MainProgram.Pages.ManagePassbookSubPages
         private void RadioButton_NewCustomer_GotFocus(object sender, RoutedEventArgs e)
         {
             Clearall();
-        }
-        public bool IsNumber(string pValue)
-        {
-            foreach (Char c in pValue)
-            {
-                if (!Char.IsDigit(c))
-                    return false;
-            }
-            return true;
         }
         private void TextBox_CardID_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -214,5 +221,6 @@ namespace MainProgram.Pages.ManagePassbookSubPages
             }
             
         }
+        #endregion
     }
 }

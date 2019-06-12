@@ -31,6 +31,8 @@ namespace MainProgram.CustomControls
             GetListType();
             setDefault();
         }
+
+        #region function 
         void setDefault()
         {
             DateTime flagtime = _currentCharDate;
@@ -83,7 +85,9 @@ namespace MainProgram.CustomControls
             this.Combobox_type.ItemsSource = listtype;
             this.Combobox_type.DisplayMemberPath = "Typename";
         }
+        #endregion
 
+        #region events
         private void MoveChartBackward(object sender, RoutedEventArgs e)
         {
             this._currentCharDate = this._currentCharDate.AddMonths(-1);
@@ -102,5 +106,6 @@ namespace MainProgram.CustomControls
         {
             GetChart();
         }
+        #endregion
     }
 }

@@ -18,6 +18,26 @@ namespace DAO
             private set { instance = value; }
         }
         private CollectBillDAO() { }
+        #region insert
+        public void InsertCollectBill(CollectBill bill)
+        {
+            int passbook = bill.Collect_passbook;
+            long money = bill.Collect_money;
+            DateTime? date = bill.Collectdate;
+            int id = int.Parse(bill.Id.ToString());
+            if (date != null)
+            {
+                string query = string.Format("usp_Insertcollectbill {0} , {1}, {2} , {3}", id, passbook, money, "'" + date.Value.ToString("yyyy/MM/dd") + "'");
+                DataProvider.Instance.ExcuteNonQuery(query);
+            }
+            else
+            {
+
+            }
+        }
+        #endregion
+
+        #region queries
         public bool CheckIfExistBillID(string idBill)
         {
             bool check = false;
@@ -70,22 +90,6 @@ namespace DAO
 
             }
         }
-        public void InsertCollectBill(CollectBill bill)
-        {
-            int passbook = bill.Collect_passbook;
-            long money = bill.Collect_money;
-            DateTime? date = bill.Collectdate;
-            int id = int.Parse(bill.Id.ToString());
-            if (date != null)
-            {
-                string query = string.Format("usp_Insertcollectbill {0} , {1}, {2} , {3}", id, passbook, money, "'" + date.Value.ToString("yyyy/MM/dd") + "'");
-                DataProvider.Instance.ExcuteNonQuery(query);
-            }
-            else
-            {
-
-            }
-        }
         public bool CheckCollectMoney(long money, string Typename)
         {
             string query = "select min_collectmoney from typepassbook where typename=N'" + Typename + "'";
@@ -104,6 +108,11 @@ namespace DAO
             else
                  return true;
         }
-    
+        public string GetLastBillID()
+        {
+            string billid = (string)DataProvider.Instance.ExcuteScarar("select top 1 id from dbo.collectbill order by id desc");
+            return billid;
+        }
+        #endregion
     }
 }

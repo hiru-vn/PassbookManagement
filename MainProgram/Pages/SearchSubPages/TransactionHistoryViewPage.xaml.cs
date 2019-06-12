@@ -25,6 +25,11 @@ namespace MainProgram.Pages.SearchSubPages
         {
             InitializeComponent();
         }
+        #region function
+
+        #endregion
+
+        #region events
         private void TextBox_Search_KeyUp(object sender, KeyEventArgs e)
         {
             if (string.IsNullOrEmpty((sender as TextBox).Text))
@@ -58,10 +63,6 @@ namespace MainProgram.Pages.SearchSubPages
             this.Textbox_Search.Clear();
             (sender as Button).Visibility = Visibility.Hidden;
         }
-        private void Textbox_Search_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
 
         private void Button_LoadList_Click(object sender, RoutedEventArgs e)
         {
@@ -84,5 +85,6 @@ namespace MainProgram.Pages.SearchSubPages
                 this.ListView.Items.Clear();
             }
         }
+        #endregion
     }
 }
