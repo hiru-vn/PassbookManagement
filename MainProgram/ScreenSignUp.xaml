@@ -17,7 +17,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Image Source="Resources/bank.png" Height="100" Width="100" VerticalAlignment="Top" Margin="20"/>
+        <Image Source="/IconLogin/bank.png" Height="100" Width="100" VerticalAlignment="Top" Margin="20"/>
         <Rectangle Width="280" Height="240" Fill="White" VerticalAlignment="Bottom" Margin="33,0,37.4,100" RadiusY="18.533" RadiusX="18.533">
             <Rectangle.Effect>
                 <DropShadowEffect Color="#FFBBBBBB" BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1"/>
