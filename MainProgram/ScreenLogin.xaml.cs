@@ -53,10 +53,10 @@ namespace MainProgram
             if (is_ok)
             {
                 MessageBox.Show("Đăng nhập thành công!", "Thông báo");
-                this.Hide();
                 MainWindow Main = new MainWindow();
+                Main.Owner = this;
+                this.Hide();
                 Main.ShowDialog();
-                this.Show();
             }
             else
             {
@@ -68,8 +68,9 @@ namespace MainProgram
         {
             
             ScreenSignUp SU = new ScreenSignUp();
-            SU.ShowDialog();
+            SU.Owner = this;
             this.Hide();
+            SU.ShowDialog();
         }
     }
 }

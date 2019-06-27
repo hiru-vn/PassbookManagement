@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:MainProgram"
         mc:Ignorable="d"
         Title="Login" Height="500" Width="350" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None">
@@ -16,7 +17,7 @@
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
-        <Image Source="Resources/bank.png" Height="100" Width="100" VerticalAlignment="Top" Margin="20"/>
+        <Image Source="/Resources/bank.png" Height="100" Width="100" VerticalAlignment="Top" Margin="20" />
         <Rectangle Width="280" Height="240" Fill="White" VerticalAlignment="Bottom" Margin="33,0,37.4,100" RadiusY="18.533" RadiusX="18.533">
             <Rectangle.Effect>
                 <DropShadowEffect Color="#FFBBBBBB" BlurRadius="15" Direction="0" RenderingBias="Quality" ShadowDepth="1"/>
@@ -25,9 +26,11 @@
         <Grid Width="280" Height="240" VerticalAlignment="Bottom" Margin="0,100">
             <TextBlock Text="LOGIN" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="5" Foreground="Gray" FontSize="18"/>
             <StackPanel VerticalAlignment="Center" Margin="10">
-                <TextBox x:Name="Username" Text="Tên đăng nhập" 
+                <TextBox x:Name="Username" materialDesign:HintAssist.Hint="Tên đăng nhập"
+                         Style="{StaticResource MaterialDesignFloatingHintTextBox}"
                          Margin="0,10"/>
-                <PasswordBox x:Name="Password" Password="Mật khẩu"
+                <PasswordBox x:Name="Password" materialDesign:HintAssist.Hint="Mật khẩu"
+                              Style="{StaticResource MaterialDesignFloatingHintPasswordBox}"
                              Margin="0,10"
                              />
             </StackPanel>

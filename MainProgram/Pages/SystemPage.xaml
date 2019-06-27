@@ -42,7 +42,7 @@
             <Grid.Background>
                 <SolidColorBrush Opacity="0.75" Color="WhiteSmoke"/>
             </Grid.Background>
-        <Grid Height="200"
+            <Grid Height="200"
               VerticalAlignment="Top">
                 <Grid.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -57,37 +57,41 @@
                     </Ellipse.Fill>
                 </Ellipse>
             </Grid>
-        <Rectangle Width="280"
+            <Rectangle Width="280"
                    Height="240" Fill="#FFFDFDFD"
                    VerticalAlignment="Bottom"
                    Margin="0,100" RadiusY="21.56" RadiusX="21.56"
                    >
-            <Rectangle.Effect>
-                <DropShadowEffect Color="#FFE2DCDC" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
-            </Rectangle.Effect>
-        </Rectangle>
-        <Grid Height="240"
+                <Rectangle.Effect>
+                    <DropShadowEffect Color="#FFE2DCDC" BlurRadius="15" RenderingBias="Quality" ShadowDepth="1"/>
+                </Rectangle.Effect>
+            </Rectangle>
+            <Grid Height="240"
               Width="280"
               VerticalAlignment="Bottom"
               Margin="0,100"
               >
-            <TextBlock Text="Đăng Nhập"
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="47*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Đăng Nhập"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"
-                       Margin="5"
+                       Margin="47.746,5,93,0"
                        FontWeight="DemiBold"
                        Foreground="#FF31577E"
-                       FontSize="18">
-            </TextBlock>
-            <StackPanel VerticalAlignment="Center" Margin="10">
-                <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
+                       FontSize="18" Grid.Column="1">
+                </TextBlock>
+                <StackPanel VerticalAlignment="Center" Margin="10,71" Grid.ColumnSpan="2">
+                    <TextBox materialDesign:HintAssist.Hint="Tên đăng nhập"
                          Margin="0,10"/>
-                <PasswordBox Password="Mật khẩu"
+                    <PasswordBox Password="Mật khẩu"
                              Margin="0,10"
                              />
-            </StackPanel>
-        </Grid>
-        <Button
+                </StackPanel>
+            </Grid>
+            <Button
             Height="50"
             Width="150"
             VerticalAlignment="Bottom"
@@ -97,7 +101,7 @@
             BorderBrush="#FF28B6D6"
            Foreground="White" Background="#FF28B6D6"
             />
-        <TextBlock
+            <TextBlock
             VerticalAlignment="Bottom" 
             Text="Quên mật khẩu ?"
             Margin="50"

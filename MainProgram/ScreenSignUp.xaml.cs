@@ -99,10 +99,10 @@ namespace MainProgram
                         str.WriteLine(username + '|' + hash);
                         str.Close();
                         MessageBox.Show("Đăng kí thành công", "Thông báo!");
-                        this.Hide();
                         ScreenLogin Scrlogin = new ScreenLogin();
+                        Scrlogin.Owner = this;
+                        this.Hide();
                         Scrlogin.ShowDialog();
-                        this.Show();
                     }
                 }
                 else
