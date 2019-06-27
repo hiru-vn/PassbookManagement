@@ -1,0 +1,7 @@
+D:\PassbookManagement\DTO\bin\Debug\DTO.dll.config
+D:\PassbookManagement\DTO\bin\Debug\DTO.dll
+D:\PassbookManagement\DTO\bin\Debug\DTO.pdb
+D:\PassbookManagement\DTO\obj\Debug\DTO.csprojAssemblyReference.cache
+D:\PassbookManagement\DTO\obj\Debug\DTO.csproj.CoreCompileInputs.cache
+D:\PassbookManagement\DTO\obj\Debug\DTO.dll
+D:\PassbookManagement\DTO\obj\Debug\DTO.pdb
