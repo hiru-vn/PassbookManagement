@@ -50,13 +50,12 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"></ColumnDefinition>
-            <ColumnDefinition Width="18*"></ColumnDefinition>
-            <ColumnDefinition Width="805*"/>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="GridMain" Grid.Row="1" Grid.ColumnSpan="3" Margin="70,0,-0.4,0.4">
-            <Frame NavigationUIVisibility="Hidden" x:Name="FramePage" Source="/MainProgram;component/Pages/SystemPage.xaml" Content=""/>
+        <Grid x:Name="GridMain" Grid.Column="1" Grid.Row="1">
+            <Frame NavigationUIVisibility="Hidden" x:Name="FramePage" Source="/MainProgram;component/Pages/SystemPage.xaml"/>
         </Grid>
-        <Grid Grid.Row="0" Height="60" VerticalAlignment="Top" Background="#FF5C99D6" Grid.ColumnSpan="3" Margin="70,0,-0.4,0">
+        <Grid Grid.Row="0" Grid.Column="1" Height="60" VerticalAlignment="Top" Background="#FF5C99D6">
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>
             </Grid.Effect>
@@ -72,7 +71,7 @@
             </StackPanel>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontWeight="DemiBold">QUẢN LÝ SỔ TIẾT KIỆM</TextBlock>
         </Grid>
-        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" x:Name="GridMenu" Width="70" HorizontalAlignment="Left" Margin="0,0,0,0.4">
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" x:Name="GridMenu" Width="70" HorizontalAlignment="Left">
             <Grid.Background>
                 <SolidColorBrush Opacity="1" Color="#FF31577E"/>
             </Grid.Background>

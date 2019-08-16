@@ -27,11 +27,6 @@ namespace MainProgram
             InitializeComponent();
             PassbookDAO.Instance.UpdatePassbookBalance();
         }
-        protected override void OnClosed(EventArgs e)
-        {
-            base.OnClosed(e);
-            Application.Current.Shutdown(); 
-        }
 
         #region events
         private void Close_Application(object sender, MouseButtonEventArgs e)
@@ -77,8 +72,5 @@ namespace MainProgram
             }
         }
         #endregion
-
-
     }
-    
 }
