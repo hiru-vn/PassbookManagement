@@ -1,0 +1,11 @@
+D:\myprojects\PassbookManagement\DAO\bin\Debug\DAO.dll.config
+D:\myprojects\PassbookManagement\DAO\bin\Debug\DAO.dll
+D:\myprojects\PassbookManagement\DAO\bin\Debug\DAO.pdb
+D:\myprojects\PassbookManagement\DAO\bin\Debug\DTO.dll
+D:\myprojects\PassbookManagement\DAO\bin\Debug\DTO.pdb
+D:\myprojects\PassbookManagement\DAO\bin\Debug\DTO.dll.config
+D:\myprojects\PassbookManagement\DAO\obj\Debug\DAO.csprojAssemblyReference.cache
+D:\myprojects\PassbookManagement\DAO\obj\Debug\DAO.csproj.CoreCompileInputs.cache
+D:\myprojects\PassbookManagement\DAO\obj\Debug\DAO.csproj.CopyComplete
+D:\myprojects\PassbookManagement\DAO\obj\Debug\DAO.dll
+D:\myprojects\PassbookManagement\DAO\obj\Debug\DAO.pdb
