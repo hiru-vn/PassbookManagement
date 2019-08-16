@@ -6,7 +6,7 @@
    * Phạm Phúc Khải - 17520081
 ---
 ###
-![alt text](https://github.com/huynguyen1999kh/PassbookManagement/blob/master/MainProgram/Resources/Openning.png)
+![alt text](https://github.com/huynguyen1999kh/PassbookManagement/blob/master/MainProgram/Resources/Openning.PNG)
 ![alt text](https://github.com/huynguyen1999kh/PassbookManagement/blob/master/MainProgram/Resources/Page1.png)
 ![alt text](https://github.com/huynguyen1999kh/PassbookManagement/blob/master/MainProgram/Resources/Page2.png)
 ![alt text](https://github.com/huynguyen1999kh/PassbookManagement/blob/master/MainProgram/Resources/Page3.png)
